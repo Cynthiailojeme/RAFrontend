@@ -1,33 +1,30 @@
 <template>
-    <div class="dashboard">
+    <div>
         <div>
             <AdminSidebar/>
         </div>
         <div class="main">
-            <DashboardAdmin/>
+            <ComposeAssess/>
         </div>
     </div>
 </template>
 
 <script>
 import AdminSidebar from '@/components/AdminSidebar.vue'
-import DashboardAdmin from '@/components/DashboardAdmin.vue'
+import ComposeAssess from '@/components/ComposeAssess.vue'
+
 
 export default {
     name: 'home',
     components: {
        AdminSidebar,
-       DashboardAdmin
+       ComposeAssess 
   }
 }
 </script>
 
 <style scoped>
-.dashboard {
-    height: 100%;
-}
 .main {
-    height: 100%;
     margin-left: 300px;
     padding: 80px 70px 50px 70px;
 }

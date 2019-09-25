@@ -45,13 +45,31 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "application-form" */ './views/Application-form.vue')
     },
+    // {
+    //   path: '/applicant-dashboard',
+    //   name: 'applicant-dashboard',
+    //   // route level code-splitting
+    //   // this generates a separate chunk (about.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: () => import(/* webpackChunkName: "applicant-dashboard" */ './views/Applicant-dashboard.vue')
+    //  }
+
     {
-      path: '/applicant-dashboard',
-      name: 'applicant-dashboard',
+      path: '/create',
+      name: 'create',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "applicant-dashboard" */ './views/Applicant-dashboard.vue')
-     }
+      component: () => import(/* webpackChunkName: "application-form" */ './views/create.vue')
+    },
+
+    {
+      path: '/entries',
+      name: 'entries',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "application-form" */ './views/entries.vue')
+    }
   ]
 })

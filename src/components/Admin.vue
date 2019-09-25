@@ -9,22 +9,20 @@
             </div>
         </div>
 
-            <form>
+            <form @submit.prevent="login">
                 <div>
                     <div class="form-group ">
                         <label>Email address</label>
-                        <input type="email" class="form-control">
+                        <input v-model="admin.email" type="email" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control">
+                        <input v-model="admin.password" type="password" class="form-control">
                     </div>
 
                     <div>
-                        <router-link :to="{name:'dashboard'}"> 
                          <button type="submit" class="btn btn-primary">Sign In</button>
-                        </router-link>
                     </div>
                     <p class="forgot">Forgot Password?</p>
                 </div>
@@ -32,6 +30,38 @@
         </div>
     </div>
 </template>
+
+<script>
+export default{
+    name:'Admin',
+    data() {
+      return{
+        apiResponse:{},
+        admin:{
+        	email: "",
+        	password: ""
+        },
+        error:{}
+      }
+    },
+    mounted() {},
+    methods:{
+  	login:function() {
+  		this.$http.post('http://localhost:6000/api/admin/login', {
+              email: this.admin.email,
+              password: this.admin.password
+          })
+      .then(response =>{s
+        console.log(response)
+        console.log(this.admin)
+        this.$router.push("/admin_dashboard")
+      })
+    }
+  	}
+  }
+
+  
+</script>
 
 <style scoped>
 .head{

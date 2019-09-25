@@ -10,7 +10,9 @@
 
         <div class="controllers">
             <div class="active">
-                <p><img src="../assets/dashboard.svg" class="icon">Dashboard</p>
+                <router-link :to="{name: 'admin_dashboard'}" class="links">
+                    <p><img src="../assets/dashboard.svg" class="icon">Dashboard</p>
+                </router-link>
             </div>
             <div>
                 <p><img src="../assets/plus.svg" class="icon">Create Application</p>
@@ -19,7 +21,19 @@
                 <p><img src="../assets/entries.svg" class="icon">Application Entries</p>
             </div>
             <div>
-                <p><img src="../assets/assessment.svg" class="icon">Compose Assessment</p>
+                <router-link :to="{name: 'admin_compose'}" class="links">
+                    <p><img src="../assets/assessment.svg" class="icon">Compose Assessment</p>
+                </router-link>
+            </div>
+            <div>
+                <router-link :to="{name: 'admin_compose'}" class="links">
+                    <p><img src="../assets/history.svg" class="icon2">Assessment History</p>
+                </router-link>
+            </div>
+            <div>
+                <router-link :to="{name: 'admin_compose'}" class="links">
+                    <p><img src="../assets/results.svg" class="icon">Results</p>
+                </router-link>
             </div>
             <br>
             <br>
@@ -32,10 +46,12 @@
 
 <style scoped>
 .sidebar{
+    position: fixed;
     width: 292px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
     background: #ffffff;
-    height: 100vh;
+    overflow: auto;
+    min-height: 100vh;
     left: 0px;
     top: 0px;
 }
@@ -84,6 +100,9 @@
 .icon{
     margin-right: 25px;
 }
+.icon2{
+    margin-right: 20px;
+}
 .controllers > div > p {
     display: flex;
     font-family: Lato;
@@ -99,6 +118,18 @@
     font-weight: bold;
     color: #2B3C4E;
     border-left: 4px solid #31D283;
+}
+.links > p {
+    text-decoration: none;
+    display: flex;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2B3C4E;
+    padding: 18px 35px 12px 35px;
+    text-align: left;
 }
 /* On screens that are less than 700px wide, make the sidebar into a topbar
 @media screen and (max-width: 800px) {

@@ -16,10 +16,12 @@ export default new Router({
     {
       path: '/admin_dashboard',
       name: 'admin_dashboard',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "admin_dashboard" */ './views/admin_dashboard.vue')
+    },
+    {
+      path: '/admin_compose',
+      name: 'admin_compose',
+      component: () => import(/* webpackChunkName: "admin_compose" */ './views/admin_compose.vue')
     }
   ]
 })

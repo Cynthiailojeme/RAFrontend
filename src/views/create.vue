@@ -121,7 +121,7 @@
 </template>
 
 
-<style>
+<style scoped>
 	.wrap {
 		/*border: 1px solid red;*/
 		height: 180vh;

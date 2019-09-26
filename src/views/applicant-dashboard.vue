@@ -33,7 +33,7 @@
                     <p>Take Assessment</p>
                     <div class="take-assessment-body">
                         <p>We have 4 days left until the next assessment <br> Watch this space</p>
-                        <button><router-link :to="{name: 'take_assessment'}" class="links">Take Assessment</router-link></button>
+                        <button>Take Assessment</button>
                     </div>
                 </div>
             </div>
@@ -194,21 +194,13 @@ export default {
     text-align: center;
     color: #4F4F4F;
 }
-.links {
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16.7273px;
-    text-align: center;
-    color: #4F4F4F;
-}
+
 button {
     width: 50%;
     max-width: 205px;
     height: 41px;
     background: #B1B1B1;
     border-radius: 4px;
-    border: none;
     font-family: 'Lato', sans-serif;
     font-style: normal;
     font-weight: bold;

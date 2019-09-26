@@ -10,10 +10,14 @@
 
         <div class="controllers">
             <div class="active">
-                <p><img src="../assets/dashboard.svg" class="icon">Dashboard</p>
+                <router-link :to="{name: 'Applicant-dashboard'}" class="links">
+                    <p><img src="../assets/dashboard.svg" class="icon">Dashboard</p>
+                </router-link>
             </div>
             <div>
-                <p><img src="../assets/assess.svg" class="icon">Assessment</p>
+                <router-link :to="{name: 'take_assessment'}" class="links">
+                    <p><img src="../assets/assess.svg" class="icon">Assessment</p>
+                </router-link>
             </div>
             <br>
             <br>
@@ -95,6 +99,17 @@
     font-weight: bold;
     color: #2B3C4E;
     border-left: 4px solid #31D283;
+}
+.links {
+    display: flex;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2B3C4E;
+    padding: 18px 35px 12px 35px;
+    text-align: left;
 }
 /* On screens that are less than 700px wide, make the sidebar into a topbar
 @media screen and (max-width: 800px) {

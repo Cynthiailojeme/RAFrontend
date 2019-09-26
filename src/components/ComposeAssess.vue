@@ -9,7 +9,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="files">
-                        <input type="file" class="uploadfil">
+                        <input type="file" class="uploadfil" name="img">
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
                     </div>
                 </div>
@@ -21,28 +21,35 @@
 
             <div class="form-group">
                 <label>Questions</label>
-                <textarea class="form-control rounded-1" rows="5"></textarea>
+                <textarea class="form-control rounded-1" rows="5" v-model="onequestion.quiz"></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Option A</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[0]">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Option B</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[1]">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Option C</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[2]">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Option D</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[3]">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Answer</label>
+                    <input type="text" class="form-control" v-model="onequestion.correctAnswer">
                 </div>
             </div>
 
@@ -55,7 +62,7 @@
 
                     <div class="form-group col-md-6">
                         <div class="buttonholder">
-                            <button type="submit">Next</button>
+                            <button type="submit" @click.prevent="addPost">Next</button>
                         </div>
                     </div>
             </div>

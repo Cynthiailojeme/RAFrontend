@@ -111,7 +111,7 @@ label {
     color: #4F4F4F;
 }
 
-imput {
+input {
     width: 379px;
     height: 41px;
     border: 1.5px solid #BDBDBD;

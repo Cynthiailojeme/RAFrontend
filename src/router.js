@@ -23,6 +23,7 @@ export default new Router({
       name: 'admin_compose',
       component: () => import(/* webpackChunkName: "admin_compose" */ './views/admin_compose.vue')
     },
+    {
       path: '/signup',
       name: 'signup',
       // route level code-splitting
@@ -71,6 +72,14 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "application-form" */ './views/entries.vue')
+    },
+    {
+      path: '/history',
+      name: 'assessment_history',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "assessment_history" */ './views/assessment_history.vue')
     }
   ]
 })

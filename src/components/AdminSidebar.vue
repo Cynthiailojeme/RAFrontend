@@ -26,7 +26,7 @@
                 </router-link>
             </div>
             <div>
-                <router-link :to="{name: 'admin_compose'}" class="links">
+                <router-link :to="{name: 'assessment_history'}" class="links">
                     <p><img src="../assets/history.svg" class="icon2">Assessment History</p>
                 </router-link>
             </div>

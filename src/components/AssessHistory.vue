@@ -1,9 +1,43 @@
 <template>
+<div>
+    <h1 class="assessment-history">Assessment History</h1>
+    <div class="table-box">
+        <table class="table table-borderless ">
+            <thead class="table-head">
+                <tr class="head-row">
+                <th scope="col">Batch</th>
+                <th scope="col">Date Composed</th>
+                <th scope="col">No of Questions</th>
+                <th scope="col">Time Allocated</th>
+                <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">Batch 1</th>
+                <td>12/07/94</td>
+                <td>30</td>
+                <td>30 mins</td>
+                <td>Taken</td>
+                </tr>
+               <tr>
+                <th scope="row">Batch 2</th>
+                <td>12/07/94</td>
+                <td>30</td>
+                <td>30 mins</td>
+                <td>Taken</td>
+                </tr>
+                <tr>
+                <th scope="row">Batch 3</th>
+                <td>12/07/94</td>
+                <td>30</td>
+                <td>30 mins</td>
+                <td>Taken</td>
+                </tr>       
+            </tbody>
+        </table>
+    </div>
     <div>
-        <h1>
-           Compose Assessment
-        </h1>
-
         <form enctype="multipart/form-data">
             <label>15/30</label>
             <div class="form-row">
@@ -14,10 +48,10 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                <h6>Set time</h6>
-                <input type="text" v-model="period" id="time" data-format="HH:mm" data-template="HH : mm" name="datetime">
+                    <label>Option B</label>
+                    <input type="text" class="form-control">
                 </div>
-                    </div>
+            </div>
 
             <div class="form-group">
                 <label>Questions</label>
@@ -48,46 +82,65 @@
 
             <div class="form-row">
                     <div class="form-group col-md-6">
-                        <div class="buttonholder">
-                            <button type="submit">Previous</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <div class="buttonholder">
+                        <div class="buttonholder" style="text-align: center">
+                            <div class="next-button">
                             <button type="submit">Next</button>
-                        </div>
-                    </div>
-            </div>
-
-            <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <div class="buttonholder2">
-                            <button type="submit" class="button2">Finish</button>
+                            </div>
                         </div>
                     </div>
             </div>
         </form>
 
     </div>
+</div> 
 </template>
 
-<script>
-import TimeMixin from "../mixins/timer"
-export default {
-    mixins: [TimeMixin]
-}
-</script>
-
 <style scoped>
-h1 {
+
+.table-box{
+    width: 100%;
+    height: 308px;
+    left: 334px;
+    top: 184px;
+    background: #FFFFFF;
+    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);
+    border-radius: 8px;
+    padding-top: 20px;
+}
+.table-head{
+    width: 100%;
+    height: 41.78px;
+    background: #2B3C4E;
+    color: white;
+}
+.head-row{
     font-family: Lato;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 43.5555px;
-    line-height: 52px;
-    letter-spacing: -0.02em;
-    color: #2B3C4E;
+    font-size: 12.7167px;
+    line-height: 15px;
+    color: #FFFFFF;
+}
+.buttonholder {
+    text-align: center;
+    background: #2B3C4E;
+    border-radius: 4px;
+    width: 379px;
+}
+.head-row2{
+    width: 946.48px;
+    height: 59.95px;
+    left: 365px;
+    top: 295.95px;
+    background: #FFFFFF;
+    box-shadow: 7.26666px 16.35px 18.1667px rgba(79, 79, 79, 0.3);
+    border-radius: 7.26666px;
+}
+h1{
+font-family: Lato;
+font-style: normal;
+font-weight: 300;
+line-height: 52px;
+letter-spacing: -0.02em;
+color: #2B3C4E;
 }
 form{
     padding-top: 30px;
@@ -99,31 +152,6 @@ form{
     height: 108px;
     width: 90% !important;
 }
-
-.block {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-}
-.text {
-    color: #1abc9c;
-    font-size: 20px;
-    font-family: 'Roboto Condensed', serif;
-    font-weight: 400;
-    margin-top:10px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-.digit {
-    color: #ecf0f1;
-    font-size: 20px;
-    font-weight: 100;
-    font-family: 'Roboto', serif;
-    margin: 10px;
-    text-align: center;
-}
-
-
 .form-group > .files > p {
     font-family: Avenir;
     font-size: 16px;
@@ -146,14 +174,6 @@ form{
     font-size: 14px;
     line-height: 17px;
     color: #2B3C4E;
-}
-.buttonholder {
-    text-align: center;
-    padding: 50px;
-}
-.buttonholder2 {
-    text-align: center;
-    padding: 20px;
 }
 button {
     margin-left: auto;
@@ -189,13 +209,7 @@ input {
     border-radius: 4px;
     width: 90%;
 }
-.h6{
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
+.next-button{
     text-align: center;
-    color: #2B3C4E;
 }
 </style>

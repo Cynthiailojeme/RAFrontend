@@ -14,10 +14,10 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Option B</label>
-                    <input type="text" class="form-control">
+                <h6>Set time</h6>
+                <input type="text" v-model="period" id="time" data-format="HH:mm" data-template="HH : mm" name="datetime">
                 </div>
-            </div>
+                    </div>
 
             <div class="form-group">
                 <label>Questions</label>
@@ -80,8 +80,9 @@
 </template>
 
 <script>
+import TimeMixin from "../mixins/timer"
 export default {
-    name: 'dashboard',
+    mixins: [TimeMixin],
     data() {
       return {
          questions: [],
@@ -145,6 +146,31 @@ form{
     height: 108px;
     width: 90% !important;
 }
+
+.block {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.text {
+    color: #1abc9c;
+    font-size: 20px;
+    font-family: 'Roboto Condensed', serif;
+    font-weight: 400;
+    margin-top:10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.digit {
+    color: #ecf0f1;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'Roboto', serif;
+    margin: 10px;
+    text-align: center;
+}
+
+
 .form-group > .files > p {
     font-family: Avenir;
     font-size: 16px;
@@ -209,5 +235,14 @@ input {
     box-sizing: border-box;
     border-radius: 4px;
     width: 90%;
+}
+.h6{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #2B3C4E;
 }
 </style>

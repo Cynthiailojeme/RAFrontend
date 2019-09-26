@@ -8,9 +8,13 @@
             <label>15/30</label>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <div class="files">
-                        <input type="file" class="uploadfil" name="img">
+                    <div class="files" v-if="!image">
+                        <input type="file" class="uploadfil" name="img" @change="onFileChange">
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
+                    </div>
+                    <div class="files" v-else>
+                        <img :src="image" class="uploaded"/>
+                        <!-- <button @click="removeImage">Remove image</button> -->
                     </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -49,7 +53,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Answer</label>
-                    <input type="text" class="form-control" v-model="onequestion.correctAnswer">
+                    <input type="text" class="form-control correct" v-model="onequestion.correctAnswer">
                 </div>
             </div>
 
@@ -88,6 +92,7 @@ export default {
          question: {},
          apiResponse:{},
          onequestion: { 
+            image: '',
             quiz:"",
             options: ["", "", "", ""],
             correctAnswer: ""
@@ -98,6 +103,22 @@ export default {
 components: {},
 mounted() {},
 methods: {
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     addPost () {
         console.log(this.onequestion)
        	 this.$http.post('http://localhost:3000/api/question/add',this.onequestion)
@@ -157,6 +178,10 @@ form{
     position: absolute;
     cursor: pointer;
 }
+.uploaded {
+    width: 100%;
+    height: 100%;
+}
 .icon{
     margin-right: 15px;
 }
@@ -209,5 +234,12 @@ input {
     box-sizing: border-box;
     border-radius: 4px;
     width: 90%;
+}
+.correct {
+    border: 1.5px solid #2B3C4E;
+    height: 41px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 95%;
 }
 </style>

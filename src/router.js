@@ -63,7 +63,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "take_assessment" */ './views/take_assessment.vue')
      },
-     ,
      {
       path: '/Questions',
       name: 'Questions',

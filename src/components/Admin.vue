@@ -51,7 +51,7 @@ export default{
               email: this.admin.email,
               password: this.admin.password
           })
-      .then(response =>{s
+      .then(response =>{
         console.log(response)
         console.log(this.admin)
         this.$router.push("/admin_dashboard")

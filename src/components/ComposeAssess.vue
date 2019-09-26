@@ -9,7 +9,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="files">
-                        <input type="file" class="uploadfil">
+                        <input type="file" class="uploadfil" name="img">
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
                     </div>
                 </div>
@@ -21,28 +21,28 @@
 
             <div class="form-group">
                 <label>Questions</label>
-                <textarea class="form-control rounded-1" rows="5"></textarea>
+                <textarea class="form-control rounded-1" rows="5" v-model="onequestion.quiz"></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Option A</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[0]">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Option B</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[1]">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Option C</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[2]">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Option D</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" v-model="onequestion.options[3]">
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
 
                     <div class="form-group col-md-6">
                         <div class="buttonholder">
-                            <button type="submit">Next</button>
+                            <button type="submit" @click.prevent="addPost">Next</button>
                         </div>
                     </div>
             </div>
@@ -71,6 +71,51 @@
 
     </div>
 </template>
+
+<script>
+export default {
+    name: 'dashboard',
+    data() {
+      return {
+         questions: [],
+         question: {},
+         apiResponse:{},
+         onequestion: { 
+            quiz:"",
+            options: ["", "", "", ""],
+        },
+        error:{},
+       }
+     },
+components: {},
+mounted() {},
+methods: {
+    addPost () {
+        console.log(this.onequestion)
+       	 this.$http.post('http://localhost:3000/api/question/add',this.onequestion)
+      	.then(response =>{
+	      console.log(response)
+          this.onequestion= response.data
+          this.questions.push(response.data);
+            this.questions.sort(function (a, b) {
+                if (a.timestamp < b.timestamp) {
+                return 1;
+                }
+                if (a.timestamp > b.timestamp) {
+                return -1;
+                }
+                return 0;
+            });
+            // this.onequestion = {
+            //     quiz:"",
+            //     options: ["", "", "", ""],
+            // };
+        });
+    }
+}
+}
+</script>
+
 
 <style scoped>
 h1 {

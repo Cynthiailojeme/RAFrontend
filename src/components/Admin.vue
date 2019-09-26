@@ -47,11 +47,11 @@ export default{
     mounted() {},
     methods:{
   	login:function() {
-  		this.$http.post('http://localhost:6000/api/admin/login', {
+  		this.$http.post('http://localhost:3000/api/admin/login', {
               email: this.admin.email,
               password: this.admin.password
           })
-      .then(response =>{s
+      .then(response =>{
         console.log(response)
         console.log(this.admin)
         this.$router.push("/admin_dashboard")

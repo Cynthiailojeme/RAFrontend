@@ -10,7 +10,7 @@
 
         <div class="controllers">
             <div class="active">
-                <router-link :to="{name: 'admin_dashboard'}" class="links">
+                <router-link :to="{name: 'Admin-dashboard'}" class="links">
                     <p><img src="../assets/dashboard.svg" class="icon">Dashboard</p>
                 </router-link>
             </div>
@@ -21,12 +21,12 @@
                 <p><img src="../assets/entries.svg" class="icon">Application Entries</p>
             </div>
             <div>
-                <router-link :to="{name: 'admin_compose'}" class="links">
+                <router-link :to="{name: 'Admin-compose'}" class="links">
                     <p><img src="../assets/assessment.svg" class="icon">Compose Assessment</p>
                 </router-link>
             </div>
             <div>
-                <router-link :to="{name: 'assessment_history'}" class="links">
+                <router-link :to="{name: 'Assessment-history'}" class="links">
                     <p><img src="../assets/history.svg" class="icon2">Assessment History</p>
                 </router-link>
             </div>

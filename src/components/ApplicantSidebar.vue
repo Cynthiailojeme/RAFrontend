@@ -15,7 +15,7 @@
                 </router-link>
             </div>
             <div>
-                <router-link :to="{name: 'take_assessment'}" class="links">
+                <router-link :to="{name: 'Take-assessment'}" class="links">
                     <p><img src="../assets/assess.svg" class="icon">Assessment</p>
                 </router-link>
             </div>

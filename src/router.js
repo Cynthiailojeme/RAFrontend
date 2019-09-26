@@ -14,14 +14,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/admin_dashboard',
-      name: 'admin_dashboard',
-      component: () => import(/* webpackChunkName: "admin_dashboard" */ './views/admin_dashboard.vue')
+      path: '/Admin-dashboard',
+      name: 'Admin-dashboard',
+      component: () => import(/* webpackChunkName: "admin_dashboard" */ './views/Admin-dashboard.vue')
     },
     {
-      path: '/admin_compose',
-      name: 'admin_compose',
-      component: () => import(/* webpackChunkName: "admin_compose" */ './views/admin_compose.vue')
+      path: '/Admin-compose',
+      name: 'Admin-compose',
+      component: () => import(/* webpackChunkName: "Admin-compose" */ './views/Admin-compose.vue')
     },
     {
       path: '/signup',
@@ -56,12 +56,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Applicant-dashboard" */ './views/Applicant-dashboard.vue')
      },
      {
-      path: '/take_assessment',
-      name: 'take_assessment',
+      path: '/Take-assessment',
+      name: 'Take-assessment',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "take_assessment" */ './views/take_assessment.vue')
+      component: () => import(/* webpackChunkName: "Take-assessment" */ './views/Take-assessment.vue')
      },
      {
       path: '/Questions',
@@ -90,11 +90,11 @@ export default new Router({
     },
     {
       path: '/history',
-      name: 'assessment_history',
+      name: 'Assessment-history',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "assessment_history" */ './views/assessment_history.vue')
+      component: () => import(/* webpackChunkName: "Assessment-history" */ './views/Assessment-history.vue')
     }
   ]
 })

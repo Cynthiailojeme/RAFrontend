@@ -54,7 +54,7 @@ export default{
       .then(response =>{
         console.log(response)
         console.log(this.admin)
-        this.$router.push("/admin_dashboard")
+        this.$router.push("/Admin-dashboard")
       })
     }
   	}

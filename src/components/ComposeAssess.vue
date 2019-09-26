@@ -47,6 +47,13 @@
             </div>
 
             <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Answer</label>
+                    <input type="text" class="form-control" v-model="onequestion.correctAnswer">
+                </div>
+            </div>
+
+            <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="buttonholder">
                             <button type="submit">Previous</button>
@@ -83,6 +90,7 @@ export default {
          onequestion: { 
             quiz:"",
             options: ["", "", "", ""],
+            correctAnswer: ""
         },
         error:{},
        }
@@ -106,10 +114,10 @@ methods: {
                 }
                 return 0;
             });
-            // this.onequestion = {
-            //     quiz:"",
-            //     options: ["", "", "", ""],
-            // };
+            this.onequestion = {
+                quiz:"",
+                options: [],
+            };
         });
     }
 }

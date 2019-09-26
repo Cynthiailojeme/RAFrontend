@@ -48,12 +48,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "application-form" */ './views/Application-form.vue')
     },
     {
-      path: '/applicant-dashboard',
-      name: 'applicant-dashboard',
+      path: '/Applicant-dashboard',
+      name: 'Applicant-dashboard',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "applicant-dashboard" */ './views/Applicant-dashboard.vue')
+      component: () => import(/* webpackChunkName: "Applicant-dashboard" */ './views/Applicant-dashboard.vue')
      },
      {
       path: '/take_assessment',

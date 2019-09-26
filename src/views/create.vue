@@ -121,7 +121,7 @@
 </template>
 
 
-<style>
+<style scoped>
 	.wrap {
 		/*border: 1px solid red;*/
 		height: 180vh;
@@ -165,10 +165,7 @@
 		font-weight: bold;
 		font-size: 15px;
 		line-height: 24px;
-/* identical to box height */
-
 		letter-spacing: -0.02em;
-
 		color: #2B3C4E;
 		padding-left:97px;
 		padding-top: 4px;

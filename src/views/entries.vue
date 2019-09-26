@@ -130,7 +130,7 @@
     </template>
 
 
-    <style scoped>
+<style scoped>
     .wrap{
 	height: 200vh;
 	/*border: 1px solid blue;*/

@@ -1,0 +1,215 @@
+<template>
+<div>
+    <h1 class="assessment-history">Assessment History</h1>
+    <div class="table-box">
+        <table class="table table-borderless ">
+            <thead class="table-head">
+                <tr class="head-row">
+                <th scope="col">Batch</th>
+                <th scope="col">Date Composed</th>
+                <th scope="col">No of Questions</th>
+                <th scope="col">Time Allocated</th>
+                <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">Batch 1</th>
+                <td>12/07/94</td>
+                <td>30</td>
+                <td>30 mins</td>
+                <td>Taken</td>
+                </tr>
+               <tr>
+                <th scope="row">Batch 2</th>
+                <td>12/07/94</td>
+                <td>30</td>
+                <td>30 mins</td>
+                <td>Taken</td>
+                </tr>
+                <tr>
+                <th scope="row">Batch 3</th>
+                <td>12/07/94</td>
+                <td>30</td>
+                <td>30 mins</td>
+                <td>Taken</td>
+                </tr>       
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <form enctype="multipart/form-data">
+            <label>15/30</label>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="files">
+                        <input type="file" class="uploadfil">
+                        <p><img src="../assets/plus.svg" class="icon">Choose File</p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Option B</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Questions</label>
+                <textarea class="form-control rounded-1" rows="5"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Option A</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Option B</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Option C</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Option D</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="buttonholder" style="text-align: center">
+                            <div class="next-button">
+                            <button type="submit">Next</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </form>
+
+    </div>
+</div> 
+</template>
+
+<style scoped>
+
+.table-box{
+    width: 100%;
+    height: 308px;
+    left: 334px;
+    top: 184px;
+    background: #FFFFFF;
+    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);
+    border-radius: 8px;
+    padding-top: 20px;
+}
+.table-head{
+    width: 100%;
+    height: 41.78px;
+    background: #2B3C4E;
+    color: white;
+}
+.head-row{
+    font-family: Lato;
+    font-size: 12.7167px;
+    line-height: 15px;
+    color: #FFFFFF;
+}
+.buttonholder {
+    text-align: center;
+    background: #2B3C4E;
+    border-radius: 4px;
+    width: 379px;
+}
+.head-row2{
+    width: 946.48px;
+    height: 59.95px;
+    left: 365px;
+    top: 295.95px;
+    background: #FFFFFF;
+    box-shadow: 7.26666px 16.35px 18.1667px rgba(79, 79, 79, 0.3);
+    border-radius: 7.26666px;
+}
+h1{
+font-family: Lato;
+font-style: normal;
+font-weight: 300;
+line-height: 52px;
+letter-spacing: -0.02em;
+color: #2B3C4E;
+}
+form{
+    padding-top: 30px;
+}
+.files {
+    border: 1.55172px dashed #2B3C4E;
+    box-sizing: border-box;
+    border-radius: 6.2069px;
+    height: 108px;
+    width: 90% !important;
+}
+.form-group > .files > p {
+    font-family: Avenir;
+    font-size: 16px;
+    text-align: center;
+    padding: 50px 0;
+    color: #2B3C4E;
+  }
+.uploadfil {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+.icon{
+    margin-right: 15px;
+}
+.form-group > label {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2B3C4E;
+}
+button {
+    margin-left: auto;
+    margin-right: auto;
+    width: 125px;
+    height: 41px;
+    background: #2B3C4E;
+    border-radius: 4px;
+    border: none;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+}
+.button2 {
+    background: #CECECE;
+    border-radius: 4px;
+    width: 205px;
+    height: 41px;
+}
+textarea {
+    border: 1.5px solid #2B3C4E;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 95%;
+}
+input {
+    border: 1.5px solid #2B3C4E;
+    height: 41px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 90%;
+}
+.next-button{
+    text-align: center;
+}
+</style>

@@ -6,26 +6,27 @@
                     <h3>enyata</h3>
                     <p>Applicant Sign Up </p>
                 </div>
-                <form>
+                <form @submit.prevent = "signup">
                     <div class="row">
                         <div class="col">
+                        
                             <label>First Name</label>
-                            <input type="text" class="form-control">
+                            <input v-model = "applicant.first_name" type="text" class="form-control" required>
                         </div>
                         <div class="col">
                             <label>Last Name</label>
-                            <input type="text" class="form-control">
+                            <input v-model = "applicant.last_name" type="text" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
                             <label>Email Address</label>
-                            <input type="email" class="form-control">
+                            <input v-model="applicant.email" type="email" class="form-control" required>
                         </div>
                         <div class="col">
                             <label>Phone Number</label>
-                            <input type="tel" class="form-control">
+                            <input v-model="applicant.phone_number" type="tel" class="form-control" required>
                         </div>
                     </div>
 
@@ -33,28 +34,103 @@
                         <div class="col">
                             <label>Password</label>
                             <div class="password">
-                                <input type="password" class="form-control"><img src="../assets/visible.png" alt="">
+                                <input id="passwordField"  v-model="applicant.password" type="password" class="form-control" required ><img src="../assets/visible.png" alt="" id="passwordView">
                             </div>
                         </div>
                         <div class="col">
                             <label>Confirm Password</label>
                             <div class="password">
-                                <input type="password" class="form-control"><img src="../assets/visible.png" alt="">
+                                <input id="confirmField" v-model="applicant.confirm_password" type="password" class="form-control" required><img src="../assets/visible.png" alt=""  id="confirmView">
                             </div>
                         </div>
                     </div>
+                    <div class=" error form-group">
+                         <p class="text-danger" v-for="(err,index) in error" :key="index">{{err}}</p>
+
+                    </div>
+                    <div class="form-group">
                     <button class="btn btn-primary" type="submit">Sign Up</button>
-                    <P>Already have an account? Sign In</P>
+                    </div>
+                    <P>Already have an account?<router-link class=" sign ml-1" :to="{name:'applicant-login'}">Sign In</router-link></P>
                 </form>
         </div>
     </div>  
 </template>
 
 <script>
-export default {
+export default{
+    name:'home',
+    data() {
+      return{
+        apiResponse:{},
+        applicant:{
+            first_name: "",
+            last_name: "",
+            email: "",
+            phone_number: "",
+            password: "",
+            confirm_password: ""
+            
+        },
+        error:[]
+
+      }
+    },
+
+    components:{},
+    mounted() {
+        $("#passwordView").click(function(){
+            let input = $("input#passwordField").attr("type");
+            if(input == "password"){
+                $("input#passwordField").attr("type", "text");
+            }else{
+                $("input#passwordField").attr("type", "password");
+            }
+        });
+
+         $("#confirmView").click(function(){
+            let input = $("input#confirmField").attr("type");
+            if(input == "password"){
+                $("input#confirmField").attr("type", "text");
+            }else{
+                $("input#confirmField").attr("type", "password");
+            }
+        });
     
-}
-</script>
+
+    },
+
+  methods:{
+  	signup:function() {
+  		this.$http.post('http://localhost:3000/applicant/signup',{
+  			first_name :this.applicant.first_name,
+              last_name:this.applicant.last_name,
+              email: this.applicant.email,
+              phone_number: this.applicant.phone_number,
+              password: this.applicant.password,
+              confirm_password: this.applicant.confirm_password
+  		})
+      .then(response =>{
+        console.log(response)
+        // console.log(this.applicant)
+        this.$router.push("/applicant-login")
+      })
+       .catch(err =>{
+        if(err.status = 400){
+            this.error.push(err.body.message)
+        }
+        else{this.error.push('Oops! Unexpected Error Occurred')}
+          console.log(err)
+      })
+    }
+
+  	}
+  };
+
+  
+  
+  </script>
+
 
 <style scoped>
     .form-container {
@@ -66,6 +142,20 @@ export default {
     margin-right: auto;
     margin-top:  173px;
     margin-bottom: 279px;
+}
+
+.error {
+    margin-top: 20px;
+}
+
+.sign {
+   color: #4F4F4F;
+   text-decoration: underline;
+   font-family: Lato;
+font-style: italic;
+font-weight: normal;
+font-size: 14px;
+line-height: 17px;
 }
 
 .enyata-logo {

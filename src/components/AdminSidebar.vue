@@ -31,7 +31,7 @@
                 </router-link>
             </div>
             <div>
-                <router-link :to="{name: 'admin_compose'}" class="links">
+                <router-link :to="{name: 'Results'}" class="links">
                     <p><img src="../assets/results.svg" class="icon">Results</p>
                 </router-link>
             </div>

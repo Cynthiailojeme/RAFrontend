@@ -13,12 +13,12 @@
                 <div>
                     <div class="form-group ">
                         <label>Email address</label>
-                        <input v-model="admin.email" type="email" class="form-control">
+                        <input v-model="admin.email" type="email" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input v-model="admin.password" type="password" class="form-control">
+                        <input v-model="admin.password" type="password" class="form-control" required>
                     </div>
 
                     <div>

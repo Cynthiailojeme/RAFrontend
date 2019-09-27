@@ -33,7 +33,7 @@
                     <p>Take Assessment</p>
                     <div class="take-assessment-body">
                         <p>We have 4 days left until the next assessment <br> Watch this space</p>
-                        <button><router-link :to="{name: 'take_assessment'}" class="links">Take Assessment</router-link></button>
+                        <button><router-link :to="{name: 'Take-assessment'}" class="links">Take Assessment</router-link></button>
                     </div>
                 </div>
             </div>

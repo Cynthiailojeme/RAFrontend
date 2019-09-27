@@ -89,12 +89,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "application-form" */ './views/entries.vue')
     },
     {
-      path: '/history',
-      name: 'Assessment-history',
+      path: '/Results',
+      name: 'Results',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "Assessment-history" */ './views/Assessment-history.vue')
+      component: () => import(/* webpackChunkName: "Results" */ './views/Results.vue')
     }
   ]
 })

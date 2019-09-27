@@ -4,18 +4,18 @@
            Compose Assessment
         </h1>
 
-        <form enctype="multipart/form-data">
+        <form enctype="multipart/form-data" method="post" action="/uploads">
             <label>15/30</label>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <div class="files" v-if="!image">
-                        <input type="file" class="uploadfil" name="img" @change="onFileChange">
+                    <div class="files">
+                        <input type="file" class="uploadfil" name="img" :src="onequestion.img">
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
                     </div>
-                    <div class="files" v-else>
-                        <img :src="image" class="uploaded"/>
+                    <!-- <div class="files">
+                        <img :src="onequestion.img" class="uploaded"/>
                         <!-- <button @click="removeImage">Remove image</button> -->
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="form-group col-md-6">
                 <h6>Set time</h6>
@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label>Questions</label>
-                <textarea class="form-control rounded-1" rows="5" v-model="onequestion.quiz"></textarea>
+                <textarea class="form-control rounded-1" rows="5" v-model="onequestion.quiz" required></textarea>
             </div>
 
             <div class="form-row">
@@ -53,7 +53,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Answer</label>
-                    <input type="text" class="form-control correct" v-model="onequestion.correctAnswer">
+                    <input type="text" class="form-control correct" v-model="onequestion.correctAnswer" required>
                 </div>
             </div>
 
@@ -85,15 +85,19 @@
 
 <script>
 import TimeMixin from "../mixins/timer"
+var formData = new FormData();
+formData.append('foo', 'bar');
+
 export default {
     mixins: [TimeMixin],
     data() {
       return {
          questions: [],
          question: {},
+         image: "",
          apiResponse:{},
          onequestion: { 
-            image: '',
+            img: "",
             quiz:"",
             options: ["", "", "", ""],
             correctAnswer: ""
@@ -104,25 +108,25 @@ export default {
 components: {},
 mounted() {},
 methods: {
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+    // onFileChange(e) {
+    //   var files = e.target.files || e.dataTransfer.files;
+    //   if (!files.length)
+    //     return;
+    //   this.createImage(files[0]);
+    // },
+    // createImage(file) {
+    //   var image = new Image();
+    //   var reader = new FileReader();
+    //   var vm = this;
 
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
+    //   reader.onload = (e) => {
+    //     vm.image = e.target.result;
+    //   };
+    //   reader.readAsDataURL(file);
+    // },
     addPost () {
         console.log(this.onequestion)
-       	 this.$http.post('http://localhost:3000/api/question/add',this.onequestion)
+       	 this.$http.post('http://localhost:3000/api/question/add',this.onequestion, formData)
       	.then(response =>{
 	      console.log(response)
           this.onequestion= response.data

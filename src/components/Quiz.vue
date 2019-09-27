@@ -70,7 +70,7 @@ export default {
     this.$http.get(url + "all")
     .then(response =>  {
     console.log(response.body)
-    this.questions= response.body
+    this.questions= response.body.questions
     this.questions = this.questions.sort(function (a, b) {
       if (a.timestamp < b.timestamp) {
         return -1;

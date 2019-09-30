@@ -6,9 +6,9 @@
             <p>Applicant Sign Up </p>
         </div>
         <div class="form-wrapper">
-          <form @submit.prevent="add" enctype="multipart/form-data">
+          <form @submit.prevent="add" action="/" enctype="multipart/form-data"  method="POST">
             <div class="files">
-                <input type="file" class="uploadfil" >
+                <input type="file" class="uploadfil" name="myFile">
                 <p><img src="../assets/plus.svg" class="icon">Upload CV</p>
             </div>
             
@@ -66,6 +66,8 @@ export default {
     name:'home',
 		data() {
 		return{
+        successMessage: "",
+        text: "success",
 		apiResponse:{},
 		newUser: {
 		firstname:"",
@@ -91,9 +93,10 @@ components:{},
 			.then(response=>{
 			console.log(response)
 			this.newUser= response.body
+            alert("Application Submitted");
             this.newUser = {};
 			})
-		}, 
+        }, 
 	}
 };
 </script>

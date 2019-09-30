@@ -15,10 +15,14 @@
                 </router-link>
             </div>
             <div>
-                <p><img src="../assets/plus.svg" class="icon">Create Application</p>
+                <router-link to="/create" class="links">
+                    <p><img src="../assets/plus.svg" class="icon">Create Application</p>
+                </router-link> 
             </div>
             <div>
-                <p><img src="../assets/entries.svg" class="icon">Application Entries</p>
+                <router-link to="/entries" class="links">
+                    <p><img src="../assets/entries.svg" class="icon">Application Entries</p>
+                </router-link>
             </div>
             <div>
                 <router-link :to="{name: 'Admin-compose'}" class="links">

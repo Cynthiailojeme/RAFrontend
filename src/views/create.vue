@@ -3,57 +3,7 @@
 		<div class="wrap">
 			<div class="row" style="max-width:1350px;">
 				<div class="col-md-3">
-					<div class="sidebar">
-						<div class="inside">
-						<div class="john">
-							<img class="image1" src="../assets/john.png">
-							<h1 class="name">JOSH DOE</h1>
-							<p class="mail">J.doe@enyata.com</p>
-							
-						</div>
-
-							<div class="tool">
-								<div class="image2">
-									<img src="../assets/dashboard.png">
-									<small class="describe pl-3">Dashboard</small>
-									
-								</div>
-
-								<div class="image33">
-									<img src="../assets/create.png">
-									<small style="font-weight: bold;" class="describe pl-3">Create Application</small>
-									
-								</div>
-
-								<div class="image3">
-									<img src="../assets/entries.png">
-									<small class="describe pl-3">Application Entries</small>
-									
-								</div>
-
-								<div class="image3">
-									<img src="../assets/compose.png">
-									<small class="describe pl-3">Compose Assessment</small>
-									
-								</div>
-								
-
-								<div class="image4">
-									<img src="../assets/logout.png">
-									<small class="describe pl-3">Log Out</small>
-									
-								</div>
-								
-								
-							
-						</div>
-
-						</div>
-
-						
-						
-					</div>
-					
+					<AdminSidebar />
 				</div>
 
 				<div class="col-md-9">
@@ -77,7 +27,7 @@
 							  <div class="form-row pt-4">
 							  	<div class="form-group col-md-6">
 							  	<label class="batch">Application closure date</label>
-							    <input type="text" class=" second_box form-control"  placeholder="dd/mm/yyyy">
+							    <input type="date" class=" second_box form-control">
 							  		
 							  	</div>
 							  	<div class="form-group col-md-6 pl-5">
@@ -120,6 +70,16 @@
 	
 </template>
 
+<script>
+import AdminSidebar from '@/components/AdminSidebar.vue'
+
+export default {
+    name: 'home',
+    components: {
+       AdminSidebar
+  }
+}
+</script>
 
 <style scoped>
 	.wrap {

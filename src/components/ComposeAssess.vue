@@ -5,55 +5,69 @@
         </h1>
 
         <form enctype="multipart/form-data" method="post" action="/uploads">
-            <label>15/30</label>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Name of Assessment</label>
+                    <input type="text" class="form-control correct" v-model="nameOfSet" required>
+                </div>
+            </div>
+
+            <table>
+                <tr v-for="(item, key) in items" :key="key">
+                    <td>{{ item.question }}</td>
+                </tr>
+            </table>
+
+            <label>{{ this.quiz.length }}/30</label>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <div class="files">
-                        <input type="file" class="uploadfil" name="img" :src="onequestion.img">
+                    <div class="files"  v-if="!image">
+                        <input type="file" class="uploadfil" @change="onFileChange">
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
                     </div>
-                    <!-- <div class="files">
-                        <img :src="onequestion.img" class="uploaded"/>
-                        <!-- <button @click="removeImage">Remove image</button> -->
-                    <!-- </div> -->
+                    <div v-else>
+                        <img :src="image" class="fileimg"/>
+                        <input type="file" name="image" style="display:none">
+                        <button @click="removeImage">Remove image</button>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
-                <h6>Set time</h6>
-                <input type="text" v-model="period" id="time" data-format="HH:mm" data-template="HH : mm" name="datetime">
+                    <h6>Set time</h6>
+                        <input type="number" v-model="duration" required>
                 </div>
-                    </div>
+                </div>
 
             <div class="form-group">
-                <label>Questions</label>
-                <textarea class="form-control rounded-1" rows="5" v-model="onequestion.quiz" required></textarea>
+                <label>Question</label>
+                <textarea class="form-control rounded-1" rows="5" v-model="first.question" required></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Option A</label>
-                    <input type="text" class="form-control" v-model="onequestion.options[0]">
+                    <input type="text" class="form-control" v-model="first.options[0]">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Option B</label>
-                    <input type="text" class="form-control" v-model="onequestion.options[1]">
+                    <input type="text" class="form-control" v-model="first.options[1]">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Option C</label>
-                    <input type="text" class="form-control" v-model="onequestion.options[2]">
+                    <input type="text" class="form-control" v-model="first.options[2]">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Option D</label>
-                    <input type="text" class="form-control" v-model="onequestion.options[3]">
+                    <input type="text" class="form-control" v-model="first.options[3]">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Answer</label>
-                    <input type="text" class="form-control correct" v-model="onequestion.correctAnswer" required>
+                    <input type="text" class="form-control correct" v-model="first.correctAnswer" required>
                 </div>
             </div>
 
@@ -66,7 +80,7 @@
 
                     <div class="form-group col-md-6">
                         <div class="buttonholder">
-                            <button type="submit" @click.prevent="addPost">Next</button>
+                            <button type="submit" @click.prevent="submit()">Next</button>
                         </div>
                     </div>
             </div>
@@ -74,7 +88,7 @@
             <div class="form-row">
                     <div class="form-group col-md-12">
                         <div class="buttonholder2">
-                            <button type="submit" class="button2">Finish</button>
+                            <button type="submit" class="button2" @click.prevent="addPost">Finish</button>
                         </div>
                     </div>
             </div>
@@ -87,51 +101,87 @@
 import TimeMixin from "../mixins/timer"
 var formData = new FormData();
 formData.append('foo', 'bar');
-
 export default {
     mixins: [TimeMixin],
     data() {
       return {
-         questions: [],
-         question: {},
+         questionsets: [],
+         questionset: {},
          image: "",
          apiResponse:{},
-         onequestion: { 
-            img: "",
-            quiz:"",
-            options: ["", "", "", ""],
-            correctAnswer: ""
-        },
+         first: { 
+                // img: "",
+                question:"",
+                options: ["", "", "", ""],
+                correctAnswer: ""
+            },
+        nameOfSet: "",
+        quiz: [],
+        duration: "",
         error:{},
+        items: []
        }
      },
 components: {},
 mounted() {},
 methods: {
-    // onFileChange(e) {
-    //   var files = e.target.files || e.dataTransfer.files;
-    //   if (!files.length)
-    //     return;
-    //   this.createImage(files[0]);
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function removeImage(e) {
+            this.image = '';
+    },
+    submit() {
+      this.quiz.push(this.first);
+      console.log(this.first)
+      this.first = {
+        question:"",
+        options: ["", "", "", ""],
+        correctAnswer: ""
+      }
+    },
+    // submit(){
+    //     const result = {
+    //         "question": this.question,
+    //         "options": this.options,
+    //         "correctAnswer": this.correctAnswer,
+    //     }
+    //     this.items.push(result)
+    //     console.log("Quiz", this.quiz);
+    //     this.quiz = []
     // },
-    // createImage(file) {
-    //   var image = new Image();
-    //   var reader = new FileReader();
-    //   var vm = this;
-
-    //   reader.onload = (e) => {
-    //     vm.image = e.target.result;
-    //   };
-    //   reader.readAsDataURL(file);
-    // },
-    addPost () {
-        console.log(this.onequestion)
-       	 this.$http.post('http://localhost:3000/api/question/add',this.onequestion, formData)
+    addPost (){
+        let formData = new FormData();
+        formData.append('img', this.file);
+        const oneset = {
+            nameOfSet: this.nameOfSet,
+            quiz: this.quiz,
+            duration: this.duration
+        }
+        console.log(oneset)
+            this.$http.post('http://localhost:3000/api/questionset/add',oneset, formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+        })
       	.then(response =>{
 	      console.log(response)
-          this.onequestion= response.data
-          this.questions.push(response.data);
-            this.questions.sort(function (a, b) {
+          oneset= response.data
+          this.questionsets.push(response.data);
+            this.questionsets.sort(function (a, b) {
                 if (a.timestamp < b.timestamp) {
                 return 1;
                 }
@@ -140,10 +190,7 @@ methods: {
                 }
                 return 0;
             });
-            this.onequestion = {
-                quiz:"",
-                options: [],
-            };
+            oneset = {};
         });
     }
 }
@@ -171,7 +218,10 @@ form{
     height: 108px;
     width: 90% !important;
 }
-
+.fileimg {
+    height: 300px;
+    width: 300px;
+}
 .block {
     display: flex;
     flex-direction: column;
@@ -194,8 +244,6 @@ form{
     margin: 10px;
     text-align: center;
 }
-
-
 .form-group > .files > p {
     font-family: Avenir;
     font-size: 16px;

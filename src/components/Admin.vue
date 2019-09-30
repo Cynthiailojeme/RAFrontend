@@ -18,7 +18,8 @@
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input v-model="admin.password" type="password" class="form-control" required>
+                        <input v-model="admin.password" type="password" class="form-control" id="exampleInputPassword1" required>
+                        <img src="../assets/see.svg" id="passwordView" alt="" class="visible">
                     </div>
 
                     <div>
@@ -44,7 +45,16 @@ export default{
         error:{}
       }
     },
-    mounted() {},
+    mounted() {
+      $("#passwordView").click(function(){
+            let idAttr = $("input#exampleInputPassword1").attr("type");
+            if(idAttr == "password"){
+                $("input#exampleInputPassword1").attr("type", "text");
+            }else{
+                $("input#exampleInputPassword1").attr("type", "password");
+            }
+        })
+    },
     methods:{
   	login:function() {
   		this.$http.post('http://localhost:3000/api/admin/login', {
@@ -105,7 +115,7 @@ line-height: 29px;
 color: #FFFFFF;
 padding-bottom: 50px;
 }
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text] {
   width: 100%; 
   height: 41px;
   border: 1.5px solid #FFFFFF;
@@ -113,6 +123,11 @@ input[type=email], input[type=password] {
   border-radius: 4px;
   background-color: #2B3C4E;
   color: white;
+}
+.visible {
+    margin-top: -22px;
+    margin-right: 20px;
+    float: right;
 }
 .btn{
   background-color: white;

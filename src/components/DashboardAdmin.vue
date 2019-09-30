@@ -53,7 +53,9 @@
                     <h4 class="create-assessment">Create Assessment</h4>
                         <div class="take-assessment-body">
                                 <p>Create test question for an incoming academy students</p>
+                                <router-link :to="{name: 'Admin-compose'}" class="links">
                                 <button>Create Assessment</button>
+                                </router-link>
                         </div>
                 </div>
             </div>
@@ -243,6 +245,10 @@ button {
     margin-left: auto;
     margin-right: auto;
     display: block;
+    border: none;
+}
+.links{
+    color: #FFFFFF;
 }
 .create-assessment{
     font-family: Lato;

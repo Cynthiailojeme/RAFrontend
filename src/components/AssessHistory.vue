@@ -2,7 +2,7 @@
 <div>
     <h1 class="assessment-history">Assessment History</h1>
     <div class="table-box">
-        <table class="table table-borderless ">
+        <table class="table table-borderless">
             <thead class="table-head">
                 <tr class="head-row">
                 <th scope="col">Batch</th>
@@ -13,87 +13,51 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <th scope="row">Batch 1</th>
-                <td>12/07/94</td>
-                <td>30</td>
-                <td>30 mins</td>
-                <td>Taken</td>
+                <tr v-for="questionset in questionsets" :key="questionset._id">
+                    <th scope="row">{{ questionset.nameOfSet }}</th>
+                    <td>{{ questionset.createdAt }}</td>
+                    <td>{{ questionset.quiz.length }}</td>
+                    <td>{{ questionset.duration }} mins</td>
+                    <td>Taken</td>
                 </tr>
-               <tr>
-                <th scope="row">Batch 2</th>
-                <td>12/07/94</td>
-                <td>30</td>
-                <td>30 mins</td>
-                <td>Taken</td>
-                </tr>
-                <tr>
-                <th scope="row">Batch 3</th>
-                <td>12/07/94</td>
-                <td>30</td>
-                <td>30 mins</td>
-                <td>Taken</td>
-                </tr>       
             </tbody>
         </table>
     </div>
-    <div>
-        <form enctype="multipart/form-data">
-            <label>15/30</label>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <div class="files">
-                        <input type="file" class="uploadfil">
-                        <p><img src="../assets/plus.svg" class="icon">Choose File</p>
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Option B</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Questions</label>
-                <textarea class="form-control rounded-1" rows="5"></textarea>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>Option A</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Option B</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>Option C</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Option D</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-
-            <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <div class="buttonholder" style="text-align: center">
-                            <div class="next-button">
-                            <button type="submit">Next</button>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </form>
-
-    </div>
 </div> 
 </template>
+
+<script>
+export default {
+  name: 'AssessHistory',
+  data() {
+      return {
+        questionsets: [],
+        questionset: {},
+        // questionsetIndex: 0,
+       }
+     },
+    mounted() {
+        const url = "http://localhost:3000/api/questionset/all"
+        this.$http.get(url)
+        .then(response => {
+        console.log(response.body)
+        this.questionsets= response.body
+    })
+    },
+computed: {},
+// methods: {
+//     // Go to next question
+//     next: function() {
+//       this.questionIndex++;
+//     },
+//     // Go to previous question
+//     prev: function() {
+//       this.questionIndex--;
+//     },
+// }
+}
+</script>
+
 
 <style scoped>
 

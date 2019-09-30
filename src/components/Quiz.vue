@@ -63,6 +63,7 @@ export default {
       return {
         questions: [],
         questionIndex: 0,
+        count: 10
        }
      },
     mounted() {

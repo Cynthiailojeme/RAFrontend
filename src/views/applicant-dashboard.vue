@@ -13,7 +13,7 @@
             <div class="date-status">
                 <div class="date">
                     <p>Date of Application</p>
-                    <span> 09.09.19</span>
+                    <span Date.now()></span>
                     <div class="for-status"></div>
                     <p class="small-text">4 days since applied</p>
                 </div>
@@ -48,7 +48,7 @@ export default {
     name: 'home',
     components: {
        ApplicantSidebar 
-  }
+  },
 }
 </script>
 

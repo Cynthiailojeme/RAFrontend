@@ -13,26 +13,30 @@
 							
 						</div>
 						<div class="apply">
-							<form>
+							<form @submit.prevent="sendFile" enctype="multipart/form-data"> 
 							  <div class="form-row">
-							    <div class=" input_icons form-group col-md-6">
-							    	<i class="icon"><img src="../assets/plus.png"></i> 
-							      <input type="text" class=" first_box form-control" id="dotted" placeholder="Choose File">
+							    <div class=" form-group col-md-6">
+							    	<!-- <i class="icon"><img src="../assets/plus.png"><span>Choose File</span></i>  -->
+							      <input type="file"
+								   ref="file"
+								   @change="selectFile" 
+								   class=" first_box form-control" id="dotted" >
+                                  <i class="visible"><img src="../assets/plus.png"><span>Choose File</span></i>
 							    </div>
 							    <div class="form-group col-md-6 pl-5">
 							      <label class="batch" >Link</label>
-							      <input class=" second_box form-control">
+							      <input v-model="link" class=" second_box form-control">
 							    </div>
 							  </div>
 							  <div class="form-row pt-4">
 							  	<div class="form-group col-md-6">
 							  	<label class="batch">Application closure date</label>
-							    <input type="date" class=" second_box form-control">
+							    <input v-model="application_date" type="date" class=" second_box form-control"  placeholder="dd/mm/yyyy">
 							  		
 							  	</div>
 							  	<div class="form-group col-md-6 pl-5">
 							  	<label class="batch">Batch ID</label>
-							    <input type="text" class=" second_box form-control">
+							    <input v-model="batch_id" type="text" class=" second_box form-control">
 							  		
 							  	</div>
 							   
@@ -40,21 +44,46 @@
 							  <div class="form-row pt-4">
 							  	<div class="form-group col-md-12">
 							  		<label class="batch">Instructions</label>
-							  		<textarea class="text"></textarea>
-							  		
+							  		<textarea v-model="instruction" class="text"></textarea>
 							  	</div>
+
+								  <!-- Your share button code -->
+								<!-- <div class="fb-share-button" 
+									data-href="http://testurl.com" 
+									data-layout="button_count" id="fbShareBtn">
+								</div> -->
+								<!-- <div>
+									<a class="twitter-share-button"
+ 								 href="https://twitter.com/intent/tweet">
+									Tweet</a>
+
+
+								</div> -->
+
+								<!-- <div>
+								<a class="twitter-share-button"
+ 								 href="https://twitter.com/intent/tweet">
+									Tweet</a>
+								</div> -->
+								<!-- <link 
+ 								 href="/web/tweet-button">
+
+								 fb SDK -->
+								<!-- <div id="fb-root"></div> --> -->
 							  	
 							  </div>
 							  <div class="btn1">
-							  <button style="background-color: #2B3C4E; color:" type="submit" class="btn">Submit</button>
+							  <button type="submit" style="background-color: #2B3C4E; color:" class="btn">Submit</button>
 							</div>
 							</form>
-							
+							<!-- @click.prevent="share()" -->
 						</div>
 						
 					</div>
 					
 				</div>
+				
+			</div>
 				
 			</div>
 			
@@ -66,20 +95,130 @@
 
 
 		<!-- closing tag for div create -->
-	</div> 
 	
 </template>
 
+
 <script>
 import AdminSidebar from '@/components/AdminSidebar.vue'
-
 export default {
-    name: 'home',
-    components: {
+	name:'home',
+	components: {
        AdminSidebar
-  }
-}
-</script>
+  },
+    data() {
+      return{
+		apiResponse:{},
+			file: "",
+            link: "",
+            application_date: "",
+			batch_id: "",
+			instruction: "",
+			message: "",
+			error: "",
+
+		
+        error:[],
+
+      }
+    },
+
+    mounted() {
+		// load fb sdk
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	},
+	methods: {
+		share: function(){
+			console.log('jello')
+			//link
+			var link = document.createElement('meta');
+			link.setAttribute('property', 'og:url');
+			link.content = this.link;
+			document.getElementsByTagName('head')[0].appendChild(link);
+
+			//title
+			var title = document.createElement('meta');
+			title.setAttribute('property', 'og:title');
+			title.content = "Whatever the title is";
+			document.getElementsByTagName('head')[0].appendChild(title);
+
+			//instruction
+			var description = document.createElement('meta');
+			description.setAttribute('property', 'og:description');
+			description.content = this.instruction;
+			document.getElementsByTagName('head')[0].appendChild(description);
+
+			//image
+			var image = document.createElement('meta');
+			image.setAttribute('property', 'og:image');
+			image.content = this.file;
+			document.getElementsByTagName('head')[0].appendChild(image);
+
+			//type
+			var type = document.createElement('meta');
+			image.setAttribute('property', 'og:type');
+			type.content = "article";
+			document.getElementsByTagName('head')[0].appendChild(type);
+
+			$("button#u_0_2").click();
+
+		},
+		selectFile(){
+			this.file = this.$refs.file.files[0]
+		},
+		sendFile(){
+			// console.log(this)
+			const formData = new FormData();
+			formData.append('file', this.file);
+			formData.append('link', this.link);
+			formData.append('application_date', this.application_date);
+			formData.append('batch_id', this.batch_id);
+			formData.append('instruction', this.instruction)
+			this.$http.post('http://localhost:3000/attach/upload', formData)			
+			.then(response => {
+				this.formData = ""
+				alert('Application  Created Successfully') 				
+				console.log(response)
+				this.$router.push("/preview")
+
+			// this.message = "file has been uploaded"
+				this.formData = response.data
+             
+
+			}).catch(error=> {
+				console.log(error)
+
+			})
+
+		} 
+	}
+//   methods:{
+//   	compose:function() {
+//           this.error =[]
+//   		this.$http.post('http://localhost:3000/create/compose')      
+//       .then(response => {
+//           this.create = response.data
+//         console.log(response)
+//       })
+//     //   .catch(err =>{
+//     //     if(err.status = 403){
+//     //         this.error.push(err.body.message)
+//     //     }
+//     //     else{this.error.push('Oops! Unexpected Error Occurred')}
+//     //       console.log(err)
+//     //   })
+//     }
+
+//   	}
+  };
+
+  </script>
 
 <style scoped>
 	.wrap {
@@ -283,4 +422,11 @@ export default {
         	color: #FFFFFF;
 
         }
+		  .visible {
+    margin-top: -60px;
+    margin-right: 20px;
+    /* margin-left: 45px; */
+    float: right;
+    margin-right: 200px;
+}
 </style>

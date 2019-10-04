@@ -1,81 +1,246 @@
 <template>
-    <div>
-        <div>
-            <AdminSidebar/>
-        </div>
+    <div class="create">
+            <div class="row" style="max-width:1350px;"> 
+                <div class="col-sm-3">
+                    <AdminSidebar />
 
-        <div class="main">
-            <div class="otherSide">
-                <div class="top">
-                <!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
-                <div class="dropdown">
-                    <p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p>
-                    <!-- <button class="dropbtn">Dropdown</button> -->
-                    <div class="dropdown-content">
-                        <a style="font-size: 12px;" href="#">Batch 1</a>
-                        <a style="font-size: 12px;" href="#">Batch 2</a>
-                        <a style="font-size: 12px;" href="#">Batch 3</a>
+                </div>
+                <div class="col-sm-9">
+                    <div class="other-side">
+                        	<div class="top">
+						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
+						      	<div class="dropdown">
+						      	<p>Entries- Batch 2</p>
+						  		<!-- <button class="dropbtn">Dropdown</button> -->
+						 		 <!-- <div class="dropdown-content">
+						   		 <a style="font-size: 12px;" href="#">Batch 1</a>
+						    	<a style="font-size: 12px;" href="#">Batch 2</a>
+						    	<a style="font-size: 12px;" href="#">Batch 3</a>
+						  	</div> -->
+							</div>
+						<p class="applied">Comprises of all that applied for batch2</p>
+						
+					</div>
+
+                    <div class="down">
+                        <div id="vueapp" class="vue-app">
+                            <kendo-grid :data-source="applicants" :columns="columns"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false"> 
+                            </kendo-grid>
+                        </div>
+
                     </div>
+
+
+                    </div>
+
+                    
                 </div>
 
-                <p class="applied">Comprises of all that applied for batch2</p>
+            </div>
+        </div>
+    
 
-                </div>
+            
+        
 
-                <div class="down">
-                    <table class="table">
-                        <thead class=" head">
+        <!-- <div class="main"> -->
+            <!-- <div class="otherSide"> -->
+					<!-- <div class="top"> -->
+						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
+						      	<!-- <div class="dropdown"> -->
+						      	<!-- <p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p> -->
+						  		<!-- <button class="dropbtn">Dropdown</button> -->
+						 		 <!-- <div class="dropdown-content"> -->
+						   		 <!-- <a style="font-size: 12px;" href="#">Batch 1</a> -->
+						    	<!-- <a style="font-size: 12px;" href="#">Batch 2</a> -->
+						    	<!-- <a style="font-size: 12px;" href="#">Batch 3</a> 
+						  	</div>
+							</div>
+						<p class="applied">Comprises of all that applied for batch2</p>
+						
+					</div>
+
+					<div class="down">
+
+						<!-- <div id="vueapp">
+                            <kendo-grid :data-source="applicants">
+                                <kendo-grid-column :field="'first_name'"
+                                                :title="'Name'"
+                                                :background_color = "'blue'"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'email'"
+                                                    :title="'Email'"
+
+                                                ></kendo-grid-column>	
+
+                                <kendo-grid-column :field="'date_of_birth'"
+                                                :title="'DOB.Age'"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'address'"
+                                                :title="'Address'"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'university'"
+                                                    :title="'University'"
+                                                    ></kendo-grid-column>
+
+                                <kendo-grid-column :field="'cgpa'"
+                                                    :title="'GPA'"
+                                                    ></kendo-grid-column>
+                            </kendo-grid>
+                        </div> -->
+
+                            <!-- <div id="vueapp" class="vue-app">
+                            <kendo-grid :data-source="applicants" :columns="columns"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false"> 
+                                
+
+                            </kendo-grid> -->
+
+
+
+
+
+                            <!-- <kendo-grid :data-source="applicants"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false"> -->
+                            <!-- <kendo-grid :data-source="applicants"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false">>
+                                <kendo-grid-column :field="'applicants.first_name'"
+                                                :title="'Name'"
+                                                :width="40"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'ProductName'"></kendo-grid-column>
+                                <kendo-grid-column :field="'UnitPrice'"
+                                                :title="'Unit Price'"
+                                                :width="120"
+                                                :format="'{0:c}'"></kendo-grid-column>
+                                <kendo-grid-column :field="'UnitsInStock'"
+                                                :title="'Units In Stock'"
+                                                :width="120"></kendo-grid-column>
+                                <kendo-grid-column :field="'Discontinued'"></kendo-grid-column> 
+
+                            
+
+                            </kendo-grid> 
+                        </div>
+                                                 <table id="dt-select" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">DOB.Age<i class="fa fa-sort pl-2"></i></th>
-                                <th scope="col">Address</th>
-                                <th scope="col">University</th>
-                                <th scope="col">CGPA <i class="fa fa-sort pl-2"></i></th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Extn.</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="line" v-for="form in forms" :key="form._id" >
-                                <th class="data" scope="row">{{form.firstname}} {{form.lastname}}</th>
-                                <td class="data">{{form.email}}</td>
-                                <td class="data">{{form.dob}}</td>
-                                <td class="data">{{form.address}}</td>
-                                <td class="data">{{form.university}}</td>
-                                <td class="data">{{form.cgpa}}</td>
+                        <tfoot>
+                            <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Extn.</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
                             </tr>
-                        </tbody>
-                    </table>
-            </div>
-            </div>
-        </div>
-    </div>
+                        </tfoot>
+                        </table> -
+                        </div>
+						
+					</div>
+                    
+        </div>-->
+    
 </template>
 
 
 <script>
-import AdminSidebar from '@/components/AdminSidebar.vue'
+
+import AdminSidebar from '@/components/AdminSidebar.vue';
+import { lstat } from 'fs';
+
 export default {
     name: 'forms',
     components: {
     AdminSidebar,
     },
     data() {
-    return {
-    forms: []
-    }
+	  
+    return{
+	  apiResponse:{},
+	  columns: [
+            { field: "fullname",title:"Name"},
+            { field: "email", title: "Email"},
+            { field: "date_of_birth", title:"DOB.Age"},
+			{ field: "address", title:"Address" },
+			{ field: "university", title:"University" },
+			{ field: "cgpa", title:"CGPA" }
+        ],
+      applicants:[{
+		  first_name: "",
+		  last_name: "",
+		  email: "",
+		  date_of_birth: "",
+		  address: "",
+		  university: "",
+		  cgpa: ""
+
+	  }],
+	  
+	  error:{},
+	  
+    //   formdata: {}
+    };
+  },
+
+    methods: {
+        onChange: function(ev) {
+            var selected = $.map(ev.sender.select(), function(item) {
+                return $(item).text();
+            });
+
+            console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+		},
+		calcDOB: function(data){
+			var date = new Date(data).getFullYear();
+			var tday = new Date().getFullYear();
+
+			return tday - date;
+		}
     },
     mounted() {
-        const url = "http://localhost:3000/api/form/"
-        this.$http.get(url)
-        .then(response => {
-        console.log(response.body)
-        this.forms= response.body
+    this.$http.get('http://localhost:3000/recruit')
+    .then(response =>{
+    //   console.log(response)
+      this.applicants = response.data
+	  console.log(this.applicants)
+	  for (let i = 0; i < this.applicants.length; i++) {
+		  const dob = this.applicants[i].date_of_birth;
+		  let calcdob = this.calcDOB(dob)
+		  this.applicants[i].date_of_birth = calcdob+"years"
+		  this.applicants[i].fullname = this.applicants[i].first_name+" "+this.applicants[i].last_name
+	  }
+	 
+	//   console.log(this.applicants)
+	//   window.testdata = this.applicants
     })
-    }
+  },
 }
 </script>
 
 <style scoped>
+.create{
+    border:1px solid red;
+    height: 200vh;
+}
 .main {
     margin-left: 300px;
     padding: 0px 70px 50px 50px;

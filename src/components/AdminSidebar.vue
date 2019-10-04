@@ -54,7 +54,7 @@
     width: 292px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
     background: #ffffff;
-    overflow: auto;
+    /* overflow: auto; */
     min-height: 100vh;
     left: 0px;
     top: 0px;

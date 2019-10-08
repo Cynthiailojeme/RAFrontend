@@ -9,16 +9,14 @@
                 <div class="top">
                 <!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
                 <div class="dropdown">
-                    <p>Results- Batch 2<i class="fa fa-caret-down arrow"></i></p>
+                    <p>Results- {{ questionset.nameOfSet }}<i class="fa fa-caret-down arrow"></i></p>
                     <!-- <button class="dropbtn">Dropdown</button> -->
-                    <div class="dropdown-content">
-                        <a style="font-size: 12px;" href="#">Batch 1</a>
-                        <a style="font-size: 12px;" href="#">Batch 2</a>
-                        <a style="font-size: 12px;" href="#">Batch 3</a>
+                    <div class="dropdown-content" v-for="questionset in questionsets" :key="questionset._id">
+                        <a style="font-size: 12px;" href="#" params:{id: questionset._id}>{{ questionset.nameOfSet }}</a>
                     </div>
                 </div>
 
-                <p class="applied">Comprises of all that applied for batch2</p>
+                <p class="applied">Comprises of all that applied for {{ questionset.nameOfSet }}</p>
 
                 </div>
 
@@ -57,21 +55,36 @@
 import AdminSidebar from '@/components/AdminSidebar.vue'
 export default {
     name: 'forms',
+    props: ['id'],
     components: {
     AdminSidebar,
     },
     data() {
     return {
-    forms: []
+    forms: [],
+    questionset: {},
+    questionsets: [],
     }
     },
     mounted() {
-        const url = "http://localhost:3000/api/form/"
+        let url = "http://localhost:3000/api/form/"
         this.$http.get(url)
         .then(response => {
         console.log(response.body)
         this.forms= response.body
-    })
+    });
+//     let id = this.$route.params.id
+//         this.$http.get("http://localhost:3000/api/questionset/single/" + id)
+//         .then(response => {
+//         console.log(response.body)
+//         this.questionset = response.body
+//   })
+//    let url = "http://localhost:3000/api/questionset/all"
+//         this.$http.get(url)
+//         .then(response => {
+//         console.log(response.body)
+//         this.questionsets= response.body
+//     })
     }
 }
 </script>

@@ -3,38 +3,45 @@
         <div class="top">
             <div class="left">
                 <h1>Take Assessment</h1>
-                <p class="instruct" v-for="(question, index) in questions" :key="question._id" v-show="index === questionIndex">Click the finish button below to submit assessment, you can go back at any time to edit your <br>answers.</p>
-                <p class="instruct" v-show="questionIndex === questions.length">Thank you!</p>
+                <span class="instruct" v-show="quizIndex != questionset.quiz.length">Click the finish button below to submit assessment, you can go back at any time to edit your <br>answers.</span>
+                <span class="instruct" v-show="quizIndex === questionset.quiz.length">Thank you!</span>
             </div>
-            <div class="right">
+
+            <!-- <div class="right">
+                <b
+                utton v-on="">start</button>
+            </div> -->
+            <!-- <div class="right">
                 <h2>Timer</h2>
-            </div>
+                <Countdown :deadline="questionset.createdAt"></Countdown>
+            </div> -->
         </div>
 
-        <div class="mid" v-for="(question, index) in questions" :key="question._id" v-show="index === questionIndex">
+        <div class="mid" v-for="(quiz, index) in questionset.quiz" :key="index" v-show="index === quizIndex">
             <center>
-                <span class="numbering">Question {{ questionIndex+1 }}</span>
+                <span class="numbering" :id="quizIndex">Question {{ quizIndex+1 }}</span>
                 <br>
-                <p class="title">{{ question.quiz }}</p>
+                <br>
+                <p class="title" :id="quiz._id" ref="id">{{ quiz.question }}</p>
             </center>
             <br>
 
                 <div class="quizzes">
                     <ul>
-                        <li><label for="muhRadio1"><input type="radio" name="muhRadio" value=""/><span>A. {{ question.options[0] }}</span></label></li>
+                        <li v-for="(option, index) in quiz.options" :key="index">
+                            <label for="muhRadio1">
+                                <input type="radio" name="muhRadio" v-bind:value="option" :id="index"/>
+                                <span>{{ option }}</span>
+                            </label>
+                        </li>
                         <br>
-                        <li><label for="muhRadio2"><input type="radio" name="muhRadio" value=""/><span>B. {{ question.options[1] }}</span></label></li>
-                        <br>
-                        <li><label for="muhRadio3"><input type="radio" name="muhRadio" value=""/><span>C. {{ question.options[2] }}</span></label></li>
-                        <br>
-                        <li><label for="muhRadio4"><input type="radio" name="muhRadio" value=""/><span>D. {{ question.options[3] }}</span></label></li>
                     </ul>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="buttonholder">
-                            <button type="submit" v-if="questionIndex > 0" v-on:click="prev">Previous</button>
+                            <button type="submit" v-if="quizIndex > 0" v-on:click="prev">Previous</button>
                         </div>
                     </div>
 
@@ -46,53 +53,118 @@
             </div>
         </div>
 
-        <div class="gif" v-show="questionIndex === questions.length">
+        <div v-show="quizIndex === questionset.quiz.length">
+            <center>
+                <button type="submit" @click.prevent="getScore">Submit</button>
+            </center>
+        </div>
+
+        <!-- <div class="gif" v-show="quizIndex === questionset.quiz.length">
             <center>
                 <img src="../assets/confetti.svg" class="confetti">
                 <p>We have received your assessment test, we will get back to you soon.<br>Best of luck</p>
                 <button><router-link :to="{name: 'Applicant-dashboard'}" class="links">Home</router-link></button>
             </center>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
+import Countdown from 'vuejs-countdown'
+
 export default {
-  name: 'Quiz',
-  data() {
+    name:'Questions',
+    props: ['id'],
+    data() {
       return {
-        questions: [],
-        questionIndex: 0,
-        count: 10
+        questionset: {},
+        quiz: {},
+        question: "",
+        quizIndex: 0,
+        setId: "",
+        answers: [],
+        token: "",
+        indexArray: []
        }
      },
     mounted() {
-    const url = "http://localhost:3000/api/question/"
-    this.$http.get(url + "all")
-    .then(response =>  {
-    console.log(response.body)
-    this.questions= response.body.questions
-    this.questions = this.questions.sort(function (a, b) {
-      if (a.timestamp < b.timestamp) {
-        return -1;
-      }
-      if (a.timestamp > b.timestamp) {
-        return +1;
-      }
-      return 0;
-    })
+        let id = this.$route.params.id
+        this.$http.get("http://localhost:3000/api/questionset/single/" + id)
+        .then(response => {
+        console.log(response.body)
+        this.questionset = response.body
   })
 },
-computed: {},
+computed: {
+
+},
+components: { Countdown },
 methods: {
     // Go to next question
     next: function() {
-      this.questionIndex++;
+        var userAns = {
+            ans: $('input:checked').val(),
+            question_id: this.$refs.id[this.quizIndex].id
+        }
+        var inputs = document.getElementsByClassName("numbering");
+        var ind = '';
+        var arrr = this.indexArray;
+        var ansArr = this.answers;
+
+        for (var i = 0; i < inputs.length; i++) {
+            ind = inputs[i].id;
+        }
+        function check(num) {
+            return num == ind
+        }
+        if(arrr.length == 0) {
+            this.answers.push(userAns);
+        }
+        else {
+                arrr.map(a => {
+                if(ind == a) {
+                    // window.alert("Question already answered");
+                    var cond = arrr.findIndex(check)
+                    for(var i = 0; i <= ansArr.length; i++) {
+                        if(i == cond) {
+                            return this.answers[i] = userAns;
+                        }
+                    }
+                }
+            })
+           if(this.answers.includes(userAns)) {
+           }
+           else {
+               this.answers.push(userAns)
+           }
+        }
+        this.indexArray.push(ind)
+
+//        callBaackend(arr)
+//          add quiz.question._id
+
+        console.log(this.answers)
+       
+      this.quizIndex++;
     },
     // Go to previous question
     prev: function() {
-      this.questionIndex--;
+      this.quizIndex--;
     },
+    getScore() {
+        console.log(this.answers, this.questionset._id)
+        console.log(localStorage.getItem("token"))
+        const total = {
+            token: localStorage.getItem("token"),
+            answers: this.answers,
+            setId: this.questionset._id
+        }
+        this.$http.post('http://localhost:3000/api/applicantans/send', total)
+      	.then(response =>{
+	      console.log(response)
+          total = response.data
+    })
+}
 }
 }
 </script>
@@ -159,6 +231,9 @@ h2 {
     width: 100%;
     padding-left: 350px;
     padding-right: 150px
+}
+#id {
+    font-size: 30px;
 }
 label {
     font-family: Lato;

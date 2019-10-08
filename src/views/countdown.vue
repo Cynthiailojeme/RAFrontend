@@ -74,3 +74,41 @@ text-align: center;
 color: #2B3C4E;
 }
 </style>
+
+var inputs = document.getElementsByClassName("numbering");
+        var ind = '';
+        var arrr = this.indexArray;
+        var ansArr = this.answers;
+
+        for (var i = 0; i < inputs.length; i++) {
+            ind = inputs[i].id;
+        }
+        function check(num) {
+            return num == ind
+        }
+        console.log(arrr.length); 
+
+        if(arrr.length == 0) {
+            this.answers.push(userAns);
+        }
+        else {
+                arrr.map(a => {
+                if(ind == a) {
+                    // window.alert("Question already answered");
+                    var cond = arrr.findIndex(check)
+                    for(var i = 0; i <= ansArr.length; i++) {
+                        if(i == cond) {
+                            return this.answers[i] = userAns;
+                        }
+                    }
+                }
+            })
+        console.log("before", this.answers)
+           if(this.answers.includes(userAns)) {
+               console.log("number not in array")
+           }
+           else {
+               this.answers.push(userAns)
+           }
+        }
+        this.indexArray.push(ind)

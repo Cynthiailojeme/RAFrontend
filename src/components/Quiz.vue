@@ -1,20 +1,16 @@
 <template>
+<div>
     <div>
+
         <div class="top">
             <div class="left">
                 <h1>Take Assessment</h1>
                 <span class="instruct" v-show="quizIndex != questionset.quiz.length">Click the finish button below to submit assessment, you can go back at any time to edit your <br>answers.</span>
                 <span class="instruct" v-show="quizIndex === questionset.quiz.length">Thank you!</span>
             </div>
-
-            <!-- <div class="right">
-                <b
-                utton v-on="">start</button>
-            </div> -->
-            <!-- <div class="right">
-                <h2>Timer</h2>
-                <Countdown :deadline="questionset.createdAt"></Countdown>
-            </div> -->
+            <div class="right timer" style="padding-right: 100px">Timer: 
+                <h2 class="count"> {{countdown}} </h2>
+            </div> 
         </div>
 
         <div class="mid" v-for="(quiz, index) in questionset.quiz" :key="index" v-show="index === quizIndex">
@@ -55,23 +51,14 @@
 
         <div v-show="quizIndex === questionset.quiz.length">
             <center>
-                <button type="submit" @click.prevent="getScore">Submit</button>
+                <button type="submit" @click="getScore; alert">Finish</button>
             </center>
-        </div>
-
-        <!-- <div class="gif" v-show="quizIndex === questionset.quiz.length">
-            <center>
-                <img src="../assets/confetti.svg" class="confetti">
-                <p>We have received your assessment test, we will get back to you soon.<br>Best of luck</p>
-                <button><router-link :to="{name: 'Applicant-dashboard'}" class="links">Home</router-link></button>
-            </center>
-        </div> -->
+        </div> 
     </div>
+</div>
 </template>
 
 <script>
-import Countdown from 'vuejs-countdown'
-
 export default {
     name:'Questions',
     props: ['id'],
@@ -81,10 +68,14 @@ export default {
         quiz: {},
         question: "",
         quizIndex: 0,
-        setId: "",
+        name: "",
         answers: [],
-        token: "",
-        indexArray: []
+        indexArray: [],
+        duration: 0,
+        countdown: 0,   
+        timerInterval:0, 
+        mins: 0,
+        secs: 0
        }
      },
     mounted() {
@@ -93,13 +84,18 @@ export default {
         .then(response => {
         console.log(response.body)
         this.questionset = response.body
+        this.duration = response.body.duration
+        this.mins = this.duration
+        this.secs = this.mins * 60
+        this.timerInterval = setInterval(this.doCountDown,1000)
+       
   })
 },
-computed: {
-
+    computed: {
+    
 },
-components: { Countdown },
-methods: {
+
+    methods: {
     // Go to next question
     next: function() {
         var userAns = {
@@ -151,21 +147,52 @@ methods: {
     prev: function() {
       this.quizIndex--;
     },
+    launch(){
+
+    },
+
     getScore() {
-        console.log(this.answers, this.questionset._id)
-        console.log(localStorage.getItem("token"))
+        console.log(this.answers, this.questionset.nameOfSet)
         const total = {
-            token: localStorage.getItem("token"),
-            answers: this.answers,
-            setId: this.questionset._id
+           answers: this.answers,
+            name: this.questionset.nameOfSet
         }
         this.$http.post('http://localhost:3000/api/applicantans/send', total)
       	.then(response =>{
 	      console.log(response)
-          total = response.data
+          total = response.data  
     })
-}
-}
+}, 
+
+    alert() {
+         this.$swal('End of Assessment', 'Your assessment has been submitted successfully', 'OK');
+    },
+    doCountDown() {
+        var outMins, outSecs
+        --this.secs;
+        this.duration = this.secs/60;
+        if (this.secs <= 0) {
+            var outMins = outSecs = 0;
+            clearInterval(this.timerInterval); 
+            outMins = parseInt(this.secs/60, 10);
+            outSecs = parseInt(this.secs % 60, 10);
+
+            outMins = outMins < 10 ? "0" + outMins : outMins;
+            outSecs = outSecs < 10 ? "0" + outSecs : outSecs;
+
+        this.countdown = outMins+ ":" + outSecs;
+            this.getScore()
+            return;
+        }
+        outMins = parseInt(this.secs/60, 10);
+        outSecs = parseInt(this.secs % 60, 10);
+
+        outMins = outMins < 10 ? "0" + outMins : outMins;
+        outSecs = outSecs < 10 ? "0" + outSecs : outSecs;
+
+        this.countdown = outMins+ ":" + outSecs;
+    },   
+},
 }
 </script>
 
@@ -329,5 +356,28 @@ button {
     line-height: 20px;
     text-align: center;
     color: #4F4F4F;
+}
+.timer{
+    width: 37px;
+    height: 17px;
+    padding-bottom: 50px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #4F4F4F;
+}
+.count{
+    position: absolute;
+    width: 56px;
+    height: 58px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    text-align: center;
+    color: #2B3C4E;
 }
 </style>

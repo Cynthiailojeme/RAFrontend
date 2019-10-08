@@ -15,11 +15,45 @@
                 <img src="../assets/hourglass.svg" alt="timer" class="time">
                 <p>We have 4 days left until the next assessment
                 <br>Watch this space</p>
-                <button><router-link :to="{name: 'Questions'}" class="links">Take Assessment</router-link></button>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Take Assessment
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" v-for="questionset in questionsets" :key="questionset._id">
+                            <router-link :to="{name:'Questions', params:{id: questionset._id}}">
+                                {{ questionset.nameOfSet }}
+                            </router-link></a>
+                    </div>
+                </div>
             </center>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+  name: 'TakeAssessment',
+  props: ['id'],
+  data() {
+      return {
+        questionsets: [],
+        questionset: {},
+       }
+     },
+    components: {},
+    mounted() {
+        const url = "http://localhost:3000/api/questionset/all"
+        this.$http.get(url)
+        .then(response => {
+        console.log(response.body)
+        this.questionsets= response.body
+    })
+    },
+computed: {},
+methods: {}
+}
+</script>
 
 <style scoped>
 .top {
@@ -73,14 +107,6 @@ h2 {
     text-align: center;
     color: #4F4F4F;
 }
-.links {
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16.7273px;
-    text-align: center;
-    color: #4F4F4F;
-}
 button {
     width: 50%;
     max-width: 205px;
@@ -96,5 +122,16 @@ button {
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+.dropdown-menu {
+    width: 205px;
+}
+a {
+    color: #2B3C4E;
+    text-decoration: none;
+}
+a:first-letter {
+    text-transform:capitalize;
+    color: #2B3C4E;
 }
 </style>

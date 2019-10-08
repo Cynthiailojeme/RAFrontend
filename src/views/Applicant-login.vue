@@ -67,7 +67,8 @@ export default{
               password: this.applicant.password
   		})
       .then(response =>{
-        console.log(response)
+        console.log(response.body.token)
+        localStorage.setItem("token", response.body.token) 
         // console.log(this.applicant)
         this.$router.push("/applicant-dashboard")
       })

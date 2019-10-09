@@ -10,13 +10,8 @@
                         	<div class="top">
 						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
 						      	<div class="dropdown">
-						      	<p>Entries- Batch 2</p>
-						  		<!-- <button class="dropbtn">Dropdown</button> -->
-						 		 <!-- <div class="dropdown-content">
-						   		 <a style="font-size: 12px;" href="#">Batch 1</a>
-						    	<a style="font-size: 12px;" href="#">Batch 2</a>
-						    	<a style="font-size: 12px;" href="#">Batch 3</a>
-						  	</div> -->
+						      	<p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p>
+						  		
 							</div>
 						<p class="applied">Comprises of all that applied for batch2</p>
 						
@@ -46,119 +41,7 @@
             
         
 
-        <!-- <div class="main"> -->
-            <!-- <div class="otherSide"> -->
-					<!-- <div class="top"> -->
-						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
-						      	<!-- <div class="dropdown"> -->
-						      	<!-- <p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p> -->
-						  		<!-- <button class="dropbtn">Dropdown</button> -->
-						 		 <!-- <div class="dropdown-content"> -->
-						   		 <!-- <a style="font-size: 12px;" href="#">Batch 1</a> -->
-						    	<!-- <a style="font-size: 12px;" href="#">Batch 2</a> -->
-						    	<!-- <a style="font-size: 12px;" href="#">Batch 3</a> 
-						  	</div>
-							</div>
-						<p class="applied">Comprises of all that applied for batch2</p>
-						
-					</div>
-
-					<div class="down">
-
-						<!-- <div id="vueapp">
-                            <kendo-grid :data-source="applicants">
-                                <kendo-grid-column :field="'first_name'"
-                                                :title="'Name'"
-                                                :background_color = "'blue'"
-                                                ></kendo-grid-column>
-                                <kendo-grid-column :field="'email'"
-                                                    :title="'Email'"
-
-                                                ></kendo-grid-column>	
-
-                                <kendo-grid-column :field="'date_of_birth'"
-                                                :title="'DOB.Age'"
-                                                ></kendo-grid-column>
-                                <kendo-grid-column :field="'address'"
-                                                :title="'Address'"
-                                                ></kendo-grid-column>
-                                <kendo-grid-column :field="'university'"
-                                                    :title="'University'"
-                                                    ></kendo-grid-column>
-
-                                <kendo-grid-column :field="'cgpa'"
-                                                    :title="'GPA'"
-                                                    ></kendo-grid-column>
-                            </kendo-grid>
-                        </div> -->
-
-                            <!-- <div id="vueapp" class="vue-app">
-                            <kendo-grid :data-source="applicants" :columns="columns"
-                                        :sortable="true"
-                                        :filterable="false"
-                                        :groupable="false"> 
-                                
-
-                            </kendo-grid> -->
-
-
-
-
-
-                            <!-- <kendo-grid :data-source="applicants"
-                                        :sortable="true"
-                                        :filterable="false"
-                                        :groupable="false"> -->
-                            <!-- <kendo-grid :data-source="applicants"
-                                        :sortable="true"
-                                        :filterable="false"
-                                        :groupable="false">>
-                                <kendo-grid-column :field="'applicants.first_name'"
-                                                :title="'Name'"
-                                                :width="40"
-                                                ></kendo-grid-column>
-                                <kendo-grid-column :field="'ProductName'"></kendo-grid-column>
-                                <kendo-grid-column :field="'UnitPrice'"
-                                                :title="'Unit Price'"
-                                                :width="120"
-                                                :format="'{0:c}'"></kendo-grid-column>
-                                <kendo-grid-column :field="'UnitsInStock'"
-                                                :title="'Units In Stock'"
-                                                :width="120"></kendo-grid-column>
-                                <kendo-grid-column :field="'Discontinued'"></kendo-grid-column> 
-
-                            
-
-                            </kendo-grid> 
-                        </div>
-                                                 <table id="dt-select" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Extn.</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Extn.</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                            </tr>
-                        </tfoot>
-                        </table> -
-                        </div>
-						
-					</div>
-                    
-        </div>-->
-    
+        
 </template>
 
 
@@ -177,8 +60,8 @@ export default {
     return{
 	  apiResponse:{},
 	  columns: [
-            { field: "fullname",title:"Name"},
-            { field: "email", title: "Email"},
+            { field: "fullname",title:"Name", width:"200px"},
+            { field: "email", title: "Email", width: "230px"},
             { field: "date_of_birth", title:"DOB.Age"},
 			{ field: "address", title:"Address" },
 			{ field: "university", title:"University" },
@@ -236,11 +119,42 @@ export default {
 }
 </script>
 
-<style scoped>
-.create{
-    border:1px solid red;
+<style >
+thead{
+		background-color:#2b3c4e !important;
+		color:#FFFFFF;
+	}
+.create {
+    /* border:1px solid red; */
     height: 200vh;
 }
+
+
+ tbody{
+background-color: #FFFFFF !important;
+} 
+.k-alt:hover{
+    background-color: #ffff!important;
+    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
+    border-left:10px solid green!important;
+    border:10px solid blue!important;
+}
+
+.k-alt, .k-pivot-toolbar, .k-pivot-layout>tbody>tr:first-child>td:first-child {
+    background-color: #ffffff !important;
+}
+/* tr.k-alt{
+    background-color: #ffffff!important;
+
+}
+tr:hover{
+ 
+    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
+    background: #FFFFFF!important;
+box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
+border-radius: 8px!important;
+border-left:10px solid green!important;
+} */ 
 .main {
     margin-left: 300px;
     padding: 0px 70px 50px 50px;

@@ -81,8 +81,8 @@ export default{
          window.localStorage.setItem('token', response.body.token )
          window.localStorage.setItem('email', response.body.user.email )
         console.log(response) ,
-       
-
+        console.log(response.body.token)
+        localStorage.setItem("token", response.body.token) 
         // console.log(this.applicant)
         this.$router.push('/applicant-dashboard')
         // this.$router.push({ name: 'applicant-dashboard', params: { id: this.applicant} })

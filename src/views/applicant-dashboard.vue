@@ -98,9 +98,6 @@ export default {
             return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-')
   		}
   	}
-
-    
-
 }
 </script>
 

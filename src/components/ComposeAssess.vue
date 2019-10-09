@@ -12,15 +12,9 @@
                 </div>
             </div>
 
-            <table>
-                <tr v-for="(item, key) in items" :key="key">
-                    <td>{{ item.question }}</td>
-                </tr>
-            </table>
-
-            <label>{{ this.quiz.length }}/30</label>
             <div class="form-row">
                 <div class="form-group col-md-6">
+                    <label>{{ this.quiz.length }}/30</label>
                     <div class="files"  v-if="!image">
                         <input type="file" class="uploadfil" @change="onFileChange">
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
@@ -31,11 +25,19 @@
                         <button @click="removeImage">Remove image</button>
                     </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <h6>Set time</h6>
-                        <input type="number" v-model="duration" required>
+
+                <div class="form-group col-md-3">
+                    <label>Set Time</label><br>
+                    <input type="number" v-model="duration" class="timer" required>
                 </div>
+            </div>
+
+           <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Date of Assessment</label>
+                    <input type="date" class="form-control correct" v-model="dateOfAsess" required>
                 </div>
+            </div>
 
             <div class="form-group">
                 <label>Question</label>
@@ -116,6 +118,7 @@ export default {
                 correctAnswer: ""
             },
         nameOfSet: "",
+        dateOfAsess: "",
         quiz: [],
         duration: "",
         error:{},
@@ -152,23 +155,14 @@ methods: {
         correctAnswer: ""
       }
     },
-    // submit(){
-    //     const result = {
-    //         "question": this.question,
-    //         "options": this.options,
-    //         "correctAnswer": this.correctAnswer,
-    //     }
-    //     this.items.push(result)
-    //     console.log("Quiz", this.quiz);
-    //     this.quiz = []
-    // },
     addPost (){
         let formData = new FormData();
         formData.append('img', this.file);
         const oneset = {
             nameOfSet: this.nameOfSet,
             quiz: this.quiz,
-            duration: this.duration
+            duration: this.duration,
+            dateOfAsess: this.dateOfAsess
         }
         console.log(oneset)
             this.$http.post('http://localhost:3000/api/questionset/add',oneset, formData,
@@ -190,7 +184,12 @@ methods: {
                 }
                 return 0;
             });
-            oneset = {};
+            this.oneset = {
+                nameOfSet: "",
+                quiz: [],
+                duration: "",
+                dateOfAsess: ""
+            };
         });
     }
 }
@@ -328,5 +327,9 @@ input {
     line-height: 17px;
     text-align: center;
     color: #2B3C4E;
+}
+.timer {
+    height: 100px;
+    font-size: 60px;
 }
 </style>

@@ -8,17 +8,19 @@
                 <th scope="col">Batch</th>
                 <th scope="col">Date Composed</th>
                 <th scope="col">No of Questions</th>
-                <th scope="col">Time Allocated</th>
-                <th scope="col">Status</th>
+                <th scope="col">Date of Assessment</th>
+                <th scope="col">Duration</th>
+                <!-- <th scope="col">Status</th> -->
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="questionset in questionsets" :key="questionset._id">
                     <th scope="row">{{ questionset.nameOfSet }}</th>
-                    <td>{{ questionset.createdAt }}</td>
+                    <td>{{ questionset.createdAt | fineDate }}</td>
                     <td>{{ questionset.quiz.length }}</td>
+                    <td>{{ questionset.dateOfAsess }}</td>
                     <td>{{ questionset.duration }} mins</td>
-                    <td>Taken</td>
+                    <!-- <td>Taken</td> -->
                 </tr>
             </tbody>
         </table>
@@ -27,8 +29,11 @@
 </template>
 
 <script>
+import Countdown from 'vuejs-countdown'
+
 export default {
   name: 'AssessHistory',
+  props: ['input'],
   data() {
       return {
         questionsets: [],
@@ -36,6 +41,7 @@ export default {
         // questionsetIndex: 0,
        }
      },
+    components: { Countdown },
     mounted() {
         const url = "http://localhost:3000/api/questionset/all"
         this.$http.get(url)
@@ -44,26 +50,43 @@ export default {
         this.questionsets= response.body
     })
     },
+    filters: {
+        fineDate: function(inputFormat) {
+            function pad(s) { return (s < 10) ? '0' + s :s;}
+            var d = new Date(inputFormat)
+            return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-')
+        }
+    },
 computed: {},
-// methods: {
-//     // Go to next question
-//     next: function() {
-//       this.questionIndex++;
-//     },
-//     // Go to previous question
-//     prev: function() {
-//       this.questionIndex--;
-//     },
-// }
+methods: {
+//     submit: function() {
+//         var date = $("input[type=date]").val(),
+//             targetTime = new Date(date);
+//         if(targetTime < Date.now()){
+//             alert("Cannot countdown to time before now.");
+//             return false;
+//         }
+//         var interval = setInterval(function(){
+//                 var timeLeft = (((+targetTime - Date.now())/1000)|0);
+//                 $("span").html(
+//                     timeLeft.toString()+"."
+//                 );
+//                 if(!timeLeft){
+//                     alert("Countdown completed.");
+//                     clearInterval(interval);
+//                 }
+//             }, 500);
+//         },
+}
 }
 </script>
 
 
 <style scoped>
 
-.table-box{
+.table-box {
     width: 100%;
-    height: 308px;
+    height: 100%;
     left: 334px;
     top: 184px;
     background: #FFFFFF;
@@ -76,6 +99,12 @@ computed: {},
     height: 41.78px;
     background: #2B3C4E;
     color: white;
+}
+th:first-letter {
+    text-transform:capitalize;
+}
+td:first-letter {
+    text-transform:capitalize;
 }
 .head-row{
     font-family: Lato;

@@ -49,7 +49,7 @@
 
                     </div>
                     <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Sign Up</button>
+                        <button class="btn btn-primary" type="submit">Sign Up</button>
                     </div>
                     <P>Already have an account?<router-link class=" sign ml-1" :to="{name:'applicant-login'}">Sign In</router-link></P>
                 </form>
@@ -69,8 +69,7 @@ export default{
             email: "",
             phone_number: "",
             password: "",
-            confirm_password: ""
-            
+            confirm_password: ""    
         },
         error:[]
 
@@ -100,36 +99,31 @@ export default{
 
     },
 
-  methods:{
-  	signup:function() {
-  		this.$http.post('http://localhost:3000/applicant/signup',{
-  			first_name :this.applicant.first_name,
-              last_name:this.applicant.last_name,
-              email: this.applicant.email,
-              phone_number: this.applicant.phone_number,
-              password: this.applicant.password,
-              confirm_password: this.applicant.confirm_password
-  		})
-      .then(response =>{
-        console.log(response)
-        // console.log(this.applicant)
-        this.$router.push("/applicant-login")
-      })
-       .catch(err =>{
-        if(err.status = 400){
-            this.error.push(err.body.message)
+    methods:{
+        signup:function() {
+            this.$http.post('http://localhost:3000/applicant/signup',{
+            first_name :this.applicant.first_name,
+            last_name:this.applicant.last_name,
+            email: this.applicant.email,
+            phone_number: this.applicant.phone_number,
+            password: this.applicant.password,
+            confirm_password: this.applicant.confirm_password
+            })
+        .then(response =>{
+            console.log(response)
+            this.$router.push("/applicant-login")
+        })
+        .catch(err =>{
+            if(err.status = 400){
+                this.error.push(err.body.message)
+            }
+            else{this.error.push('Oops! Unexpected Error Occurred')}
+            console.log(err)
+        })
         }
-        else{this.error.push('Oops! Unexpected Error Occurred')}
-          console.log(err)
-      })
     }
-
-  	}
-  };
-
-  
-  
-  </script>
+};
+</script>
 
 
 <style scoped>
@@ -149,13 +143,13 @@ export default{
 }
 
 .sign {
-   color: #4F4F4F;
-   text-decoration: underline;
-   font-family: Lato;
-font-style: italic;
-font-weight: normal;
-font-size: 14px;
-line-height: 17px;
+    color: #4F4F4F;
+    text-decoration: underline;
+    font-family: Lato;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
 }
 
 .enyata-logo {

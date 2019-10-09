@@ -29,56 +29,28 @@
 </template>
 
 <script>
-// window.onload = function() {
-// document.getElementById("date").innerHTML = localStorage.getItem("time");
-// }  
-
-
-// import ApplicantSidebar from '@/components/ApplicantSidebar.vue'
 export default {
     name: 'home',
     components: {
-    //    ApplicantSidebar 
   },
     data() {
       return{
         apiResponse:{},
         applicant:{
-            // time:"",
             fullname: "",
             email:""
-        },
-        
-        
+        },        
         error:{},
-
       }
     },
      
      mounted() {
-         window.localStorage.getItem('firstname')
-        //   window.localStorage.getItem('user')
-        //    window.localStorage.getItem('time')
-            window.localStorage.getItem('lastname')
-            window.localStorage.getItem('email')
-            //  window.localStorage.getItem('token')
-             this.applicant.fullname = window.localStorage.getItem('firstname')+" "+ window.localStorage.getItem('lastname')
-             this.applicant.email = window.localStorage.getItem('email')
-
-
-
-    //   console.log(this)
-    //   this.$http.get('http://localhost:3000/applicant')
-
-    //   .then(response =>{
-    //     console.log(response)
-        // this.guest = response.data
-      //   console.log(this.guest)
-    //   })
-
+        window.localStorage.getItem('firstname')
+        window.localStorage.getItem('lastname')
+        window.localStorage.getItem('email')
+        this.applicant.fullname = window.localStorage.getItem('firstname')+" "+ window.localStorage.getItem('lastname')
+        this.applicant.email = window.localStorage.getItem('email')
       }
-    
-
 }
 </script>
 

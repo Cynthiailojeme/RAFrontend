@@ -15,9 +15,9 @@
                     <p>Date of Application</p>
                     <span>{{applicant.time | fineDate}}</span>
                     <div class="for-status"></div>
-                    <p class="small-text"> You applied <timeago :datetime="applicant.time"
+                    <p class="small-text"> <timeago :datetime="applicant.time"
                                                     :auto-update="60"
-                                                    :converterOptions="{ includeSeconds: true }"></timeago></p>
+                                                    :converterOptions="{ includeSeconds: true }"></timeago> since applied</p>
                 </div>
                 <div class="status">
                     <p>Application Status</p>
@@ -45,11 +45,6 @@
 </template>
 
 <script>
-// window.onload = function() {
-// document.getElementById("date").innerHTML = localStorage.getItem("time");
-// }  
-
-
 import ApplicantSidebar from '@/components/ApplicantSidebar.vue'
 export default {
     name: 'home',
@@ -61,46 +56,28 @@ export default {
         apiResponse:{},
         applicant:{
             time:""
-        },
-        
-        
+        },  
         error:{},
-
       }
     },
      
      mounted() {
-         window.localStorage.getItem('firstname')
-          window.localStorage.getItem('user')
-           window.localStorage.getItem('time')
-            window.localStorage.getItem('lastname')
-             window.localStorage.getItem('token')
-             this.applicant.fullname = this.applicant.firstname+" "+this.applicant.lastname
-             this.applicant.time = window.localStorage.getItem('time')
-
-
-
-    //   console.log(this)
-    //   this.$http.get('http://localhost:3000/applicant')
-
-    //   .then(response =>{
-    //     console.log(response)
-        // this.guest = response.data
-      //   console.log(this.guest)
-    //   })
-
+        window.localStorage.getItem('firstname')
+        window.localStorage.getItem('user')
+        window.localStorage.getItem('time')
+        window.localStorage.getItem('lastname')
+        window.localStorage.getItem('token')
+        this.applicant.fullname = this.applicant.firstname+" "+this.applicant.lastname
+        this.applicant.time = window.localStorage.getItem('time')
       },
 
       filters: {
   		fineDate: function(inputFormat) {
   			function pad(s) { return (s < 10) ? '0' + s : s; }
             var d = new Date(inputFormat)
-            return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-')
+            return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('.')
   		}
-  	}
-
-    
-
+  	}   
 }
 </script>
 

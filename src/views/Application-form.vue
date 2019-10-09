@@ -49,7 +49,29 @@
                     <label>CGPA</label>
                     <input v-model="formData.cgpa" type="text" class="form-control">
                 </div>
+                
             </div>
+
+             <div class="row rows">
+                        <div class="col">
+                            <label>Password</label>
+                            <div class="password">
+                                <input id="passwordField"  v-model="formData.password" type="password" class="form-control" required ><img src="../assets/visible.png" alt="" id="passwordView">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>Confirm Password</label>
+                            <div class="password">
+                                <input id="confirmField" v-model="formData.confirm_password" type="password" class="form-control" required><img src="../assets/visible.png" alt=""  id="confirmView">
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class=" error form-group">
+                         <p class="text-danger" v-for="(err,index) in error" :key="index">{{err}}</p>
+
+                    </div>
+            
             <button class="btn btn-primary" type="submit">Submit</button>
           </form> 
           <div v-else>
@@ -74,7 +96,9 @@
         	address:"",
             university:"",
             course_of_study:"",
-            cgpa:""
+            cgpa:"",
+            password:"",
+            confirm_password:""
         },
 
         error:{}
@@ -91,9 +115,6 @@
 
             let today = new Date();
             let todaySecs = parseInt(today.getTime() / 1000);
-
-            // return closingDateSeconds +" "+parseInt(todaySecs)
-
             if(todaySecs > closingDateSeconds){
                 this.isComputedPropertyReady = true
                 return false
@@ -104,25 +125,42 @@
         }
     },
     mounted() {
+             $("#passwordView").click(function(){
+            let input = $("input#passwordField").attr("type");
+            if(input == "password"){
+                $("input#passwordField").attr("type", "text");
+            }else{
+                $("input#passwordField").attr("type", "password");
+            }
+        });
+
+         $("#confirmView").click(function(){
+            let input = $("input#confirmField").attr("type");
+            if(input == "password"){
+                $("input#confirmField").attr("type", "text");
+            }else{
+                $("input#confirmField").attr("type", "password");
+            }
+        });
+    
+
         this.$http.get('http://localhost:3000/attach')
       	.then(response=>{
-        //   console.log(response.data)
-        //   console.log (response.data[response.data.length -1])
             this.applicationData = response.data[response.data.length -1]
             this.checkDate()
           });
     },
      methods:{
       checkDate: function(){
-        //   console.log(new Date())
       },
       add:function(){
   		console.log(this.newGuest)
-       	 this.$http.post('http://localhost:3000/recruit/add',this.formData)
+            this.$http.post('http://localhost:3000/recruit/signup',this.formData)
+            
       	.then(response=>{
 	      console.log(response)
-	      this.formData= response.data
-	      // console.log(this.guest)
+          this.formData= response.data
+          
       		this.formData.first_name =""
       		this.formData.last_name =""
       		this.formData.email = ""
@@ -130,28 +168,23 @@
       		this.formData.address = ""
             this.formData.university = ""
             this.formData.course_of_study = ""
-             this.formData.cgpa = ""
+            this.formData.cgpa = ""
+            this.formData.password = ""
+            this.formData.confirm_password = ""
+    
+
 
     	alert('Application Submitted Successfully') 
 
-        this.$router.push('/signup')
-
-
-    	})
-
-    	
-
-  
+        // .then(response =>{
+        // console.log(response)
+        // console.log(this.applicant)
+        this.$router.push("/applicant-login")
+        })
       },
-
-
     }
-
-  };
-
-  
-  
-  </script>
+};  
+</script>
 
 
 <style scoped>
@@ -186,7 +219,7 @@
 .form-wrapper {
     width: 80%;
     max-width: 963px;
-    height: 559px;
+    height: 700px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 45px;
@@ -246,5 +279,19 @@ input {
     text-align: center;
     font-size: 50px;
     padding-top:30vh
+}
+
+
+.password {
+    position: relative;
+    display: block;
+    float: right;
+    width: 100%;
+}
+
+.password img {
+    margin-top: -20px;
+    margin-right: 20px;
+    float: right;
 }
 </style>

@@ -38,19 +38,12 @@ export default{
         apiResponse:{},
         applicant:{
             email: "",
-            password: ""
-            
-            
-    
-            
+            password: ""           
         },
-
         user:[],
         error:[],
-
       }
     },
-
     components:{},
     mounted() {
         $("#passwordView").click(function(){
@@ -63,46 +56,39 @@ export default{
         })
     },
 
-  methods:{
-  	login:function() {
-          this.error =[]
-  		this.$http.post('http://localhost:3000/applicant/login',{
-              email: this.applicant.email,
-              password: this.applicant.password,
+    methods:{
+        login:function() {
+            this.error =[]
+            this.$http.post('http://localhost:3000/recruit/login',{
+                email: this.applicant.email,
+                password: this.applicant.password,
 
-  		})
-      .then(response =>{
-         window.localStorage.setItem('user', response.body.user._id)
-         window.localStorage.setItem('time', response.body.user.created_at)
-         window.localStorage.setItem('firstname', response.body.user.first_name)
-         window.localStorage.setItem('lastname', response.body.user.last_name)
+            })
+        .then(response =>{
+            window.localStorage.setItem('user', response.body.user._id)
+            window.localStorage.setItem('time', response.body.user.created_at)
+            window.localStorage.setItem('firstname', response.body.user.first_name)
+            window.localStorage.setItem('lastname', response.body.user.last_name)
 
-        console.log(response.body.user)
-         window.localStorage.setItem('token', response.body.token )
-         window.localStorage.setItem('email', response.body.user.email )
-        console.log(response) ,
-       
-
-        // console.log(this.applicant)
-        this.$router.push('/applicant-dashboard')
-        // this.$router.push({ name: 'applicant-dashboard', params: { id: this.applicant} })
-      })
-      .catch(err =>{
-        if(err.status = 403){
-            this.error.push(err.body.message)
+            console.log(response.body.user)
+            window.localStorage.setItem('token', response.body.token )
+            window.localStorage.setItem('email', response.body.user.email )
+            console.log(response) ,
+        
+            this.$router.push('/applicant-dashboard')
+        })
+        .catch(err =>{
+            if(err.status = 403){
+                this.error.push(err.body.message)
+            }
+            else{this.error.push('Oops! Unexpected Error Occurred')}
+            console.log(err)
+        })
         }
-        else{this.error.push('Oops! Unexpected Error Occurred')}
-          console.log(err)
-      })
-    }
-
   	}
-  };
+};
 
-  </script>
-
-
-
+</script>
 
 <style scoped>
 .form-container {
@@ -189,7 +175,6 @@ input {
     font-weight: bold;
     font-size: 16px;
     color: #FFFFFF;
-    /* margin-top: 30px; */
 }
 
 .no-account {

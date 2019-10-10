@@ -132,20 +132,8 @@ export default {
        }
      },
     mounted() {
-        let id = this.$route.params.id
-        this.$http.get("http://localhost:3000/api/questionset/single/" + id)
-        .then(response => {
-        console.log(response.body)
-        this.questionset = response.body
-        this.duration = response.body.duration
-        this.mins = this.duration
-        this.secs = this.mins * 60
-        this.timerInterval = setInterval(this.doCountDown,1000)
-  })
-},
-computed: {
-
-    this.$http
+      let id = this.$route.params.id
+      this.$http
       .get("http://localhost:3000/api/questionset/single/" + id, { headers })
       .then(response => {
         console.log("Single question");

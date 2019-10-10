@@ -19,7 +19,6 @@ Vue.use(VueTimeago, {
 })
 Vue.use(VueResource);
 Vue.config.productionTip = false
-Vue.use(VueSweetalert2);
 
 new Vue({
   router,

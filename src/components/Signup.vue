@@ -108,7 +108,8 @@ export default{
               email: this.applicant.email,
               phone_number: this.applicant.phone_number,
               password: this.applicant.password,
-              confirm_password: this.applicant.confirm_password
+              confirm_password: this.applicant.confirm_password,
+              recruit: this.$route.params.applicantId
   		})
       .then(response =>{
         console.log(response)

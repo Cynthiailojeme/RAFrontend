@@ -19,11 +19,7 @@
             <div class="date-status" >
                 <div class="date">
                     <p>Date of Application</p>
-<<<<<<< HEAD
-                    <!-- <span Date.now()></span>  -->
-=======
                     <span>{{applicant.time | fineDate}}</span>
->>>>>>> 031045fa8d684d1354abcdea73c18f04001ce5c7
                     <div class="for-status"></div>
                     <p class="small-text"> <timeago :datetime="applicant.time"
                                                     :auto-update="60"

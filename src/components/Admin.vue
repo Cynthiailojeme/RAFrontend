@@ -64,6 +64,7 @@ export default{
       .then(response =>{
         window.localStorage.setItem("admin", response.body.admin._id)
         window.localStorage.setItem("email", response.body.admin.email)
+        window.localStorage.setItem("token", response.body.token)
         console.log(response)
         // console.log(this.admin)
         this.$router.push("/Admin-dashboard")

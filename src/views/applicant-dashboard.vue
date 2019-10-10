@@ -19,6 +19,8 @@
             <div class="date-status" >
                 <div class="date">
                     <p>Date of Application</p>
+
+                    <!-- <span Date.now()></span>  -->
                     <span>{{applicant.time | fineDate}}</span>
                     <div class="for-status"></div>
                     <p class="small-text"> <timeago :datetime="applicant.time"
@@ -88,7 +90,7 @@ filters: {
     var d = new Date(inputFormat)
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('.')
 }
-}
+},
 }
 </script>
 

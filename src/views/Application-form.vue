@@ -146,7 +146,7 @@ export default{
       },
       add:function(){
   		console.log(this.newGuest)
-       	 this.$http.post('http://localhost:3000/recruit/add',this.formData)
+       	 this.$http.post('http://localhost:3000/recruit/signup',this.formData)
       	.then(response=>{
           console.log(response)
           

@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <div class="form-container-head">
-            <img src="../assets/enyata-logo.png" alt="enyata" class="enyata-logo">
-            <h3>enyata</h3>
-            <p>Applicant Sign Up </p>
-        </div>
-        <div class="form-wrapper" v-if="isComputedPropertyReady">
-          <form @submit.prevent="add" v-if="isApplicationStillOpen">
+<div>
+    <div class="form-container-head">
+        <img src="../assets/enyata-logo.png" alt="enyata" class="enyata-logo">
+        <h3>enyata</h3>
+        <p>Applicant Sign Up </p>
+    </div>
+    <div class="form-wrapper" v-show="isComputedPropertyReady">
+        <form @submit.prevent="add" v-if="isApplicationStillOpen">
             <div class="row">
                 <div class="col">
                     <label>First Name</label>
@@ -21,7 +21,7 @@
             <div class="row rows">
                 <div class="col">
                     <label>Email</label>
-                    <input  v-model="formData.email" type="email" class="form-control">
+                    <input v-model="formData.email" type="email" class="form-control">
                 </div>
                 <div class="col">
                     <label>Date of Birth</label>
@@ -50,37 +50,54 @@
                     <input v-model="formData.cgpa" type="text" class="form-control">
                 </div>
             </div>
+
+            <div class="row rows">
+                <div class="col">
+                    <label>Password</label>
+                    <div class="password">
+                        <input id="passwordField" v-model="formData.password" type="password" class="form-control" required ><img src="../assets/visible.png" alt="" id="passwordView">
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Confirm Password</label>
+                    <div class="password">
+                        <input id="confirmField" v-model="formData.confirm_password" type="password" class="form-control" required><img src="../assets/visible.png" alt="" id="confirmView">
+                    </div>
+                </div>
+            </div>
+            <div class=" error form-group">
+                <p class="text-danger" v-for="(err,index) in error" :key="index">{{err}}</p>
+            </div>
             <button class="btn btn-primary" type="submit">Submit</button>
-          </form> 
-          <div v-else>
-            <h1> Sorry,We are no longer receiving application</h1>
-        </div>
+        </form> 
+        <div v-else>
+            <h1 class="else"> Sorry,We are no longer receiving application</h1>
         </div>
     </div>
+</div>
 </template>
 <script>
-  export default{
+export default{
     name:'home',
     data() {
-      return{
-        apiResponse:{},
-        applicationData: null,
-        isComputedPropertyReady: false,
-        formData: {
-        	first_name:"",
-        	last_name:"",
-        	email:"",
-        	date_of_birth:"",
-        	address:"",
-            university:"",
-            course_of_study:"",
-            cgpa:""
-        },
-
-        error:{}
-
-      }
-
+        return{
+            apiResponse:{},
+            applicationData: "",
+            isComputedPropertyReady: false,
+            formData: {
+                first_name:"",
+                last_name:"",
+                email:"",
+                date_of_birth:"",
+                address:"",
+                university:"",
+                course_of_study:"",
+                cgpa:"",
+                password:"",
+                confirm_password:""
+            },
+            error:{}
+        }
     },
 
     components:{},
@@ -88,41 +105,52 @@
         isApplicationStillOpen: function(){
             let closingDate = new Date(this.applicationData.application_date)
             let closingDateSeconds = closingDate.getTime() / 1000; //1440516958
-
             let today = new Date();
             let todaySecs = parseInt(today.getTime() / 1000);
-
-            // return closingDateSeconds +" "+parseInt(todaySecs)
-
             if(todaySecs > closingDateSeconds){
-                this.isComputedPropertyReady = true
-                return false
+            this.isComputedPropertyReady = true
+            return false
             }else{
-                this.isComputedPropertyReady = true
-                return true
+            this.isComputedPropertyReady = true
+            return true
             }
         }
     },
     mounted() {
+        $("#passwordView").click(function(){
+            let input = $("input#passwordField").attr("type");
+            if(input == "password"){
+            $("input#passwordField").attr("type", "text");
+            }else{
+            $("input#passwordField").attr("type", "password");
+            }
+        });
+
+        $("#confirmView").click(function(){
+            let input = $("input#confirmField").attr("type");
+            if(input == "password"){
+            $("input#confirmField").attr("type", "text");
+            }else{
+            $("input#confirmField").attr("type", "password");
+            }
+        });
         this.$http.get('http://localhost:3000/attach')
-      	.then(response=>{
-        //   console.log(response.data)
-        //   console.log (response.data[response.data.length -1])
+        .then(response=>{
             this.applicationData = response.data[response.data.length -1]
             this.checkDate()
-          });
+        });
     },
      methods:{
       checkDate: function(){
-          console.log(new Date())
+        //   console.log(new Date())
       },
       add:function(){
   		console.log(this.newGuest)
        	 this.$http.post('http://localhost:3000/recruit/add',this.formData)
       	.then(response=>{
-	      console.log(response)
-	      this.formData= response.data
-	      // console.log(this.guest)
+          console.log(response)
+          
+          this.$router.push({name:"signup", params: { applicantId: response.data._id }})
       		this.formData.first_name =""
       		this.formData.last_name =""
       		this.formData.email = ""
@@ -130,26 +158,18 @@
       		this.formData.address = ""
             this.formData.university = ""
             this.formData.course_of_study = ""
-             this.formData.cgpa = ""
+            this.formData.cgpa = ""
+            this.formData.password = ""
+            this.formData.confirm_password = ""
 
-    	alert('Application Submitted Successfully') 
+            alert('Application Submitted Successfully') 
 
-
-    	})
-
-    	
-
-  
-      },
-
-
+            this.$router.push("/applicant-login")
+            })
+        },
     }
-
-  };
-
-  
-  
-  </script>
+}; 
+</script>
 
 
 <style scoped>
@@ -159,9 +179,8 @@
 }
 
 .form-container-head {
-    text-align:  center;
+    text-align: center;
     margin-top: 116px;
-
 }
 
 .form-container-head h3 {
@@ -184,7 +203,7 @@
 .form-wrapper {
     width: 80%;
     max-width: 963px;
-    height: 559px;
+    height: 700px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 45px;
@@ -238,5 +257,24 @@ input {
     font-weight: bold;
     font-size: 16px;
     color: #FFFFFF;
+    }
+
+    .else{
+    text-align: center;
+    font-size: 50px;
+    padding-top:30vh
+}
+
+.password {
+    position: relative;
+    display: block;
+    float: right;
+    width: 100%;
+}
+
+.password img {
+    margin-top: -20px;
+    margin-right: 20px;
+    float: right;
 }
 </style>

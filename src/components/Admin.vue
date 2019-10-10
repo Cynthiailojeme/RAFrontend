@@ -62,8 +62,10 @@ export default{
               password: this.admin.password
           })
       .then(response =>{
+        window.localStorage.setItem("admin", response.body.admin._id)
+        window.localStorage.setItem("email", response.body.admin.email)
         console.log(response)
-        console.log(this.admin)
+        // console.log(this.admin)
         this.$router.push("/Admin-dashboard")
       })
     }

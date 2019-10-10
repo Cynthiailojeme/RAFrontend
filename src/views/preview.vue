@@ -97,6 +97,8 @@
 	background-repeat: no-repeat;
 	background-position: right;
 	background-size: contain;
+	/* border:1px solid red; */
+	height:140vh;
 }
 .whole-body {
 	margin-left: 30px;
@@ -168,7 +170,7 @@ h3 {
 	color: #fff;
 	text-align: center;
 	width: 100%;
-	margin-top: 70px;
+	margin-top: 150px;
 	padding: none;
 }
 .btn{

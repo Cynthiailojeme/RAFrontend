@@ -1,95 +1,115 @@
 <template>
-    <div>
-        <div>
-            <AdminSidebar/>
-        </div>
-
-        <div class="main">
-            <div class="otherSide">
-                <div class="top">
-                <!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
-                <div class="dropdown">
-                    <p>Results- {{ questionset.nameOfSet }}<i class="fa fa-caret-down arrow"></i></p>
-                    <!-- <button class="dropbtn">Dropdown</button> -->
-                    <div class="dropdown-content" v-for="questionset in questionsets" :key="questionset._id">
-                        <a style="font-size: 12px;" href="#" params:{id: questionset._id}>{{ questionset.nameOfSet }}</a>
-                    </div>
-                </div>
-
-                <p class="applied">Comprises of all that applied for {{ questionset.nameOfSet }}</p>
+    <div class="create">
+            <div class="row" style="max-width:1350px;"> 
+                <div class="col-sm-3">
+                    <AdminSidebar />
 
                 </div>
+                <div class="col-sm-9">
+                    <div class="other-side">
+                        	<div class="top">
+						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
+						      	<div class="dropdown">
+						      	<p>Results- Batch 2</p>  		
+							</div>
+						<p class="applied">Comprises of all that applied for batch2</p>
+						
+					</div>
 
-                <div class="down">
-                    <table class="table">
-                        <thead class=" head">
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">DOB.Age<i class="fa fa-sort pl-2"></i></th>
-                                <th scope="col">Address</th>
-                                <th scope="col">University</th>
-                                <th scope="col">CGPA <i class="fa fa-sort pl-2"></i></th>
-                                <th scope="col">Test scores <i class="fa fa-sort pl-2"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="line" v-for="form in forms" :key="form._id" >
-                                <th class="data" scope="row">{{form.firstname}} {{form.lastname}}</th>
-                                <td class="data">{{form.email}}</td>
-                                <td class="data">{{form.dob}}</td>
-                                <td class="data">{{form.address}}</td>
-                                <td class="data">{{form.university}}</td>
-                                <td class="data">{{form.cgpa}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="down">
+                            <div id="vueapp" class="vue-app">
+                                <kendo-grid :data-source="applicants" :columns="columns"
+                                            :sortable="true"
+                                            :filterable="false"
+                                            :groupable="false"> 
+                                </kendo-grid>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
             </div>
-            </div>
-        </div>
-    </div>
+        </div>  
 </template>
 
-
 <script>
-import AdminSidebar from '@/components/AdminSidebar.vue'
+
+import AdminSidebar from '@/components/AdminSidebar.vue';
+import { lstat } from 'fs';
+
 export default {
     name: 'forms',
-    props: ['id'],
     components: {
     AdminSidebar,
     },
     data() {
-    return {
-    forms: [],
-    questionset: {},
-    questionsets: [],
-    }
+	  
+    return{
+	  apiResponse:{},
+	  columns: [
+            { field: "fullname",title:"Name"},
+            { field: "email", title: "Email"},
+            { field: "date_of_birth", title:"DOB.Age"},
+			{ field: "address", title:"Address" },
+			{ field: "university", title:"University" },
+            { field: "cgpa", title:"CGPA" },
+            { field: "scores", title:"Test scores" }
+        ],
+      applicants:[{
+		  first_name: "",
+		  last_name: "",
+		  email: "",
+		  date_of_birth: "",
+		  address: "",
+		  university: "",
+          cgpa: ""
+	  }],
+	  
+	  error:{},
+	  
+    //   formdata: {}
+    };
+  },
+
+    methods: {
+        onChange: function(ev) {
+            var selected = $.map(ev.sender.select(), function(item) {
+                return $(item).text();
+            });
+
+            console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+		},
+		calcDOB: function(data){
+			var date = new Date(data).getFullYear();
+			var tday = new Date().getFullYear();
+
+			return tday - date;
+		}
     },
     mounted() {
-        let url = "http://localhost:3000/api/form/"
-        this.$http.get(url)
-        .then(response => {
-        console.log(response.body)
-        this.forms= response.body
-    });
-//     let id = this.$route.params.id
-//         this.$http.get("http://localhost:3000/api/questionset/single/" + id)
-//         .then(response => {
-//         console.log(response.body)
-//         this.questionset = response.body
-//   })
-//    let url = "http://localhost:3000/api/questionset/all"
-//         this.$http.get(url)
-//         .then(response => {
-//         console.log(response.body)
-//         this.questionsets= response.body
-//     })
-    }
+    this.$http.get('http://localhost:3000/recruit')
+    .then(response =>{
+    //   console.log(response)
+      this.applicants = response.data
+	  console.log(this.applicants)
+	  for (let i = 0; i < this.applicants.length; i++) {
+		  const dob = this.applicants[i].date_of_birth;
+		  let calcdob = this.calcDOB(dob)
+		  this.applicants[i].date_of_birth = calcdob+"years"
+		  this.applicants[i].fullname = this.applicants[i].first_name+" "+this.applicants[i].last_name
+	  }
+	 
+	//   console.log(this.applicants)
+	//   window.testdata = this.applicants
+    })
+  },
 }
 </script>
 
 <style scoped>
+.create{
+    border:1px solid red;
+    height: 200vh;
+}
 .main {
     margin-left: 300px;
     padding: 0px 70px 50px 50px;
@@ -188,30 +208,21 @@ padding-top:10px;
 /*padding-bottom: 20px;*/
 padding-left: 38px;
 border-left: 4px solid #31D283;	
-
-
 }
-
 .top{
 font-family: Lato;
 font-style: normal;
 font-weight: 300;
 font-size: 40px;
 line-height: 52px;
-
 letter-spacing: -0.02em;
-
 color: #2B3C4E;
 opacity: 0.9;
 padding-top:101px;
-/*padding-left: 42px;*/
-
 }
-
 .arrow{
 padding-left: 16px;
 }
-
 .dropdown {
 position: relative;
 display: inline-block;

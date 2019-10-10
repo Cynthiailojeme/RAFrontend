@@ -10,13 +10,8 @@
                         	<div class="top">
 						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
 						      	<div class="dropdown">
-						      	<p>Entries- Batch 2</p>
-						  		<!-- <button class="dropbtn">Dropdown</button> -->
-						 		 <!-- <div class="dropdown-content">
-						   		 <a style="font-size: 12px;" href="#">Batch 1</a>
-						    	<a style="font-size: 12px;" href="#">Batch 2</a>
-						    	<a style="font-size: 12px;" href="#">Batch 3</a>
-						  	</div> -->
+						      	<p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p>
+						  		
 							</div>
 						<p class="applied">Comprises of all that applied for batch2</p>
 						
@@ -41,11 +36,7 @@
 
             </div>
         </div>
-    
-
-            
-        
-
+   
         <!-- <div class="main"> -->
             <!-- <div class="otherSide"> -->
 					<!-- <div class="top"> -->
@@ -65,7 +56,7 @@
 
 					<div class="down">
 
-						<!-- <div id="vueapp">
+						 <div id="vueapp">
                             <kendo-grid :data-source="applicants">
                                 <kendo-grid-column :field="'first_name'"
                                                 :title="'Name'"
@@ -158,7 +149,6 @@
 					</div>
                     
         </div>-->
-    
 </template>
 
 
@@ -177,8 +167,8 @@ export default {
     return{
 	  apiResponse:{},
 	  columns: [
-            { field: "fullname",title:"Name"},
-            { field: "email", title: "Email"},
+            { field: "fullname",title:"Name", width:"200px"},
+            { field: "email", title: "Email", width: "230px"},
             { field: "date_of_birth", title:"DOB.Age"},
 			{ field: "address", title:"Address" },
 			{ field: "university", title:"University" },
@@ -236,11 +226,42 @@ export default {
 }
 </script>
 
-<style scoped>
-.create{
-    border:1px solid red;
+<style >
+thead{
+		background-color:#2b3c4e !important;
+		color:#FFFFFF;
+	}
+.create {
+    /* border:1px solid red; */
     height: 200vh;
 }
+
+
+ tbody{
+background-color: #FFFFFF !important;
+} 
+.k-alt:hover{
+    background-color: #ffff!important;
+    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
+    border-left:10px solid green!important;
+    border:10px solid blue!important;
+}
+
+.k-alt, .k-pivot-toolbar, .k-pivot-layout>tbody>tr:first-child>td:first-child {
+    background-color: #ffffff !important;
+}
+/* tr.k-alt{
+    background-color: #ffffff!important;
+
+}
+tr:hover{
+ 
+    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
+    background: #FFFFFF!important;
+box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
+border-radius: 8px!important;
+border-left:10px solid green!important;
+} */ 
 .main {
     margin-left: 300px;
     padding: 0px 70px 50px 50px;

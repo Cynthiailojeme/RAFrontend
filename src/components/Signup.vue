@@ -59,7 +59,7 @@
 
 <script>
 export default{
-    name:'home',
+    name:'signup',
     data() {
       return{
         apiResponse:{},

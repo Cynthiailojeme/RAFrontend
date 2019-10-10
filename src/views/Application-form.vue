@@ -5,7 +5,7 @@
             <h3>enyata</h3>
             <p>Applicant Sign Up </p>
         </div>
-        <div class="form-wrapper" v-if="isComputedPropertyReady">
+        <div class="form-wrapper" v-show="isComputedPropertyReady">
           <form @submit.prevent="add" v-if="isApplicationStillOpen">
             <div class="row">
                 <div class="col">
@@ -53,7 +53,7 @@
             <button class="btn btn-primary" type="submit">Submit</button>
           </form> 
           <div v-else>
-            <h1> Sorry,We are no longer receiving application</h1>
+            <h1 class="else"> Sorry,We are no longer receiving application</h1>
         </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
     data() {
       return{
         apiResponse:{},
-        applicationData: null,
+        applicationData: "",
         isComputedPropertyReady: false,
         formData: {
         	first_name:"",
@@ -114,7 +114,7 @@
     },
      methods:{
       checkDate: function(){
-          console.log(new Date())
+        //   console.log(new Date())
       },
       add:function(){
   		console.log(this.newGuest)
@@ -133,6 +133,8 @@
              this.formData.cgpa = ""
 
     	alert('Application Submitted Successfully') 
+
+        this.$router.push('/signup')
 
 
     	})
@@ -238,5 +240,11 @@ input {
     font-weight: bold;
     font-size: 16px;
     color: #FFFFFF;
+}
+
+.else{
+    text-align: center;
+    font-size: 50px;
+    padding-top:30vh
 }
 </style>

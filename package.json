@@ -16,6 +16,7 @@
     "vue": "^2.6.10",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3",
+    "vue-timeago": "^5.1.2",
     "vue2-timepicker": "^1.0.0",
     "vuejs-countdown": "^0.2.1"
   },

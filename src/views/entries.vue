@@ -65,7 +65,7 @@
 
 					<div class="down">
 
-						<!-- <div id="vueapp">
+						 <div id="vueapp">
                             <kendo-grid :data-source="applicants">
                                 <kendo-grid-column :field="'first_name'"
                                                 :title="'Name'"

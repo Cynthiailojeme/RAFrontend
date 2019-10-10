@@ -10,7 +10,7 @@
 
         <div class="controllers">
             <div class="active">
-                <router-link :to="{name: 'Applicant-dashboard'}" class="links">
+                <router-link :to="{name: 'applicant-dashboard'}" class="links">
                     <p><img src="../assets/dashboard.svg" class="icon">Dashboard</p>
                 </router-link>
             </div>

@@ -13,7 +13,7 @@
             <div class="date-status">
                 <div class="date">
                     <p>Date of Application</p>
-                    <span Date.now()></span>
+                    <!-- <span Date.now()></span>  -->
                     <div class="for-status"></div>
                     <p class="small-text">4 days since applied</p>
                 </div>

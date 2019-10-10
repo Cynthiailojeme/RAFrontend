@@ -120,9 +120,9 @@
   		console.log(this.newGuest)
        	 this.$http.post('http://localhost:3000/recruit/add',this.formData)
       	.then(response=>{
-	      console.log(response)
-	      this.formData= response.data
-	      // console.log(this.guest)
+          console.log(response)
+          
+          this.$router.push({name:"signup", params: { applicantId: response.data._id }})
       		this.formData.first_name =""
       		this.formData.last_name =""
       		this.formData.email = ""

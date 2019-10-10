@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label>Set Time</label><br>
                     <input type="number" v-model="duration" class="timer" required>
                 </div>
@@ -74,26 +74,28 @@
             </div>
 
             <div class="form-row">
-                    <div class="form-group col-md-6">
+
+                <div class="form-group col-md-6">
                         <div class="buttonholder">
-                            <button type="submit">Previous</button>
+                            <button type="submit" class="button2" @click.prevent="submit()">Save question</button>
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <div class="buttonholder">
-                            <button type="submit" @click.prevent="submit()">Next</button>
+                            <button type="submit" class="button2" @click.prevent="addPost">Finish</button>
                         </div>
                     </div>
+
             </div>
-
+<!-- 
             <div class="form-row">
                     <div class="form-group col-md-12">
                         <div class="buttonholder2">
                             <button type="submit" class="button2" @click.prevent="addPost">Finish</button>
                         </div>
                     </div>
-            </div>
+            </div> -->
         </form>
 
     </div>
@@ -155,6 +157,9 @@ methods: {
         correctAnswer: ""
       }
     },
+    // prev: function() {
+    //   this.quiz.length--;
+    // },
     addPost (){
         let formData = new FormData();
         formData.append('img', this.file);
@@ -172,7 +177,9 @@ methods: {
                 }
         })
       	.then(response =>{
-	      console.log(response)
+        alert('Assessment Created Successfully')
+          console.log(response)
+          oneset = {}
           oneset= response.data
           this.questionsets.push(response.data);
             this.questionsets.sort(function (a, b) {
@@ -183,13 +190,7 @@ methods: {
                 return -1;
                 }
                 return 0;
-            });
-            this.oneset = {
-                nameOfSet: "",
-                quiz: [],
-                duration: "",
-                dateOfAsess: ""
-            };
+            })
         });
     }
 }
@@ -294,7 +295,7 @@ button {
     color: #FFFFFF;
 }
 .button2 {
-    background: #CECECE;
+    background: #2B3C4E;
     border-radius: 4px;
     width: 205px;
     height: 41px;

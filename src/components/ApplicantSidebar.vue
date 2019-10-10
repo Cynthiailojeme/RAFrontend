@@ -4,8 +4,8 @@
             <div class="profile">
                 <img src="../assets/adminImage.svg" class="logo">
             </div>
-            <h1 class="applicant-name">Josh Doe</h1>
-            <p class="applicant-email">doe@enyata.com</p>
+            <h1 class="applicant-name">{{applicant.fullname}}</h1>
+            <p class="applicant-email">{{applicant.email}}</p>
         </div>
 
         <div class="controllers">
@@ -27,6 +27,38 @@
         </div>
     </div>
 </template>
+
+<script>
+
+export default {
+    name: 'home',
+    components: {
+  },
+    data() {
+      return{
+        apiResponse:{},
+        applicant:{
+            fullname: "",
+            email:""
+        },
+        
+        
+        error:{},
+
+      }
+    },
+     
+     mounted() {
+        window.localStorage.getItem('firstname')
+        window.localStorage.getItem('lastname')
+        window.localStorage.getItem('email')
+        //  window.localStorage.getItem('token')
+        this.applicant.fullname = window.localStorage.getItem('firstname')+" "+ window.localStorage.getItem('lastname')
+        this.applicant.email = window.localStorage.getItem('email')
+      }
+}
+</script>
+
 
 <style scoped>
 .sidebar{

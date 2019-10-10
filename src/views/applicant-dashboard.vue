@@ -19,17 +19,13 @@
             <div class="date-status" >
                 <div class="date">
                     <p>Date of Application</p>
+
+                    <!-- <span Date.now()></span>  -->
                     <span>{{applicant.time | fineDate}}</span>
                     <div class="for-status"></div>
                     <p class="small-text"> <timeago :datetime="applicant.time"
                                                     :auto-update="60"
                                                     :converterOptions="{ includeSeconds: true }">since applied</timeago></p>
-                </div>
-                <div class="status">
-                    <p>Application Status</p>
-                    <span> Pending</span>
-                    <div class="for-status2"></div>
-                    <p class="small-text">We will get back to you</p>
                 </div>
             <div class="status">
                 <p>Application Status</p>
@@ -93,43 +89,6 @@ filters: {
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('.')
 }
 },
-methods: {
-    isToday() {
-    return moment("fineDate()", "DDMMYYYY").fromNow();
-    }
-    }
-       ApplicantSidebar 
-  },
-    data() {
-      return{
-        apiResponse:{},
-        applicant:{
-            time:""
-        },
-        
-        
-        error:{},
-
-      }
-    },
-     
-     mounted() {
-        window.localStorage.getItem('firstname')
-        window.localStorage.getItem('user')
-        window.localStorage.getItem('time')
-        window.localStorage.getItem('lastname')
-        window.localStorage.getItem('token')
-        this.applicant.fullname = this.applicant.firstname+" "+this.applicant.lastname
-        this.applicant.time = window.localStorage.getItem('time')
-      },
-
-      filters: {
-  		fineDate: function(inputFormat) {
-  			function pad(s) { return (s < 10) ? '0' + s : s; }
-            var d = new Date(inputFormat)
-            return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('.')
-  		}
-  	}
 }
 </script>
 

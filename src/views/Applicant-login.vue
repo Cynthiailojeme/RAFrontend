@@ -66,7 +66,7 @@ export default{
   methods:{
   	login:function() {
           this.error =[]
-  		this.$http.post('http://localhost:3000/applicant/login',{
+  		this.$http.post('http://localhost:3000/recruit/login',{
               email: this.applicant.email,
               password: this.applicant.password,
 

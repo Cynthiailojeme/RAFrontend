@@ -3,41 +3,26 @@
     <div class="top">
       <div class="left">
         <h1>Take Assessment</h1>
-        <span class="instruct" v-if="showquestions===true">
+        <span class="instruct" v-if="showquestions===true" v-show="disallowassessment===false">
           Click the finish button below to submit assessment, you can go back at any time to edit your
           <br />answers.
         </span>
-        <span class="instruct" v-if="showquestions===false">Thank you!</span>
+        <span
+          class="instruct"
+          v-if="showquestions===false"
+          v-show="disallowassessment===false"
+        >Thank you!</span>
+        <span class="warning" v-if="disallowassessment===true">
+          Sorry, this assessment can only be taken once
+          <br />All the best
+        </span>
       </div>
 
-      <div class="right timer" style="padding-right: 100px">
+      <div class="right" v-show="disallowassessment===false">
         Timer:
         <h2 class="count">{{countdown}}</h2>
       </div>
     </div>
-    <div>
-        <div class="top">
-            <div class="left">
-                <h1>Take Assessment</h1>
-                <span class="instruct" v-if="showquestions===true">Click the finish button below to submit assessment, you can go back at any time to edit your <br>answers.</span>
-                <span class="instruct" v-if="showquestions===false">Thank you!</span>
-            </div>
-
-            <div class="right timer" style="padding-right: 100px">Timer: 
-                <h2 class="count"> {{countdown}} </h2>
-            </div> 
-        </div>
-
-
- <div v-if="showquestions===true">
-        <div class="mid" v-for="(quiz, index) in questionset.quiz" :key="index" v-show="index === quizIndex">
-            <center>
-                <span class="numbering" :id="quizIndex">Question {{ quizIndex+1 }}</span>
-                <br>
-                <br>
-                <p class="title" :id="quiz._id" ref="id">{{ quiz.question }}</p>
-            </center>
-            <br>
 
     <div v-if="takenassessment==false">
       <div v-if="showquestions===true">
@@ -45,7 +30,8 @@
           class="mid"
           v-for="(quiz, index) in questionset.quiz"
           :key="index"
-          v-show="index === quizIndex">
+          v-show="index === quizIndex"
+        >
           <center>
             <span class="numbering" :id="quizIndex">Question {{ quizIndex+1 }}</span>
             <br />
@@ -83,6 +69,28 @@
             </div>
           </div>
         </div>
+
+        <div class="gif" v-if="submitted===true">
+          <center>
+            <img src="../assets/confetti.svg" class="confetti" />
+            <p>
+              We have received your assessment test, we will get back to you soon.
+              <br />Best of luck
+            </p>
+            <button>
+              <router-link :to="{name: 'applicant-dashboard'}" class="links">Home</router-link>
+            </button>
+          </center>
+          <div class="form-group col-md-6">
+            <div class="buttonholder" v-if="quizIndex != (questionset.quiz.length-1)">
+              <button type="submit" v-on:click="next">Next</button>
+            </div>
+
+            <div class="buttonholder" v-if="quizIndex === (questionset.quiz.length-1)">
+              <button type="submit" @click.prevent="getScore">Submit</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -97,33 +105,12 @@
           <router-link :to="{name: 'applicant-dashboard'}" class="links">Home</router-link>
         </button>
       </center>
-                    <div class="form-group col-md-6" >
-                        <div class="buttonholder" v-if="quizIndex != (questionset.quiz.length-1)">
-                            <button type="submit" v-on:click="next">Next</button>
-                        </div>
-
-                        <div class="buttonholder" v-if="quizIndex === (questionset.quiz.length-1)">
-                        <button type="submit" @click.prevent="getScore">Submit</button>
-                        </div>
-                    </div>
-            </div>
-            </div>
-        </div>
-
-        <div class="gif" v-if="submitted===true">
-            <center>
-                <img src="../assets/confetti.svg" class="confetti">
-                <p>We have received your assessment test, we will get back to you soon.<br>Best of luck</p>
-                <button><router-link :to="{name: 'Applicant-dashboard'}" class="links">Home</router-link></button>
-            </center>
-        </div>
     </div>
   </div>
 </template>
 
 <script>
 import Countdown from "vuejs-countdown";
-
 export default {
   name: "Questions",
   props: ["id"],
@@ -144,53 +131,18 @@ export default {
       timerInterval: 0,
       mins: 0,
       secs: 0,
+      disallowassessment: false,
       indexArray: []
     };
   },
   mounted() {
     let id = this.$route.params.id;
-    // if(("takenassessment") != null){
-    //     this.takenassessment = takenassessment
-    //     console.log("on load" + this.takenassessment)
-    // }
+    //this.takenassessment = takenassessment
+    this.checkAssessment();
     console.log("on load localStorage" + this.takenassessment);
     let headers = {
       "x-access-token": localStorage.getItem("token")
     };
-    name:'Questions',
-    props: ['id'],
-    data() {
-      return {
-        questionset: {},
-        quiz: {},
-        question: "",
-        quizIndex: 0,
-        setId: "",
-        answers: [],
-        token: "",
-        submitted: false,
-        showquestions: true,
-        duration: 0,
-        countdown: 0,   
-        timerInterval:0, 
-        mins: 0,
-        secs: 0,
-        indexArray: []
-       }
-     },
-    mounted() {
-        let id = this.$route.params.id
-        this.$http.get("http://localhost:3000/api/questionset/single/" + id)
-        .then(response => {
-        console.log(response.body)
-        this.questionset = response.body
-        this.duration = response.body.duration
-        this.mins = this.duration
-        this.secs = this.mins * 60
-        this.timerInterval = setInterval(this.doCountDown,1000)
-  })
-},
-computed: {
     this.$http
       .get("http://localhost:3000/api/questionset/single/" + id, { headers })
       .then(response => {
@@ -200,15 +152,33 @@ computed: {
         this.duration = response.body.duration;
         this.mins = this.duration;
         this.secs = this.mins * 60;
-        //this.takenassessment = response.body.takenassessment;
         this.timerInterval = setInterval(this.doCountDown, 1000);
-      }).catch((err) => {
-          console.log(err);
+      })
+      .catch(err => {
+        console.log(err);
       });
   },
   computed: {},
   components: { Countdown },
   methods: {
+    checkAssessment() {
+      let headers = {
+        "x-access-token": localStorage.getItem("token")
+      };
+      this.$http
+        .get("http://localhost:3000/api/applicantAns/takenassessment", {
+          headers
+        })
+        .then(response => {
+          console.log("Accessment Status");
+          this.takenassessment = response.body.status;
+          this.disallowassessment = true;
+        })
+        .catch(err => {
+          this.takenassessment = this.takenassessment;
+          console.log(err);
+        });
+    },
     // Go to next question
     next: function() {
       var userAns = {
@@ -219,7 +189,6 @@ computed: {
       var ind = "";
       var arrr = this.indexArray;
       var ansArr = this.answers;
-
       for (var i = 0; i < inputs.length; i++) {
         ind = inputs[i].id;
       }
@@ -246,12 +215,9 @@ computed: {
         }
       }
       this.indexArray.push(ind);
-
-      //        callBaackend(arr)
-      //          add quiz.question._id
-
+      // callBaackend(arr)
+      // add quiz.question._id
       console.log(this.answers);
-
       this.quizIndex++;
     },
     // Go to previous question
@@ -271,10 +237,10 @@ computed: {
         .post("http://localhost:3000/api/applicantans/send", total)
         .then(response => {
           this.submitted = true;
-          //this.showquestions = false;
-          //   this.takenassessment("takenassessment", true)
-          //   this.takenassessment = localStorage.getItem("takenassessment")
-          //   console.log("on submit" + this.takenassessment)
+          this.showquestions = false;
+          // this.takenassessment("takenassessment", true)
+          // this.takenassessment = localStorage.getItem("takenassessment")
+          // console.log("on submit" + this.takenassessment)
           console.log(response);
           total = response.data;
         });
@@ -287,47 +253,20 @@ computed: {
         var outMins = (outSecs = 0);
         clearInterval(this.timerInterval);
         outMins = parseInt(this.secs / 60, 10);
-        console.log(this.answers, this.questionset._id)
-        console.log(localStorage.getItem("token"))
-        const total = {
-            token: localStorage.getItem("token"),
-            answers: this.answers,
-            setId: this.questionset._id
-        }
-        this.$http.post('http://localhost:3000/api/applicantans/send', total)
-      	.then(response =>{
-        this.submitted = true
-        this.showquestions = false
-	      console.log(response)
-          total = response.data
-    })
-},
-doCountDown() {
-  var outMins, outSecs;
-  --this.secs;
-      this.duration = this.secs / 60;
-      if (this.secs <= 0) {
-      var outMins = (outSecs = 0);
-      clearInterval(this.timerInterval);
-      outMins = parseInt(this.secs / 60, 10);
-      outSecs = parseInt(this.secs % 60, 10);
-
-      outMins = outMins < 10 ? "0" + outMins : outMins;
-      outSecs = outSecs < 10 ? "0" + outSecs : outSecs;
-
-      this.countdown = outMins + ":" + outSecs;
-      //this.getScore();
-      return;
+        outSecs = parseInt(this.secs % 60, 10);
+        outMins = outMins < 10 ? "0" + outMins : outMins;
+        outSecs = outSecs < 10 ? "0" + outSecs : outSecs;
+        this.countdown = outMins + ":" + outSecs;
+        //this.getScore();
+        return;
       }
       outMins = parseInt(this.secs / 60, 10);
       outSecs = parseInt(this.secs % 60, 10);
-
       outMins = outMins < 10 ? "0" + outMins : outMins;
       outSecs = outSecs < 10 ? "0" + outSecs : outSecs;
-
       this.countdown = outMins + ":" + outSecs;
+    }
   }
-}
 };
 </script>
 
@@ -357,6 +296,13 @@ h1 {
   font-weight: bold;
   font-size: 16px;
   color: #2b3c4e;
+}
+.warning {
+  font-family: Lato;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 16px;
+  color: red;
 }
 h2 {
   font-family: Lato;
@@ -420,12 +366,10 @@ input[type="radio"] {
   -webkit-appearance: none;
   margin-right: 20px;
 }
-
 input[type="radio"]:checked {
   background-color: #2b3c4e;
   background-size: 8px 8px;
 }
-
 input[type="radio"]:focus {
   outline-color: transparent;
 }
@@ -491,27 +435,27 @@ button {
   text-align: center;
   color: #4f4f4f;
 }
-.timer{
-width: 37px;
-height: 17px;
-padding-bottom: 50px;
-font-family: Lato;
-font-style: normal;
-font-weight: normal;
-font-size: 14px;
-line-height: 17px;
-text-align: center;
-color: #4F4F4F;
+.timer {
+  width: 37px;
+  height: 17px;
+  padding-bottom: 50px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #4f4f4f;
 }
-.count{
-position: absolute;
-width: 56px;
-height: 58px;
-font-family: Lato;
-font-style: normal;
-font-weight: 300;
-font-size: 40px;
-text-align: center;
-color: #2B3C4E;
+.count {
+  position: absolute;
+  width: 56px;
+  height: 58px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 40px;
+  text-align: center;
+  color: #2b3c4e;
 }
 </style>

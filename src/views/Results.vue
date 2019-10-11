@@ -10,7 +10,7 @@
                         	<div class="top">
 						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
 						      	<div class="dropdown">
-						      	<p>Results- Batch 2</p>  		
+						      	<p>Results</p>  		
 							</div>
 						<p class="applied">Comprises of all that applied for batch2</p>
 						

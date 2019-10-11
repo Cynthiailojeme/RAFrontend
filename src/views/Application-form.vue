@@ -1,9 +1,24 @@
 <template>
-    <div>
-        <div class="form-container-head">
-            <img src="../assets/enyata-logo.png" alt="enyata" class="enyata-logo">
-            <h3>enyata</h3>
-            <p>Applicant Sign Up </p>
+  <div>
+    <div class="form-container-head">
+      <img src="../assets/enyata-logo.png" alt="enyata" class="enyata-logo" />
+      <h3>enyata</h3>
+      <p>Applicant Sign Up</p>
+    </div>
+    <div class="form-wrapper" v-show="isComputedPropertyReady">
+      <form @submit.prevent="add" v-if="isApplicationStillOpen" enctype="multipart/form-data">
+        <div>
+          <input type="file"  />
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>First Name</label>
+            <input v-model="formData.first_name" type="text" class="form-control" required />
+          </div>
+          <div class="col">
+            <label>Last Name</label>
+            <input v-model="formData.last_name" type="text" class="form-control" required/>
+          </div>
         </div>
         <div class="form-wrapper" v-show="isComputedPropertyReady">
           <form @submit.prevent="add" v-if="isApplicationStillOpen">
@@ -87,11 +102,12 @@
           </form> 
           <div v-else>
             <h1 class="else"> Sorry,We are no longer receiving application</h1>
-        </div>
-        </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
+import Loading from "@/components/Loading.vue";
 var myWidget = cloudinary.createUploadWidget({
   cloudName: 'dygctamiz', 
   uploadPreset: 'ht58on2s'}, (error, result) => { 
@@ -103,8 +119,6 @@ var myWidget = cloudinary.createUploadWidget({
     }
   }
 )
-
-
 
 // document.getElementById("upload_widget").addEventListener("click", function(){
 //     myWidget.open();
@@ -137,7 +151,9 @@ var myWidget = cloudinary.createUploadWidget({
 
     },
 
-    components:{},
+    components:{
+      Loading
+    },
     computed: {
         isApplicationStillOpen: function(){
             let closingDate = new Date(this.applicationData.application_date)
@@ -211,6 +227,7 @@ var myWidget = cloudinary.createUploadWidget({
     },
 
       add:function(){
+      this.isLoading = true;
   		console.log(this.newGuest)
             this.$http.post('http://localhost:3000/recruit/signup',this.formData)
             
@@ -238,11 +255,13 @@ var myWidget = cloudinary.createUploadWidget({
         // console.log(this.applicant)
         this.$router.push("/applicant-login")
         })
+        .finally(() => {
+          this.isLoading = false;
+        });
       },
     }
 };  
 </script>
-
 
 <style scoped>
 
@@ -304,109 +323,107 @@ var myWidget = cloudinary.createUploadWidget({
     margin-right: 15px;
 }
 .enyata-logo {
-    width: 49px;
-    height: 52px;
+  width: 49px;
+  height: 52px;
 }
 
 .form-container-head {
-    text-align:  center;
-    margin-top: 116px;
-
+  text-align: center;
+  margin-top: 116px;
 }
 
 .form-container-head h3 {
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 32px;
-    letter-spacing: -0.02em;
-    color: #2B3C4E;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: #2b3c4e;
 }
 
 .form-container-head p {
-    font-family: 'Lato', sans-serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 24px;
-    color: #2B3C4E;
+  font-family: "Lato", sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 24px;
+  color: #2b3c4e;
 }
 
 .form-wrapper {
-    width: 80%;
-    max-width: 963px;
-    height: 780px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 45px;
-    margin-bottom: 171px;
-    display: block;
-    background: #FFFFFF;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+  width: 80%;
+  max-width: 963px;
+  height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 45px;
+  margin-bottom: 171px;
+  display: block;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
 }
 
 form {
-    width: 90%;
-    max-width: 830px;
-    height: 469px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    padding-top: 51px;
+  width: 90%;
+  max-width: 830px;
+  height: 469px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding-top: 51px;
 }
 
 .rows {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 label {
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    color: #2B3C4E;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  color: #2b3c4e;
 }
 
 input {
-    border: 1.5px solid #2B3C4E;
-    box-sizing: border-box;
-    border-radius: 4px;
+  border: 1.5px solid #2b3c4e;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 
 .btn {
-    width:70%;
-    max-width: 379px;
-    height: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 40px;
-    display: block;
-    background: #2B3C4E;
-    border-radius: 4px;
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    color: #FFFFFF;
+  width: 70%;
+  max-width: 379px;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  display: block;
+  background: #2b3c4e;
+  border-radius: 4px;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  color: #ffffff;
 }
 
-.else{
-    text-align: center;
-    font-size: 50px;
-    padding-top:30vh
+.else {
+  text-align: center;
+  font-size: 50px;
+  padding-top: 30vh;
 }
-
 
 .password {
-    position: relative;
-    display: block;
-    float: right;
-    width: 100%;
+  position: relative;
+  display: block;
+  float: right;
+  width: 100%;
 }
 
 .password img {
-    margin-top: -20px;
-    margin-right: 20px;
-    float: right;
+  margin-top: -20px;
+  margin-right: 20px;
+  float: right;
 }
 </style>

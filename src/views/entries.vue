@@ -8,25 +8,137 @@
                     <div class="other-side">
                         	<div class="top">
 						      	<div class="dropdown">
-						      	    <p>Entries</p>
-						  		</div>
-                                  <!-- <i class="fa fa-caret-down arrow"></i> -->
-						            <p class="applied">Comprises of all that applied for batch2</p>
-						    </div>
+						      	<p>Entries</p>
+						  		
+							</div>
+						<p class="applied">Comprises of all that applied for batch2</p>
+						
+					</div>
 
-                        <div class="down">
-                            <div id="vueapp" class="vue-app">
-                                <kendo-grid :data-source="applicants" :columns="columns"
-                                            :sortable="true"
-                                            :filterable="false"
-                                            :groupable="false"> 
-                                </kendo-grid>
-                            </div>
+                    <div class="down">
+                        <div id="vueapp" class="vue-app">
+                            <kendo-grid :data-source="applicants" :columns="columns"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false"> 
+                            </kendo-grid>
                         </div>
                     </div>                    
                 </div>
         </div>
     </div>       
+   
+        <!-- <div class="main"> -->
+            <!-- <div class="otherSide"> -->
+					<!-- <div class="top"> -->
+						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
+						      	<!-- <div class="dropdown"> -->
+						      	<!-- <p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p> -->
+						  		<!-- <button class="dropbtn">Dropdown</button> -->
+						 		 <!-- <div class="dropdown-content"> -->
+						   		 <!-- <a style="font-size: 12px;" href="#">Batch 1</a> -->
+						    	<!-- <a style="font-size: 12px;" href="#">Batch 2</a> -->
+						    	<!-- <a style="font-size: 12px;" href="#">Batch 3</a> 
+						  	</div>
+							</div>
+						<p class="applied">Comprises of all that applied for batch2</p>
+						
+					</div>
+
+					<div class="down">
+
+						 <div id="vueapp">
+                            <kendo-grid :data-source="applicants">
+                                <kendo-grid-column :field="'first_name'"
+                                                :title="'Name'"
+                                                :background_color = "'blue'"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'email'"
+                                                    :title="'Email'"
+
+                                                ></kendo-grid-column>	
+
+                                <kendo-grid-column :field="'date_of_birth'"
+                                                :title="'DOB.Age'"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'address'"
+                                                :title="'Address'"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'university'"
+                                                    :title="'University'"
+                                                    ></kendo-grid-column>
+
+                                <kendo-grid-column :field="'cgpa'"
+                                                    :title="'GPA'"
+                                                    ></kendo-grid-column>
+                            </kendo-grid>
+                        </div> -->
+
+                            <!-- <div id="vueapp" class="vue-app">
+                            <kendo-grid :data-source="applicants" :columns="columns"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false"> 
+
+                            </kendo-grid> -->
+
+                            </kendo-grid> -->
+
+
+
+                            <!-- <kendo-grid :data-source="applicants"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false"> -->
+                            <!-- <kendo-grid :data-source="applicants"
+                                        :sortable="true"
+                                        :filterable="false"
+                                        :groupable="false">>
+                                <kendo-grid-column :field="'applicants.first_name'"
+                                                :title="'Name'"
+                                                :width="40"
+                                                ></kendo-grid-column>
+                                <kendo-grid-column :field="'ProductName'"></kendo-grid-column>
+                                <kendo-grid-column :field="'UnitPrice'"
+                                                :title="'Unit Price'"
+                                                :width="120"
+                                                :format="'{0:c}'"></kendo-grid-column>
+                                <kendo-grid-column :field="'UnitsInStock'"
+                                                :title="'Units In Stock'"
+                                                :width="120"></kendo-grid-column>
+                                <kendo-grid-column :field="'Discontinued'"></kendo-grid-column> 
+
+                            
+
+                            </kendo-grid> 
+                        </div>
+                                                 <table id="dt-select" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Extn.</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Extn.</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                            </tr>
+                        </tfoot>
+                        </table> -
+                        </div>
+						
+					</div>
+                    
+        </div>-->
 </template>
 
 

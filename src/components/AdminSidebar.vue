@@ -4,8 +4,8 @@
             <div class="profile">
                 <img src="../assets/adminImage.svg" class="logo">
             </div>
-            <h1 class="admin-name">Josh Doe</h1>
-            <p class="admin-email">j.doe@enyata.com</p>
+            <h1 class="admin-name">Enyata</h1>
+            <p class="admin-email">{{admin.email}}</p>
         </div>
 
         <div class="controllers">
@@ -42,11 +42,43 @@
             <br>
             <br>
             <div>
-                <p><img src="../assets/logout.svg" class="icon">Log Out</p>
+                <router-link @click.native="deleteItem"  to="/" class="links">
+                    <p><img src="../assets/logout.svg" class="icon">Log Out</p>
+                </router-link>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'home',
+    data() {
+        return{
+            apiResponse:{},
+            admin: {
+            email:"",
+            name: "",
+            },
+            error:{},
+        }
+    },
+    mounted() {
+    window.localStorage.getItem("email")
+    this.admin.email = window.localStorage.getItem("email")
+    window.localStorage.getItem("name")
+    console.log(window.localStorage.getItem("name"))
+    this.admin.name = window.localStorage.getItem("name")
+
+    },
+    methods: {
+        deleteItem(event) {
+        window.localStorage.removeItem("email");
+        window.localStorage.removeItem("name");
+        }
+    }
+}
+</script>
 
 <style scoped>
 .sidebar{

@@ -3,7 +3,7 @@
         <div class="top">
             <div class="left">
                 <h1>Take Assessment</h1>
-                <p>Click the button below to start assessment, you have limited time for this test</p>
+                <p class="limited">Click the button below to start assessment, you have limited time for this test</p>
             </div>
             <!-- <div class="right">
                 <h2>Timer</h2>
@@ -13,14 +13,15 @@
         <div class="hourglass">
             <center>
                 <img src="../assets/hourglass.svg" alt="timer" class="time">
-                <p>We have 4 days left until the next assessment
+                <p v-if="days!==0">We have {{days}} days left until the next assessment
                 <br>Watch this space</p>
+                <p v-if="showing===true">Date of Assessment Passed</p>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Take Assessment
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" v-for="questionset in questionsets" :key="questionset._id">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" v-if="days===0">
+                        <a class="dropdown-item" href="#" v-for="(questionset, index) in questionsets" :key="index">
                             <router-link :to="{name:'Questions', params:{id: questionset._id}}">
                                 {{ questionset.nameOfSet }}
                             </router-link></a>
@@ -32,6 +33,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'TakeAssessment',
   props: ['id'],
@@ -39,6 +42,10 @@ export default {
       return {
         questionsets: [],
         questionset: {},
+        dateOfAssess: null,
+        index: null,
+        days: 0,
+        showing: false
        }
      },
     components: {},
@@ -47,7 +54,25 @@ export default {
         this.$http.get(url)
         .then(response => {
         console.log(response.body)
-        this.questionsets= response.body
+        this.questionsets = response.body
+        console.log(response.body[response.body.length -1])
+        this.dateOfAsess = response.body[response.body.length -1].dateOfAsess
+        var now = moment(new Date()); //todays date
+        var end = moment(this.dateOfAsess); // another date
+        var duration = moment.duration(end.diff(now));
+        var show = now.isAfter(end);
+    
+        if(this.show){
+            console.log("date passed")
+            this.showing = true
+        }
+        else{
+            console.log("date not passed")
+             this.days = duration.days();
+             console.log(this.days)
+        console.log(this.dateOfAsess)
+        }
+        
     })
     },
 computed: {},
@@ -65,6 +90,14 @@ methods: {}
 }
 .right {
     float: right;
+}
+.limited{
+    width: 510px;
+    font-family: Lato;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 15px;
+    color: #2B3C4E;
 }
 h1 {
     font-family: Lato;

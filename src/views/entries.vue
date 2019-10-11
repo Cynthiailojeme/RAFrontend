@@ -87,11 +87,10 @@
                                         :sortable="true"
                                         :filterable="false"
                                         :groupable="false"> 
-                                
 
                             </kendo-grid> -->
 
-
+                            </kendo-grid> -->
 
 
 

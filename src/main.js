@@ -19,6 +19,17 @@ Vue.use(VueTimeago, {
     ja: require('date-fns/locale/ja')
   }
 })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAdmin)) {
+    if (localStorage.getItem('token') == null) {
+      next('/');
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 Vue.use(VueResource);
 Vue.config.productionTip = false
 Vue.use(VueSweetalert2);

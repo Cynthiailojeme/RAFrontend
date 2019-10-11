@@ -52,6 +52,7 @@
 
 <script>
 import Loading from "@/components/Loading.vue";
+
 export default {
   name: "home",
   data() {
@@ -66,7 +67,6 @@ export default {
       error: []
     };
   },
-
   components: {
     Loading
   },
@@ -117,12 +117,33 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
+        })
+        .then(response => {
+          window.localStorage.setItem("user", response.body.user._id);
+          window.localStorage.setItem("time", response.body.user.created_at);
+          window.localStorage.setItem(
+            "firstname",
+            response.body.user.first_name
+          );
+          window.localStorage.setItem("lastname", response.body.user.last_name);
+
+          console.log(response.body.user);
+          window.localStorage.setItem("token", response.body.token);
+          window.localStorage.setItem("email", response.body.user.email);
+          console.log(response), this.$router.push("/applicant-dashboard");
+        })
+        .catch(err => {
+          if ((err.status = 403)) {
+            this.error.push(err.body.message);
+          } else {
+            this.error.push("Oops! Unexpected Error Occurred");
+          }
+          console.log(err);
         });
     }
   }
 };
 </script>
-
 
 <style scoped>
 .form-container {
@@ -207,7 +228,6 @@ input {
   font-weight: bold;
   font-size: 16px;
   color: #ffffff;
-  /* margin-top: 30px; */
 }
 
 .no-account {

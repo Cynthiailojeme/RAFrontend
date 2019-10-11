@@ -19,8 +19,8 @@
                     <td>{{ questionset.createdAt | fineDate }}</td>
                     <td>{{ questionset.quiz.length }}</td>
                     <td>{{ questionset.dateOfAsess }}</td>
-                    <td>{{ questionset.duration }} mins &nbsp; &nbsp; &nbsp;<i class="fa fa-trash" aria-hidden="true" @click="del(set)"></i></td>
-                    <!-- <td>Taken</td> -->
+                    <td>{{ questionset.duration }} mins </td>
+                    <!-- <td>Taken &nbsp; &nbsp; &nbsp;<i class="fa fa-trash" aria-hidden="true" @click="del(set)"></i></td> -->
                 </tr>
             </tbody>
         </table>

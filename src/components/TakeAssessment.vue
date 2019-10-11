@@ -13,7 +13,7 @@
         <div class="hourglass">
             <center>
                 <img src="../assets/hourglass.svg" alt="timer" class="time">
-                <p v-if="days!==0">We have {{days}} days left until the next assessment
+                <p v-if="days!=0">We have {{days}} days left until the next assessment
                 <br>Watch this space</p>
                 <p v-if="showing===true">Date of Assessment Passed</p>
                 <div class="dropdown">

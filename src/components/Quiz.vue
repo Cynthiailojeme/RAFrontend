@@ -37,6 +37,7 @@
             <br />
             <br />
             <p class="title" :id="quiz._id" ref="id">{{ quiz.question }}</p>
+            <p class="title"><img :src="quiz.question" alt="quizimage"></p>
           </center>
           <br />
 

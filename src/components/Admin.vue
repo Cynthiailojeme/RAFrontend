@@ -23,7 +23,7 @@
                     </div>
 
                     <div>
-                         <button type="submit" class="btn btn-primary"><loading v-if="isLoading" /> <span v-else>Sign In</span></button>
+                         <button type="submit" class="btn btn-primary"><loading v-if="isLoading"/><span v-else>Sign In</span></button>
                     </div>
                     <p class="forgot">Forgot Password?</p>
                 </div>
@@ -48,6 +48,7 @@ export default{
         error:{}
       }
     },
+    components: {Loading},
     mounted() {
       $("#passwordView").click(function(){
             let idAttr = $("input#exampleInputPassword1").attr("type");

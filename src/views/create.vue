@@ -16,16 +16,24 @@
 							<form @submit.prevent="sendFile" enctype="multipart/form-data"> 
 							  <div class="form-row">
 							    <div class=" form-group col-md-6">
+									<div  class="files" v-if="!image" >
 							    	<!-- <i class="icon"><img src="../assets/plus.png"><span>Choose File</span></i>  -->
 							      <input type="file"
-								   ref="file"
-								   @change="selectFile" 
-								   class=" first_box form-control" id="dotted" >
+								    ref="file"
+								   @change="onFileChange" 
+								   class=" uploadfil first_box form-control" id="dotted" >
                                   <i class="visible"><img src="../assets/plus.png"><span>Choose File</span></i>
+							    </div>
+								<!-- ref="file" -->
+								<div v-else>
+								<img :src="image" class="fileimg"/>
+								<input type="file" name="image" style="display:none">
+								<button class="btn3 " @click="removeImage">Remove image</button>
+							</div>
 							    </div>
 							    <div class="form-group col-md-6 pl-5">
 							      <label class="batch" >Link</label>
-							      <input v-model="link" class=" second_box form-control">
+							      <input v-model="link" class=" second_box2 form-control">
 							    </div>
 							  </div>
 							  <div class="form-row pt-4">
@@ -109,13 +117,14 @@ export default {
     data() {
       return{
 		apiResponse:{},
-			file: "",
+			// file: "",
             link: "",
             application_date: "",
 			batch_id: "",
 			instruction: "",
 			message: "",
 			error: "",
+			image:"",
 
 		
         error:[],
@@ -125,57 +134,44 @@ export default {
 
     mounted() {
 		// load fb sdk
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
+		// (function(d, s, id) {
+		// 	var js, fjs = d.getElementsByTagName(s)[0];
+		// 	if (d.getElementById(id)) return;
+		// 	js = d.createElement(s); js.id = id;
+		// 	js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+		// 	fjs.parentNode.insertBefore(js, fjs);
+		// }(document, 'script', 'facebook-jssdk'));
 	},
 	methods: {
-		share: function(){
-			console.log('jello')
-			//link
-			var link = document.createElement('meta');
-			link.setAttribute('property', 'og:url');
-			link.content = this.link;
-			document.getElementsByTagName('head')[0].appendChild(link);
+		onFileChange(e) {
+		this.image = this.$refs.file.files[0]	
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
 
-			//title
-			var title = document.createElement('meta');
-			title.setAttribute('property', 'og:title');
-			title.content = "Whatever the title is";
-			document.getElementsByTagName('head')[0].appendChild(title);
-
-			//instruction
-			var description = document.createElement('meta');
-			description.setAttribute('property', 'og:description');
-			description.content = this.instruction;
-			document.getElementsByTagName('head')[0].appendChild(description);
-
-			//image
-			var image = document.createElement('meta');
-			image.setAttribute('property', 'og:image');
-			image.content = this.file;
-			document.getElementsByTagName('head')[0].appendChild(image);
-
-			//type
-			var type = document.createElement('meta');
-			image.setAttribute('property', 'og:type');
-			type.content = "article";
-			document.getElementsByTagName('head')[0].appendChild(type);
-
-			$("button#u_0_2").click();
-
-		},
+		createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function removeImage(e) {
+            this.image = '';
+    },
+		
 		selectFile(){
 			this.file = this.$refs.file.files[0]
+			
 		},
 		sendFile(){
 			// console.log(this)
 			const formData = new FormData();
-			formData.append('file', this.file);
+			formData.append('img', this.file);
 			formData.append('link', this.link);
 			formData.append('application_date', this.application_date);
 			formData.append('batch_id', this.batch_id);
@@ -225,7 +221,10 @@ export default {
 		/*border: 1px solid red;*/
 		height: 180vh;
 	}
-
+	.fileimg {
+    height: 140px;
+    width: 400px;
+}
 	.sidebar{
 		/*border: 1px solid green;*/
 		height: 180vh;
@@ -244,6 +243,12 @@ export default {
 		box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
 		background-color: #ffffff;
 	}
+
+	.uploadfil {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
 
 	.john {
 		width: 292px;
@@ -351,6 +356,7 @@ export default {
 	.first_box{
 		height: 108px;
 		text-align: center;
+	
 	}	
 
 	#dotted{
@@ -358,6 +364,14 @@ export default {
 		    border: 1.5px dashed #2B3C4E;
 		    border-radius: 6.2069px;
 	}
+
+	.files {
+    border: 1.55172px dashed #2B3C4E;
+    box-sizing: border-box;
+    border-radius: 6.2069px;
+    height: 108px;
+    /* width: 90% !important; */
+}
 
 	.input_icons i { 
             position: absolute;
@@ -375,6 +389,14 @@ export default {
         .second_box{
         	border: 1.5px solid #2B3C4E;
         } 
+
+		.second_box2{
+			border: 1.5px solid #2B3C4E;
+			position:fixed;
+			position: -webkit-sticky; /* Safari */
+ 			 position: sticky!important;
+  			top: 0;
+		}
 
         .text{
         	height: 120px;
@@ -414,6 +436,24 @@ export default {
 
         }
 
+		.btn3{
+			width: 30%;
+        	height: 40px;
+        	/* margin: auto; */
+        	/* display: block; */
+        	background-color: #2B3C4E;
+        	font-family: Lato;
+        	font-style: normal;
+        	font-weight: bold;
+        	font-size: 14px;
+        	line-height: 19px;
+        	/* identical to box height */
+
+
+        	color: #FFFFFF;
+
+		}
+
         .btn1{
         	padding-top: 44px;
         }
@@ -423,7 +463,7 @@ export default {
 
         }
 		  .visible {
-    margin-top: -60px;
+    margin-top: 35px;
     margin-right: 20px;
     /* margin-left: 45px; */
     float: right;

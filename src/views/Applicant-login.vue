@@ -22,7 +22,7 @@
             <p class="text-danger" v-for="(err,index) in error" :key="index">{{err}}</p>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Sign In</button>
+                <button type="submit" class="btn btn-primary"><loading v-if="isLoading" /> <span v-else>Sign In</span> </button>
             </div>
         </form>
         <span class="no-account">Don’t have an account yet?<router-link class=" sign ml-1" :to="{name:'signup'}"> Sign Up</router-link></span><span class="forgot">Forgot Password?</span>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue'
 export default{
     name:'home',
     data() {
@@ -40,11 +41,14 @@ export default{
             email: "",
             password: ""           
         },
+        isLoading: false,
         user:[],
         error:[],
       }
     },
-    components:{},
+    components:{
+        Loading
+    },
     mounted() {
         $("#passwordView").click(function(){
             let idAttr = $("input#exampleInputPassword1").attr("type");
@@ -58,6 +62,7 @@ export default{
 
     methods:{
         login:function() {
+            this.isLoading = true
             this.error =[]
             this.$http.post('http://localhost:3000/recruit/login',{
                 email: this.applicant.email,
@@ -83,6 +88,9 @@ export default{
             }
             else{this.error.push('Oops! Unexpected Error Occurred')}
             console.log(err)
+        })
+        .finally(() =>{
+            this.isLoading = false
         })
         }
   	}

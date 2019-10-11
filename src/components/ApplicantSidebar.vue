@@ -22,7 +22,9 @@
             <br>
             <br>
             <div>
+                <router-link @click.native = "deleteItem" to = "/applicant-login" class="links">
                 <p><img src="../assets/logout.svg" class="icon">Log Out</p>
+                </router-link>
             </div>
         </div>
     </div>
@@ -50,7 +52,18 @@ export default {
         window.localStorage.getItem('email')
         this.applicant.fullname = window.localStorage.getItem('firstname')+" "+ window.localStorage.getItem('lastname')
         this.applicant.email = window.localStorage.getItem('email')
-      }
+      },
+
+      methods: {
+         deleteItem(event) {
+        window.localStorage.removeItem("firstname");
+        window.localStorage.removeItem("lastname");
+        window.localStorage.removeItem("email");
+        window.localStorage.removeItem("time");
+        window.localStorage.removeItem("token");
+        window.localStorage.removeItem("user");
+        }
+    }
 }
 </script>
 

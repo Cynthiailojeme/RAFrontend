@@ -7,47 +7,58 @@
         </div>
         <div class="form-wrapper" v-show="isComputedPropertyReady">
           <form @submit.prevent="add" v-if="isApplicationStillOpen">
-            <div class="row">
+                
+                        <div class=" form-group col-md-5">
+							    	
+							      <input  @click ="clicked"
+					
+								   @change="selectFile" 
+								   class=" first_box form-control" id="dotted" >
+                                  <i class="visible"><img @click ="clicked" src="../assets/plus.png"><span>&nbsp; &nbsp; Upload CV</span></i>
+							    </div>
+
+
+            <div class="row mt-3">
                 <div class="col">
                     <label>First Name</label>
-                    <input v-model="formData.first_name" type="text" class="form-control">
+                    <input v-model="formData.first_name" type="text" class="form-control" required>
                 </div>
                 <div class="col">
                     <label>Last Name</label>
-                    <input v-model="formData.last_name" type="text" class="form-control">
+                    <input v-model="formData.last_name" type="text" class="form-control" required>
                 </div>
             </div>
 
             <div class="row rows">
                 <div class="col">
                     <label>Email</label>
-                    <input  v-model="formData.email" type="email" class="form-control">
+                    <input  v-model="formData.email" type="email" class="form-control" required>
                 </div>
                 <div class="col">
                     <label>Date of Birth</label>
-                    <input v-model="formData.date_of_birth" type="date" class="form-control">
+                    <input v-model="formData.date_of_birth" type="date" class="form-control" required>
                 </div>
             </div>
 
             <div class="row rows">
                 <div class="col">
                     <label>Address</label>
-                    <input v-model="formData.address" type="text" class="form-control">
+                    <input v-model="formData.address" type="text" class="form-control" required>
                 </div>
                 <div class="col">
                     <label>University</label>
-                    <input v-model="formData.university" type="text" class="form-control">
+                    <input v-model="formData.university" type="text" class="form-control" required>
                 </div>
             </div>
 
             <div class="row rows">
                 <div class="col">
                     <label>Course of Study</label>
-                    <input v-model="formData.course_of_study" type="text" class="form-control">
+                    <input v-model="formData.course_of_study" type="text" class="form-control" required>
                 </div>
                 <div class="col">
                     <label>CGPA</label>
-                    <input v-model="formData.cgpa" type="text" class="form-control">
+                    <input v-model="formData.cgpa" type="text" class="form-control" required>
                 </div>
                 
             </div>
@@ -81,6 +92,24 @@
     </div>
 </template>
 <script>
+var myWidget = cloudinary.createUploadWidget({
+  cloudName: 'dygctamiz', 
+  uploadPreset: 'ht58on2s'}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+      console.log('Done! Here is the image info: ', result.info); 
+      console.log("Image Url "+result.info.url)
+    }else{
+        console.log(error)
+    }
+  }
+)
+
+
+
+// document.getElementById("upload_widget").addEventListener("click", function(){
+//     myWidget.open();
+//   }, false);
+
   export default{
     name:'home',
     data() {
@@ -100,6 +129,7 @@
             password:"",
             confirm_password:""
         },
+        image:"",
 
         error:{}
 
@@ -151,8 +181,35 @@
           });
     },
      methods:{
+         clicked(){
+             myWidget.open();
+            
+         },
       checkDate: function(){
       },
+
+      selectFile(){
+			this.file = this.$refs.file.files[0]
+		},
+         onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function removeImage(e) {
+            this.image = '';
+    },
+
       add:function(){
   		console.log(this.newGuest)
             this.$http.post('http://localhost:3000/recruit/signup',this.formData)
@@ -188,6 +245,64 @@
 
 
 <style scoped>
+
+.form-group{
+    margin:auto;
+}
+.files {
+    border: 1.55172px dashed #2B3C4E;
+    box-sizing: border-box;
+    border-radius: 6.2069px;
+    height: 108px;
+    width: 90% !important;
+}
+.fileimg {
+    height: 300px;
+    width: 300px;
+}
+#dotted{
+		border:0;
+		    border: 1.5px dashed #2B3C4E;
+		    /* border-radius: 6.2069px; */
+	}
+
+.first_box{
+		height: 50px;
+		text-align: center;
+	
+	}
+  .visible {
+    margin-top: -40px;
+    margin-right: 80px;
+    /* margin-left: 45px; */
+    float: right;
+    /* margin-right: 200px; */
+}	
+.cv {
+    border: 1.55172px dashed #2B3C4E;
+    box-sizing: border-box;
+    border-radius: 6.2069px;
+    height: 60px;
+    width: 30% !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: block
+}
+.cv > p {
+    font-family: Avenir;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 12px;
+    color: #2B3C4E;
+  }
+.uploadfil {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+.icon{
+    margin-right: 15px;
+}
 .enyata-logo {
     width: 49px;
     height: 52px;
@@ -219,7 +334,7 @@
 .form-wrapper {
     width: 80%;
     max-width: 963px;
-    height: 700px;
+    height: 780px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 45px;

@@ -1,16 +1,15 @@
 <template>
-    <div class="create">
-        <div class="row" style="max-width:1350px;"> 
-                <div class="col-sm-3">
+    <!-- <div class="create"> -->
+        <!-- <div class="row" style="max-width:1350px;">  -->
+                <!-- <div class="col-sm-3">
                     <AdminSidebar />
-                </div>
-                <div class="col-sm-9">
+                </div> -->
+                <!-- <div class="col-sm-9"> -->
                     <div class="other-side">
                         	<div class="top">
 						      	<div class="dropdown">
-						      	    <p>Entries</p>
+						      	    <p>Entries- Batch 2<i class="fa fa-caret-down arrow"></i></p>
 						  		</div>
-                                  <!-- <i class="fa fa-caret-down arrow"></i> -->
 						            <p class="applied">Comprises of all that applied for batch2</p>
 						    </div>
 
@@ -24,21 +23,21 @@
                             </div>
                         </div>
                     </div>                    
-                </div>
-        </div>
-    </div>       
+                <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div>        -->
 </template>
 
 
 <script>
 
-import AdminSidebar from '@/components/AdminSidebar.vue';
+// import AdminSidebar from '@/components/AdminSidebar.vue';
 import { lstat } from 'fs';
 
 export default {
     name: 'forms',
     components: {
-    AdminSidebar,
+    // AdminSidebar,
     },
     data() {
 	  
@@ -48,8 +47,8 @@ export default {
             { field: "fullname",title:"Name", width:"180px"},
             { field: "email", title: "Email", width: "230px"},
             { field: "date_of_birth", title:"DOB.Age"},
-			{ field: "address", title:"Address" ,width: "150px" },
-			{ field: "university", title:"University", width:"180px" },
+			{ field: "address", title:"Address", width: "100px" },
+			{ field: "university", title:"University", width: "180px" },
 			{ field: "cgpa", title:"CGPA" }
         ],
       applicants:[{
@@ -132,10 +131,10 @@ line-height: 17px;
 color: #FFFFFF;
 
 }
-.create {
-    /* border:1px solid red; */
+/* .create {
+    border:1px solid red;
     height: 200vh;
-}
+} */
 
 
  tbody{

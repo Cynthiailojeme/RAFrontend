@@ -1,15 +1,32 @@
 <template>
-  <div class="create">
-    <div class="row" style="max-width:1350px;">
-      <div class="col-sm-3">
-        <AdminSidebar />
-      </div>
-      <div class="col-sm-9">
-        <div class="other-side">
-          <div class="top">
-            <!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
-            <div class="dropdown">
-              <p>Results</p>
+    <div class="create">
+            <div class="row" style="max-width:1350px;"> 
+                <div class="col-sm-3">
+                    <AdminSidebar />
+
+                </div>
+                <div class="col-sm-9">
+                    <div class="other-side">
+                        	<div class="top">
+						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
+						      	<div class="dropdown">
+						      	<p>Results</p>  		
+							</div>
+						<p class="applied">Comprises of all that applied for batch2</p>
+						
+					</div>
+
+                    <div class="down">
+                            <div id="vueapp" class="vue-app">
+                                <kendo-grid :data-source="applicants" :columns="columns"
+                                            :sortable="true"
+                                            :filterable="false"
+                                            :groupable="false"> 
+                                </kendo-grid>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
             </div>
             <p class="applied">Comprises of all that took the assessment</p>
           </div>

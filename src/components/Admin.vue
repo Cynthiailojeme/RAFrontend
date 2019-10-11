@@ -69,6 +69,9 @@ export default{
         window.localStorage.setItem("admin", response.body.admin._id)
         window.localStorage.setItem("email", response.body.admin.email)
         window.localStorage.setItem("name", response.body.admin.name)
+
+        window.localStorage.setItem("token", response.body.token)
+
         console.log(response)
         console.log(window.localStorage.setItem("name", response.body.admin.name))
         this.$router.push("/Admin-dashboard")

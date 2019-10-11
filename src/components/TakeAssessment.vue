@@ -3,7 +3,7 @@
         <div class="top">
             <div class="left">
                 <h1>Take Assessment</h1>
-                <p>Click the button below to start assessment, you have limited time for this test</p>
+                <p class="limited">Click the button below to start assessment, you have limited time for this test</p>
             </div>
             <!-- <div class="right">
                 <h2>Timer</h2>
@@ -90,6 +90,14 @@ methods: {}
 }
 .right {
     float: right;
+}
+.limited{
+    width: 510px;
+    font-family: Lato;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 15px;
+    color: #2B3C4E;
 }
 h1 {
     font-family: Lato;

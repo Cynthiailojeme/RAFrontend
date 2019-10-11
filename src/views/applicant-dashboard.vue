@@ -3,7 +3,6 @@
     <div id="app">
       <ApplicantSidebar />
     </div>
-
     <div class="dashboard">
       <div class="head">
         <p>Dashboard</p>
@@ -20,7 +19,7 @@
               :datetime="applicant.time"
               :auto-update="60"
               :converterOptions="{ includeSeconds: true }"
-            ></timeago>since applied
+            ></timeago> since applied
           </p>
         </div>
         <div class="status">
@@ -53,11 +52,7 @@
 </template>
 
 <script>
-import moment from "moment";
-// window.onload = function() {
-// document.getElementById("date").innerHTML = localStorage.getItem("time");
-// }
-
+import moment from 'moment';
 import ApplicantSidebar from "@/components/ApplicantSidebar.vue";
 export default {
   name: "home",

@@ -29,7 +29,7 @@
     				<li><b>Any discipline of study</b></li>
     				<li><b>Any gender</b></li>
     			</ul>
-    			<p><b>Application closes {{applicants.application_date}}</b></p>
+    			<p><b>Application closes {{applicants.application_date | longDate }}</b></p>
     		</div>
     	</div>
     	</div>
@@ -44,9 +44,9 @@
 
         </div>
 
-		<div class="btn1 pt-3">
+		<!-- <div class="btn1 pt-3">
 		<button type="submit" style="background-color: #2B3C4E; color:#ffff" class="btn">Share</button>
-		</div>
+		</div> -->
 
 	
 
@@ -85,7 +85,23 @@
 
 
     	
-          }
+		  },
+		  
+	// filters: {
+	//   longDate:function(val){
+	// 	  return new Date(val).toDateString();
+	//   }
+	  
+	//   } 
+
+	filters: {
+		longDate: function() {
+			var now = new Date()
+ 			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+			return now.getDate() + "th " + "" + months[now.getMonth()] + "," + " " + now.getFullYear()
+		}
+	}
+	    
   }  
   
   </script>

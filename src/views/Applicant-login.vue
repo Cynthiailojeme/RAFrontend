@@ -35,7 +35,10 @@
           <p class="text-danger" v-for="(err,index) in error" :key="index">{{err}}</p>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Sign In</button>
+          <button type="submit" class="btn btn-primary">
+            <loading v-if="isLoading" />
+            <span v-else>Sign In</span>
+          </button>
         </div>
       </form>
       <span class="no-account">
@@ -48,6 +51,8 @@
 </template>
 
 <script>
+import Loading from "@/components/Loading.vue";
+
 export default {
   name: "home",
   data() {
@@ -57,11 +62,14 @@ export default {
         email: "",
         password: ""
       },
+      isLoading: false,
       user: [],
       error: []
     };
   },
-  components: {},
+  components: {
+    Loading
+  },
   mounted() {
     $("#passwordView").click(function() {
       let idAttr = $("input#exampleInputPassword1").attr("type");
@@ -75,11 +83,40 @@ export default {
 
   methods: {
     login: function() {
+      this.isLoading = true;
       this.error = [];
       this.$http
         .post("http://localhost:3000/recruit/login", {
           email: this.applicant.email,
           password: this.applicant.password
+        })
+        .then(response => {
+          window.localStorage.setItem("user", response.body.user._id);
+          window.localStorage.setItem("time", response.body.user.created_at);
+          window.localStorage.setItem(
+            "firstname",
+            response.body.user.first_name
+          );
+          window.localStorage.setItem("lastname", response.body.user.last_name);
+          // console.log(response.body.user)
+          window.localStorage.setItem("token", response.body.token);
+          window.localStorage.setItem("email", response.body.user.email);
+          console.log(response), console.log(response.body.token);
+          localStorage.setItem("token", response.body.token);
+          // console.log(this.applicant)
+          this.$router.push("/applicant-dashboard");
+          // this.$router.push({ name: 'applicant-dashboard', params: { id: this.applicant} })
+        })
+        .catch(err => {
+          if ((err.status = 403)) {
+            this.error.push(err.body.message);
+          } else {
+            this.error.push("Oops! Unexpected Error Occurred");
+          }
+          console.log(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
         })
         .then(response => {
           window.localStorage.setItem("user", response.body.user._id);

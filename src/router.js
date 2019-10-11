@@ -14,12 +14,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Admin-dashboard',
+      path: '/admin-dashboard',
       name: 'Admin-dashboard',
       component: () => import(/* webpackChunkName: "admin_dashboard" */ './views/Admin-dashboard.vue')
     },
     {
-      path: '/Admin-compose',
+      path: '/admin-compose',
       name: 'Admin-compose',
       component: () => import(/* webpackChunkName: "Admin-compose" */ './views/Admin-compose.vue')
     },
@@ -54,12 +54,9 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "applicant-dashboard" */ './views/applicant-dashboard.vue'),
-      meta: { 
-                requiresAuth: true
-            }
      },
      {
-      path: '/Take-assessment',
+      path: '/take-assessment',
       name: 'Take-assessment',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -67,7 +64,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Take-assessment" */ './views/Take-assessment.vue')
      },
      {
-      path: '/Assessment-history',
+      path: '/assessment-history',
       name: 'Assessment-history',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -75,7 +72,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Assessment-history" */ './views/Assessment-history.vue')
      },
      {
-      path: '/Questions',
+      path: '/questions',
       name: 'Questions',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -100,7 +97,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "entries" */ './views/entries.vue')
     },
     {
-      path: '/Results',
+      path: '/results',
       name: 'Results',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route

@@ -4,7 +4,7 @@
       <div class="left">
         <h1>Take Assessment</h1>
         <span class="instruct" v-if="showquestions===true" v-show="disallowassessment===false">
-          Click the finish button below to submit assessment, you can go back at any time to edit your
+          Click the submit button to submit assessment, you can go back at any time to edit your
           <br />answers.
         </span>
         <span
@@ -18,7 +18,7 @@
         </span>
       </div>
 
-      <div class="right" v-show="disallowassessment===false">
+      <div class="right" v-if="showquestions===false" v-show="disallowassessment===false">
         Timer:
         <h2 class="count">{{countdown}}</h2>
       </div>
@@ -45,7 +45,7 @@
               <li v-for="(option, index) in quiz.options" :key="index">
                 <label for="muhRadio1">
                   <input type="radio" name="muhRadio" v-bind:value="option" :id="index" />
-                  <span>{{ option }}</span>
+                  <span class="option">{{ option }}</span>
                 </label>
               </li>
               <br />
@@ -257,7 +257,7 @@ export default {
         outMins = outMins < 10 ? "0" + outMins : outMins;
         outSecs = outSecs < 10 ? "0" + outSecs : outSecs;
         this.countdown = outMins + ":" + outSecs;
-        //this.getScore();
+        this.getScore();
         return;
       }
       outMins = parseInt(this.secs / 60, 10);
@@ -280,6 +280,7 @@ export default {
 }
 .right {
   float: right;
+  padding-right: 100px;
 }
 h1 {
   font-family: Lato;
@@ -335,9 +336,11 @@ h2 {
 }
 .quizzes {
   text-align: left;
-  width: 100%;
-  padding-left: 350px;
+  max-width: 500px;
+  padding-left: 150px;
   padding-right: 150px;
+  margin-left: auto;
+  margin-right: auto;
 }
 #id {
   font-size: 30px;
@@ -350,7 +353,7 @@ label {
   line-height: 19px;
   color: #2b3c4e;
 }
-label span:hover {
+.option:hover {
   height: 50px;
   background: #31d283;
   background-size: 50px;

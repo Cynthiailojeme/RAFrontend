@@ -1,34 +1,17 @@
 <template>
-    <div class="create">
-            <div class="row" style="max-width:1350px;"> 
-                <div class="col-sm-3">
-                    <AdminSidebar />
-
-                </div>
-                <div class="col-sm-9">
-                    <div class="other-side">
-                        	<div class="top">
-						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
-						      	<div class="dropdown">
-						      	<p>Results</p>  		
-							</div>
-						<p class="applied">Comprises of all that applied for batch2</p>
-						
-					</div>
-
-                    <div class="down">
-                            <div id="vueapp" class="vue-app">
-                                <kendo-grid :data-source="applicants" :columns="columns"
-                                            :sortable="true"
-                                            :filterable="false"
-                                            :groupable="false"> 
-                                </kendo-grid>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
+  <div class="create">
+    <div class="row" style="max-width:1350px;">
+      <div class="col-sm-3">
+        <AdminSidebar />
+      </div>
+      <div class="col-sm-9">
+        <div class="other-side">
+          <div class="top">
+            <!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
+            <div class="dropdown">
+              <p>Results</p>
             </div>
-            <p class="applied">Comprises of all that took the assessment</p>
+            <p class="applied">Comprises of the results of all those who took the assessment</p>
           </div>
 
           <div class="down">
@@ -87,7 +70,7 @@ export default {
 
       error: {}
 
-      //   formdata: {}
+      // formdata: {}
     };
   },
 
@@ -113,7 +96,7 @@ export default {
   },
   mounted() {
     this.$http.get("http://localhost:3000/recruit/scores").then(response => {
-      console.log(response)
+      console.log(response);
       this.applicants = response.data;
       console.log(this.applicants);
       for (let i = 0; i < this.applicants.length; i++) {
@@ -121,36 +104,39 @@ export default {
         let calcdob = this.calcDOB(dob);
         this.applicants[i].date_of_birth = calcdob + "years";
         this.applicants[i].fullname =
-        this.applicants[i].first_name + " " + this.applicants[i].last_name;
+          this.applicants[i].first_name + " " + this.applicants[i].last_name;
       }
 
-      //   console.log(this.applicants)
-      //   window.testdata = this.applicants
+      // console.log(this.applicants)
+      // window.testdata = this.applicants
     });
   }
 };
 </script>
 
 <style scoped>
+thead {
+  background-color: #2b3c4e !important;
+  color: #ffffff;
+}
 .create {
   height: 200vh;
 }
-thead{
-		background:#2b3c4e !important;
-		color:#FFFFFF;
+
+tbody {
+  background-color: #ffffff !important;
 }
- tbody{
-background-color: #FFFFFF !important;
-} 
-.k-alt:hover{
-    background-color: #ffff!important;
-    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3)!important;
-    border-left:10px solid green!important;
-    border:10px solid blue!important;
+.k-alt:hover {
+  background-color: #ffff !important;
+  box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3) !important;
+  border-left: 10px solid green !important;
+  border: 10px solid blue !important;
 }
 
-.k-alt, .k-pivot-toolbar, .k-pivot-layout>tbody>tr:first-child>td:first-child {
-    background-color: #ffffff !important;
+.k-alt,
+.k-pivot-toolbar,
+.k-pivot-layout > tbody > tr:first-child > td:first-child {
+  background-color: #ffffff !important;
 }
 .main {
   margin-left: 300px;
@@ -161,7 +147,6 @@ background-color: #FFFFFF !important;
   font-family: Lato;
   font-size: 14px;
   line-height: 17px;
-  /* identical to box height */
 
   /*text-align: center;*/
   background-color: #2b3c4e;
@@ -249,20 +234,26 @@ background-color: #FFFFFF !important;
   padding-left: 38px;
   border-left: 4px solid #31d283;
 }
+
 .top {
   font-family: Lato;
   font-style: normal;
   font-weight: 300;
   font-size: 40px;
   line-height: 52px;
+
   letter-spacing: -0.02em;
+
   color: #2b3c4e;
   opacity: 0.9;
   padding-top: 101px;
+  /*padding-left: 42px;*/
 }
+
 .arrow {
   padding-left: 16px;
 }
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -311,7 +302,6 @@ a:hover {
 .down {
   padding-top: 38px;
 }
-
 .data {
   font-family: Lato;
   font-style: normal;
@@ -323,7 +313,6 @@ a:hover {
 
   color: #4f4f4f;
 }
-
 .line:hover {
   background: #ffffff;
   box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);

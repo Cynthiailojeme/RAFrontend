@@ -65,9 +65,9 @@ export default {
     },
     mounted() {
     window.localStorage.getItem("email")
+    this.admin.email = window.localStorage.getItem("email")
     window.localStorage.getItem("name")
     console.log(window.localStorage.getItem("name"))
-    this.admin.email = window.localStorage.getItem("email")
     this.admin.name = window.localStorage.getItem("name")
 
     },

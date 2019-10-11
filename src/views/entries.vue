@@ -8,7 +8,6 @@
                 <div class="col-sm-9">
                     <div class="other-side">
                         	<div class="top">
-						<!-- <p>Entries -Batch2 <i class="fa fa-caret-down arrow"></i></p> -->
 						      	<div class="dropdown">
 						      	<p>Entries</p>
 						  		
@@ -88,11 +87,10 @@
                                         :sortable="true"
                                         :filterable="false"
                                         :groupable="false"> 
-                                
 
                             </kendo-grid> -->
 
-
+                            </kendo-grid> -->
 
 
 

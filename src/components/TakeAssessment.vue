@@ -5,9 +5,9 @@
                 <h1>Take Assessment</h1>
                 <p>Click the button below to start assessment, you have limited time for this test</p>
             </div>
-            <div class="right">
+            <!-- <div class="right">
                 <h2>Timer</h2>
-            </div>
+            </div> -->
         </div>
 
         <div class="hourglass">

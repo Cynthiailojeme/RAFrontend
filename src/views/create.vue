@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     share: function() {
-		this.isLoading = true;
       console.log("hello");
       //link
       var link = document.createElement("meta");

@@ -122,6 +122,7 @@ export default {
     };
   },
 
+<<<<<<< HEAD
   components: {
     Loading
   },
@@ -183,6 +184,69 @@ export default {
           this.formData.cgpa = "";
           this.formData.password = "";
           this.formData.confirm_password = "";
+=======
+    components:{},
+    computed: {
+        isApplicationStillOpen: function(){
+            let closingDate = new Date(this.applicationData.application_date)
+            let closingDateSeconds = closingDate.getTime() / 1000; //1440516958
+            let today = new Date();
+            let todaySecs = parseInt(today.getTime() / 1000);
+            if(todaySecs > closingDateSeconds){
+            this.isComputedPropertyReady = true
+            return false
+            }else{
+            this.isComputedPropertyReady = true
+            return true
+            }
+        }
+    },
+    mounted() {
+        $("#passwordView").click(function(){
+            let input = $("input#passwordField").attr("type");
+            if(input == "password"){
+            $("input#passwordField").attr("type", "text");
+            }else{
+            $("input#passwordField").attr("type", "password");
+            }
+        });
+
+        $("#confirmView").click(function(){
+            let input = $("input#confirmField").attr("type");
+            if(input == "password"){
+            $("input#confirmField").attr("type", "text");
+            }else{
+            $("input#confirmField").attr("type", "password");
+            }
+        });
+        this.$http.get('http://localhost:3000/attach')
+        .then(response=>{
+            this.applicationData = response.data[response.data.length -1]
+            this.checkDate()
+        });
+    },
+     methods:{
+      checkDate: function(){
+        //   console.log(new Date())
+      },
+      add:function(){
+  		console.log(this.newGuest)
+       	 this.$http.post('http://localhost:3000/recruit/add',this.formData)
+      	.then(response=>{
+          console.log(response)
+          
+          this.$router.push({name:"signup", params: { applicantId: response.data._id }})
+      		this.formData.first_name =""
+      		this.formData.last_name =""
+      		this.formData.email = ""
+      		this.formData.date_of_birth = ""
+      		this.formData.address = ""
+            this.formData.university = ""
+            this.formData.course_of_study = ""
+            this.formData.cgpa = ""
+            this.formData.password = ""
+            this.formData.confirm_password = ""
+>>>>>>> 64f794c3a84de4cfa702721915238a21995a0015
 
           alert("Application Submitted Successfully");
 

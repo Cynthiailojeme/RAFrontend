@@ -13,6 +13,8 @@ export default new Router({
       name: 'home',
       component: Home
     },
+
+    
     {
       path: '/admin-dashboard',
       name: 'Admin-dashboard',
@@ -39,8 +41,13 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "applicant-login" */ './views/Applicant-login.vue')
+      component: () => import(/* webpackChunkName: "applicant-login" */ './views/Applicant-login.vue'),
+      meta: { 
+        requiresAuth: true
+    }
+     
     },
+
     {
       path: '/application-form',
       name: 'application-form',
@@ -48,6 +55,7 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "application-form" */ './views/Application-form.vue')
+      
     },
     {
       path: '/applicant-dashboard',
@@ -56,14 +64,21 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "applicant-dashboard" */ './views/applicant-dashboard.vue'),
-     },
+      meta: { 
+        requiresAuth: true
+    }
+    },
+
      {
       path: '/take-assessment',
       name: 'Take-assessment',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "Take-assessment" */ './views/Take-assessment.vue')
+      component: () => import(/* webpackChunkName: "Take-assessment" */ './views/Take-assessment.vue'),
+      meta: { 
+        requiresAuth: true
+    }
      },
      {
       path: '/assessment-history',
@@ -80,7 +95,10 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "Questions" */ './views/Questions.vue')
+      component: () => import(/* webpackChunkName: "Questions" */ './views/Questions.vue'),
+      meta: { 
+        requiresAuth: true
+    }
      },
     {
       path: '/create',
@@ -117,6 +135,15 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "preview" */ './views/preview.vue')
-    }
+    },
+    {
+      path: '/applicant-entries',
+      name: 'applicant-entries',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "applicant-entries" */ './views/applicant-entries.vue')
+
+    },
   ]
 })

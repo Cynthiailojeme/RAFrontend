@@ -1,9 +1,8 @@
 <template>
     <div class="create">
-            <div class="row" style="max-width:1350px;"> 
+        <div class="row" style="max-width:1350px;"> 
                 <div class="col-sm-3">
                     <AdminSidebar />
-
                 </div>
                 <div class="col-sm-9">
                     <div class="other-side">
@@ -24,17 +23,10 @@
                                         :groupable="false"> 
                             </kendo-grid>
                         </div>
-
-                    </div>
-
-
-                    </div>
-
-                    
+                    </div>                    
                 </div>
-
-            </div>
         </div>
+    </div>       
    
         <!-- <div class="main"> -->
             <!-- <div class="otherSide"> -->
@@ -165,11 +157,11 @@ export default {
     return{
 	  apiResponse:{},
 	  columns: [
-            { field: "fullname",title:"Name", width:"200px"},
+            { field: "fullname",title:"Name", width:"180px"},
             { field: "email", title: "Email", width: "230px"},
             { field: "date_of_birth", title:"DOB.Age"},
-			{ field: "address", title:"Address" },
-			{ field: "university", title:"University" },
+			{ field: "address", title:"Address" ,width: "150px" },
+			{ field: "university", title:"University", width:"180px" },
 			{ field: "cgpa", title:"CGPA" }
         ],
       applicants:[{
@@ -216,9 +208,6 @@ export default {
 		  this.applicants[i].date_of_birth = calcdob+"years"
 		  this.applicants[i].fullname = this.applicants[i].first_name+" "+this.applicants[i].last_name
 	  }
-	 
-	//   console.log(this.applicants)
-	//   window.testdata = this.applicants
     })
   },
 }
@@ -229,6 +218,32 @@ thead{
 		background-color:#2b3c4e !important;
 		color:#FFFFFF;
 	}
+
+    td{
+        font-family: Lato;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 19px;
+/* identical to box height */
+
+/* text-align: center; */
+
+color: #4F4F4F;
+
+    }
+
+th{
+    font-family: Lato;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+
+/* text-align: center; */
+
+color: #FFFFFF;
+
+}
 .create {
     /* border:1px solid red; */
     height: 200vh;

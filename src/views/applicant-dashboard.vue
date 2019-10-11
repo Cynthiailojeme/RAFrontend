@@ -38,10 +38,10 @@
         <div class="take-assessment ml-4">
           <p>Take Assessment</p>
           <div class="take-assessment-body">
-            <p>
+            <!-- <p>
               We have 4 days left until the next assessment
               <br />Watch this space
-            </p>
+            </p> -->
             <button>
               <router-link :to="{name: 'Take-assessment'}" class="links">Take Assessment</router-link>
             </button>

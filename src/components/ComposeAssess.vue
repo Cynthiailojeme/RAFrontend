@@ -181,12 +181,9 @@ methods: {
                 }
         })
       	.then(response =>{
-        oneset = {
-            nameOfSet: "",
-            quiz: "",
-            duration: "",
-            dateOfAsess: ""
-          }
+            this.nameOfSet = "",
+            this.duration = "",
+            this.dateOfAsess = ""
         alert('Assessment Created Successfully')
           console.log(response)
           oneset= response.data

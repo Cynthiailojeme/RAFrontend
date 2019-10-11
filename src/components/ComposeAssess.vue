@@ -16,7 +16,7 @@
                 <div class="form-group col-md-6">
                     <label>{{ this.quiz.length }}/30</label>
                     <div class="files"  v-if="!image">
-                        <input type="file" class="uploadfil" @change="onFileChange">
+                        <input type="file" class="uploadfil" ref="file" @change="onFileChange" required>
                         <p><img src="../assets/plus.svg" class="icon">Choose File</p>
                     </div>
                     <div v-else>
@@ -112,9 +112,11 @@ export default {
          questionsets: [],
          questionset: {},
          image: "",
+         file: "",
          apiResponse:{},
          first: { 
                 // img: "",
+                image: this.image,
                 question:"",
                 options: ["", "", "", ""],
                 correctAnswer: ""
@@ -152,6 +154,7 @@ methods: {
       this.quiz.push(this.first);
       console.log(this.first)
       this.first = {
+        image: "",
         question:"",
         options: ["", "", "", ""],
         correctAnswer: ""
@@ -161,8 +164,9 @@ methods: {
     //   this.quiz.length--;
     // },
     addPost (){
+        // this.image = this.$refs.file.files[0]
         let formData = new FormData();
-        formData.append('img', this.file);
+        formData.append('image', this.image);
         const oneset = {
             nameOfSet: this.nameOfSet,
             quiz: this.quiz,
@@ -177,9 +181,14 @@ methods: {
                 }
         })
       	.then(response =>{
+        oneset = {
+            nameOfSet: "",
+            quiz: "",
+            duration: "",
+            dateOfAsess: ""
+          }
         alert('Assessment Created Successfully')
           console.log(response)
-          oneset = {}
           oneset= response.data
           this.questionsets.push(response.data);
             this.questionsets.sort(function (a, b) {

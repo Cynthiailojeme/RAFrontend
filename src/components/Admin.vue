@@ -23,7 +23,7 @@
                     </div>
 
                     <div>
-                         <button type="submit" class="btn btn-primary">Sign In</button>
+                         <button type="submit" class="btn btn-primary"><loading v-if="isLoading" /> <span v-else>Sign In</span></button>
                     </div>
                     <p class="forgot">Forgot Password?</p>
                 </div>
@@ -33,13 +33,16 @@
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue'
+
 export default{
     name:'Admin',
     data() {
       return{
         apiResponse:{},
+        isLoading: false,
         admin:{
-        	email: "",
+            email: "",
         	password: ""
         },
         error:{}
@@ -57,6 +60,7 @@ export default{
     },
     methods:{
   	login:function() {
+        this.isLoading = true
   		this.$http.post('http://localhost:3000/api/admin/login', {
               email: this.admin.email,
               password: this.admin.password
@@ -64,10 +68,14 @@ export default{
       .then(response =>{
         window.localStorage.setItem("admin", response.body.admin._id)
         window.localStorage.setItem("email", response.body.admin.email)
+        window.localStorage.setItem("name", response.body.admin.name)
         console.log(response)
-        // console.log(this.admin)
+        console.log(window.localStorage.setItem("name", response.body.admin.name))
         this.$router.push("/Admin-dashboard")
       })
+      .finally(() =>{
+            this.isLoading = false
+    })
     }
   	}
   }

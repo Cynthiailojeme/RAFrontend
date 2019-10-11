@@ -19,7 +19,7 @@
                     <td>{{ questionset.createdAt | fineDate }}</td>
                     <td>{{ questionset.quiz.length }}</td>
                     <td>{{ questionset.dateOfAsess }}</td>
-                    <td>{{ questionset.duration }} mins</td>
+                    <td>{{ questionset.duration }} mins &nbsp; &nbsp; &nbsp;<i class="fa fa-trash" aria-hidden="true" @click="del(set)"></i></td>
                     <!-- <td>Taken</td> -->
                 </tr>
             </tbody>
@@ -59,25 +59,18 @@ export default {
     },
 computed: {},
 methods: {
-//     submit: function() {
-//         var date = $("input[type=date]").val(),
-//             targetTime = new Date(date);
-//         if(targetTime < Date.now()){
-//             alert("Cannot countdown to time before now.");
-//             return false;
-//         }
-//         var interval = setInterval(function(){
-//                 var timeLeft = (((+targetTime - Date.now())/1000)|0);
-//                 $("span").html(
-//                     timeLeft.toString()+"."
-//                 );
-//                 if(!timeLeft){
-//                     alert("Countdown completed.");
-//                     clearInterval(interval);
-//                 }
-//             }, 500);
-//         },
-}
+    del: function(set) {
+            if (confirm("Are you sure that you want to delete this set?")) {
+                this.$http.delete('http://localhost:3000/api/questionset/'+ questionset._id)
+                console.log(questionset._id)
+                .then(response=>{
+                 console.log(response)
+                     alert("Questionset sucessfully deleted")
+                     this.questionsets= response.body
+            });
+         }
+    }
+},
 }
 </script>
 

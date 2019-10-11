@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="app">
-            <ApplicantSidebar/>
+            <ApplicantSidebar/>                                                                                                                                                                                                                                                                                                                     
         </div>
 
         <div class="dashboard"> 
@@ -10,12 +10,6 @@
                 <span>Your Application is currently being review, you wil be notified if successful</span>
             </div>
             
-        <div class="date-status">
-            <div class="date">
-            <p>Date of Application</p>
-            <span>{{applicant.time | fineDate}}</span>
-                <div class="for-status"></div>
-                <p class="small-text">{{isToday() + " " + "since applied"}}</p>
             <div class="date-status" >
                 <div class="date">
                     <p>Date of Application</p>
@@ -24,12 +18,6 @@
                     <p class="small-text"> <timeago :datetime="applicant.time"
                                                     :auto-update="60"
                                                     :converterOptions="{ includeSeconds: true }">since applied</timeago></p>
-                </div>
-                <div class="status">
-                    <p>Application Status</p>
-                    <span> Pending</span>
-                    <div class="for-status2"></div>
-                    <p class="small-text">We will get back to you</p>
                 </div>
             <div class="status">
                 <p>Application Status</p>
@@ -46,13 +34,13 @@
                 <div class="take-assessment ml-4">
                     <p>Take Assessment</p>
                 <div class="take-assessment-body">
-                    <p>We have 4 days left until the next assessment <br> Watch this space</p>
+                    <p>We have {{days}} days left until the next assessment<br> Watch this space</p>
                 <button><router-link :to="{name: 'Take-assessment'}" class="links">Take Assessment</router-link></button>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 </template>
 
 <script>
@@ -71,13 +59,32 @@ export default {
         return{
         apiResponse:{},
         applicant:{
-        time:""
+        time:"",
+        questionsets: [],
+        questionset: {},
+        dateOfAssess: null,
+        index: null,
+        days: 0,
     },
     error:{},
     }
 },
 
 mounted() {
+     const url = "http://localhost:3000/api/questionset/all"
+        this.$http.get(url)
+        .then(response => {
+        console.log(response.body)
+        this.questionsets = response.body
+        console.log(response.body[response.body.length -1])
+        this.dateOfAsess = response.body[response.body.length -1].dateOfAsess
+        var now = moment(new Date()); //todays date
+        var end = moment(this.dateOfAsess); // another date
+        var duration = moment.duration(end.diff(now));
+        this.days = duration.days();
+        console.log(this.days)
+        console.log(this.dateOfAsess)
+    });
     window.localStorage.getItem('firstname')
     window.localStorage.getItem('user')
     window.localStorage.getItem('time')
@@ -92,44 +99,7 @@ filters: {
     var d = new Date(inputFormat)
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('.')
 }
-},
-methods: {
-    isToday() {
-    return moment("fineDate()", "DDMMYYYY").fromNow();
-    }
-    }
-       ApplicantSidebar 
-  },
-    data() {
-      return{
-        apiResponse:{},
-        applicant:{
-            time:""
-        },
-        
-        
-        error:{},
-
-      }
-    },
-     
-     mounted() {
-        window.localStorage.getItem('firstname')
-        window.localStorage.getItem('user')
-        window.localStorage.getItem('time')
-        window.localStorage.getItem('lastname')
-        window.localStorage.getItem('token')
-        this.applicant.fullname = this.applicant.firstname+" "+this.applicant.lastname
-        this.applicant.time = window.localStorage.getItem('time')
-      },
-
-      filters: {
-  		fineDate: function(inputFormat) {
-  			function pad(s) { return (s < 10) ? '0' + s : s; }
-            var d = new Date(inputFormat)
-            return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('.')
-  		}
-  	}
+}
 }
 </script>
 

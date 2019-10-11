@@ -140,28 +140,13 @@ export default{
             this.checkDate()
         });
     },
-    methods:{
-        checkDate: function(){
-        },
-        add:function(){
-            this.$http.post('http://localhost:3000/recruit/signup',this.formData)
-
-            .then(response=>{
-            console.log(response)
-            this.formData= response.data
-
-            this.formData.first_name =""
-            this.formData.last_name =""
-            this.formData.email = ""
-            this.formData.date_of_birth = ""
-            this.formData.address = ""
      methods:{
       checkDate: function(){
         //   console.log(new Date())
       },
       add:function(){
   		console.log(this.newGuest)
-       	 this.$http.post('http://localhost:3000/recruit/add',this.formData)
+       	 this.$http.post('http://localhost:3000/recruit/signup',this.formData)
       	.then(response=>{
           console.log(response)
           

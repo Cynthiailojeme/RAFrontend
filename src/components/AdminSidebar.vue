@@ -42,7 +42,9 @@
             <br>
             <br>
             <div>
-                <p><img src="../assets/logout.svg" class="icon">Log Out</p>
+                <router-link @click.native="deleteItem"  to="/" class="links">
+                    <p><img src="../assets/logout.svg" class="icon">Log Out</p>
+                </router-link>
             </div>
         </div>
     </div>
@@ -55,15 +57,25 @@ export default {
         return{
             apiResponse:{},
             admin: {
-            email:""
+            email:"",
+            name: "",
             },
             error:{},
         }
     },
     mounted() {
     window.localStorage.getItem("email")
+    window.localStorage.getItem("name")
+    console.log(window.localStorage.getItem("name"))
     this.admin.email = window.localStorage.getItem("email")
+    this.admin.name = window.localStorage.getItem("name")
 
+    },
+    methods: {
+        deleteItem(event) {
+        window.localStorage.removeItem("email");
+        window.localStorage.removeItem("name");
+        }
     }
 }
 </script>
